@@ -1,7 +1,7 @@
 import styles from './Plans.module.css';
 
 const WHATSAPP = 'https://wa.me/5588988557247';
-const SAAS_REGISTER = `${process.env.NEXT_PUBLIC_SAAS_URL ?? 'http://localhost:3000'}/login?mode=register`;
+const SAAS_REGISTER = 'https://myclinica.online/login?mode=register';
 
 const plans = [
   {

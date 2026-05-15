@@ -29,7 +29,7 @@ const plans = [
   },
   {
     name: 'Plus',
-    price: 'R$ 297/mês',
+    price: 'A partir de R$ 249/mês',
     description: 'Para clínicas que querem automatizar e crescer com inteligência.',
     highlight: true,
     features: [
@@ -64,7 +64,7 @@ export default function Plans() {
         </div>
 
         <div className={styles.trialBanner}>
-          🎁 <strong>14 dias grátis</strong> em qualquer plano — sem cartão de crédito
+          🎁 <strong>7 dias grátis</strong> em qualquer plano — sem cartão de crédito
         </div>
 
         <div className={styles.grid}>
@@ -97,12 +97,20 @@ export default function Plans() {
                   💬 Ao escolher o plano Plus, <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink}>entre em contato com a gente</a> para personalizar seu <strong>Atendimento</strong> e <strong>CRM</strong> via WhatsApp.
                 </div>
               )}
-              <a
-                href={SAAS_REGISTER}
-                className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn}
-              >
-                Testar grátis por 7 dias →
-              </a>
+              {plan.highlight ? (
+                <a
+                  href={WHATSAPP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.primaryBtn}
+                >
+                  Faça seu orçamento →
+                </a>
+              ) : (
+                <a href={SAAS_REGISTER} className={styles.secondaryBtn}>
+                  Testar grátis por 7 dias →
+                </a>
+              )}
             </div>
           ))}
         </div>

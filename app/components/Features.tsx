@@ -37,6 +37,11 @@ const features = [
     desc: 'Agente de IA integrado ao WhatsApp para pré-atendimento, agendamento e perguntas frequentes.',
   },
   {
+    icon: '📦',
+    title: 'Estoque',
+    desc: 'Controle de produtos e materiais com alertas de estoque mínimo, entradas e saídas registradas.',
+  },
+  {
     icon: '🔒',
     title: 'Multi-clínica Seguro',
     desc: 'Dados completamente isolados por clínica. Superadmin para gerenciar todas as unidades.',

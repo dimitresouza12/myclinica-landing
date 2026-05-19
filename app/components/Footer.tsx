@@ -16,6 +16,8 @@ export default function Footer() {
           <a href="#features">Funcionalidades</a>
           <a href="#plans">Planos</a>
           <a href="#contact">Contato</a>
+          <a href="/privacidade">Privacidade</a>
+          <a href="/termos">Termos de Uso</a>
         </nav>
         <span className={styles.copy}>© {new Date().getFullYear()} My Clínica. Todos os direitos reservados.</span>
       </div>

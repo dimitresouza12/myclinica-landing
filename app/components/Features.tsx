@@ -1,50 +1,56 @@
 import styles from './Features.module.css';
 
-const features = [
+interface Feature {
+  icon: string;
+  title: string;
+  desc: string;
+  span?: 1 | 2 | 3;
+  hero?: boolean;
+}
+
+const features: Feature[] = [
   {
     icon: '📋',
     title: 'Prontuário Eletrônico',
     desc: 'Ficha completa do paciente com anamnese, exame clínico, plano de tratamento e contrato digital.',
-  },
-  {
-    icon: '🦷',
-    title: 'Odontograma',
-    desc: 'Mapa visual dos 32 dentes com status individualizado. Ideal para clínicas odontológicas.',
+    span: 2,
+    hero: true,
   },
   {
     icon: '📅',
     title: 'Agenda Inteligente',
-    desc: 'CRUD de agendamentos com integração ao Google Calendar. Lembretes automáticos para pacientes.',
+    desc: 'Agendamentos com integração ao Google Calendar e lembretes automáticos.',
   },
   {
     icon: '💬',
     title: 'CRM via WhatsApp',
-    desc: 'Histórico completo de conversas do WhatsApp vinculado ao prontuário de cada paciente.',
+    desc: 'Histórico de conversas vinculado ao prontuário.',
   },
   {
     icon: '💰',
     title: 'Financeiro',
-    desc: 'Controle de lançamentos, receitas e despesas. Relatórios simples para sua clínica.',
-  },
-  {
-    icon: '👥',
-    title: 'Gestão de Equipe',
-    desc: 'Cadastro de profissionais com perfis e permissões. Cada clínica com sua equipe isolada.',
+    desc: 'Lançamentos, receitas e despesas com relatórios simples.',
   },
   {
     icon: '🤖',
     title: 'IA no Atendimento',
-    desc: 'Agente de IA integrado ao WhatsApp para pré-atendimento, agendamento e perguntas frequentes.',
+    desc: 'Agente de IA integrado ao WhatsApp para triagem, pré-atendimento e agendamento via chat.',
+    span: 2,
+  },
+  {
+    icon: '👥',
+    title: 'Gestão de Equipe',
+    desc: 'Cadastro de profissionais com perfis e permissões.',
   },
   {
     icon: '📦',
     title: 'Estoque',
-    desc: 'Controle de produtos e materiais com alertas de estoque mínimo, entradas e saídas registradas.',
+    desc: 'Controle com alertas de mínimo, entradas e saídas.',
   },
   {
     icon: '🔒',
     title: 'Multi-clínica Seguro',
-    desc: 'Dados completamente isolados por clínica. Superadmin para gerenciar todas as unidades.',
+    desc: 'Dados isolados por clínica. Superadmin gerencia todas as unidades.',
   },
 ];
 
@@ -53,16 +59,25 @@ export default function Features() {
     <section className={styles.section} id="features">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}>Funcionalidades</span>
-          <h2 className={styles.title}>Tudo que sua clínica precisa</h2>
+          <span className={styles.eyebrow}>/ Funcionalidades</span>
+          <h2 className={styles.title}>
+            Tudo que sua clínica precisa,{' '}
+            <span className={styles.italic}>integrado</span>.
+          </h2>
           <p className={styles.subtitle}>
-            Uma plataforma integrada, pensada do zero para o fluxo real de clínicas e consultórios.
+            Uma plataforma pensada do zero para o fluxo real de clínicas e consultórios.
           </p>
         </div>
+
         <div className={styles.grid}>
           {features.map((f) => (
-            <div key={f.title} className={styles.card}>
-              <div className={styles.icon}>{f.icon}</div>
+            <div
+              key={f.title}
+              className={`${styles.card} ${f.hero ? styles.cardHero : ''} ${f.span === 2 ? styles.span2 : ''}`}
+            >
+              <div className={styles.iconWrap}>
+                <span className={styles.icon}>{f.icon}</span>
+              </div>
               <h3 className={styles.cardTitle}>{f.title}</h3>
               <p className={styles.cardDesc}>{f.desc}</p>
             </div>

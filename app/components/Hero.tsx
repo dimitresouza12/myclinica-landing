@@ -1,77 +1,56 @@
 import styles from './Hero.module.css';
 
-const WHATSAPP = 'https://wa.me/5588988557247';
 const SAAS_REGISTER = 'https://myclinica.online/login?mode=register';
 
 export default function Hero() {
   return (
     <section className={styles.hero} id="hero">
+      <div className={styles.orb} aria-hidden />
       <div className={styles.container}>
-        <div className={styles.badge}>Sistema completo para clínicas ✦</div>
+        <div className={styles.badge}>
+          <span className={styles.dot} />
+          Novo — IA no atendimento via WhatsApp
+        </div>
+
         <h1 className={styles.title}>
-          Gerencie sua clínica com{' '}
-          <span className={styles.highlight}>inteligência e simplicidade</span>
+          Sua clínica gerenciada com{' '}
+          <span className={styles.italic}>inteligência</span>
         </h1>
+
         <p className={styles.subtitle}>
-          Prontuário eletrônico, agendamento online, financeiro, equipe e CRM integrado ao WhatsApp.
-          Tudo em uma plataforma feita para profissionais da saúde.
+          Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp — uma plataforma que se adapta a 7 especialidades clínicas.
         </p>
+
         <div className={styles.ctas}>
           <a href={SAAS_REGISTER} className={styles.primary}>
-            Testar grátis por 7 dias →
+            Testar 7 dias grátis
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
           </a>
-          <a href="#features" className={styles.secondary}>
-            Ver funcionalidades
-          </a>
+          <a href="#preview" className={styles.secondary}>Ver demonstração</a>
         </div>
+
+        <p className={styles.guarantee}>
+          7 dias grátis · Sem cartão de crédito · Cancele quando quiser
+        </p>
+
         <div className={styles.stats}>
           <div className={styles.stat}>
-            <strong>Prontuário</strong>
-            <span>Eletrônico completo</span>
+            <strong>7</strong>
+            <span>Especialidades suportadas</span>
           </div>
           <div className={styles.divider} />
           <div className={styles.stat}>
-            <strong>Agendamento</strong>
-            <span>Online integrado</span>
+            <strong>24/7</strong>
+            <span>Suporte IA no WhatsApp</span>
           </div>
           <div className={styles.divider} />
           <div className={styles.stat}>
-            <strong>CRM</strong>
-            <span>Via WhatsApp</span>
+            <strong>100%</strong>
+            <span>Dados isolados por clínica</span>
           </div>
         </div>
-      </div>
-
-      <div className={styles.visual}>
-        <div className={styles.mockup}>
-          <div className={styles.mockupBar}>
-            <span /><span /><span />
-          </div>
-          <div className={styles.mockupContent}>
-            <div className={styles.mockupSidebar}>
-              {['Dashboard', 'Pacientes', 'Agenda', 'Financeiro', 'Equipe'].map(item => (
-                <div key={item} className={styles.mockupSidebarItem}>{item}</div>
-              ))}
-            </div>
-            <div className={styles.mockupMain}>
-              <div className={styles.mockupCard}>
-                <div className={styles.mockupCardHeader} />
-                <div className={styles.mockupRow} />
-                <div className={styles.mockupRow} style={{ width: '75%' }} />
-                <div className={styles.mockupRow} style={{ width: '60%' }} />
-              </div>
-              <div className={styles.mockupGrid}>
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className={styles.mockupKpi}>
-                    <div className={styles.mockupKpiValue} />
-                    <div className={styles.mockupKpiLabel} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.glow} />
       </div>
     </section>
   );

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>My Clínica — Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: #FAF7F2;
+  color: #1A1A1A;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+:root {
+  --ink: #1A1A1A;
+  --paper: #FAF7F2;
+  --paper-2: #F2EDE4;
+  --accent: #0A6B5E;
+  --accent-soft: #E8F4F1;
+  --muted: #6B6157;
+  --line: #1A1A1A;
+}
+
+/* NAV */
+.nav {
+  position: fixed; top:0; left:0; right:0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ink);
+}
+.nav-inner {
+  max-width: 1300px; margin: 0 auto;
+  padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent);
+  display: grid; place-items: center;
+  color: #fff;
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.nav-links { display: flex; gap: 32px; font-size: 0.88rem; font-weight: 500; }
+.nav-cta {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 22px; border-radius: 999px;
+  font-size: 0.85rem; font-weight: 600;
+  text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  padding: 160px 40px 100px;
+  max-width: 1300px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content:''; width: 40px; height:1px; background: var(--ink);
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.95;
+  font-weight: 300;
+  letter-spacing: -3px;
+  margin-bottom: 40px;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 800;
+  color: var(--accent);
+}
+.hero p {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 48px;
+  line-height: 1.55;
+}
+.hero-ctas { display: flex; gap: 14px; align-items: center; }
+.btn-primary {
+  background: var(--ink); color: var(--paper);
+  padding: 18px 32px; border-radius: 999px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-primary svg { transition: transform 0.2s; }
+.btn-secondary {
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Hero visual = "Issue" magazine card */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--paper-2);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  padding: 32px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 14px 14px 0 var(--ink);
+}
+.issue-top {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.72rem; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 14px;
+}
+.issue-headline {
+  font-family: 'Fraunces', serif;
+  font-size: 3.2rem;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -2px;
+}
+.issue-headline em {
+  font-style: italic;
+  font-weight: 800;
+}
+.issue-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  border-top: 1px solid var(--ink);
+  padding-top: 20px;
+}
+.stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* SECTION DIVIDER */
+.divider {
+  border-top: 1px solid var(--ink);
+  padding: 18px 40px;
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+/* FEATURES */
+.features {
+  padding: 120px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -2px;
+  margin-bottom: 64px;
+  max-width: 800px;
+}
+.section-title em { font-style: italic; font-weight: 800; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+.feature {
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 40px 32px;
+  background: var(--paper);
+  position: relative;
+  transition: background 0.3s;
+}
+.feature:hover { background: var(--accent-soft); }
+.feature-num {
+  font-family: 'JetBrains Mono', mono;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.feature-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: -0.6px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.feature-title em { font-style: italic; }
+.feature-desc {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      My<em style="font-style:italic;">Clínica</em>
+    </div>
+    <div class="nav-links">
+      <a href="#">Funcionalidades</a>
+      <a href="#">Especialidades</a>
+      <a href="#">Planos</a>
+      <a href="#">Contato</a>
+    </div>
+    <a href="#" class="nav-cta">Testar grátis →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Edição 01 · Sistema de Gestão Clínica</div>
+    <h1>Sua clínica,<br>com método<br>e <em>cuidado</em>.</h1>
+    <p>Prontuário eletrônico, agenda inteligente, financeiro e CRM via WhatsApp. Uma plataforma feita por profissionais da saúde, para profissionais da saúde.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">
+        Começar 7 dias grátis
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+      <a href="#" class="btn-secondary">Ver demonstração</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="issue-top">
+      <span>Vol. 01</span>
+      <span>★★★★★ 4.9</span>
+      <span>2026</span>
+    </div>
+    <div>
+      <div class="issue-headline">
+        Gestão<br>
+        <em>clínica</em><br>
+        moderna.
+      </div>
+    </div>
+    <div class="issue-stats">
+      <div><div class="stat-num">142</div><div class="stat-label">Pacientes</div></div>
+      <div><div class="stat-num">7</div><div class="stat-label">Especialidades</div></div>
+      <div><div class="stat-num">24/7</div><div class="stat-label">Suporte IA</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <span>↓ Funcionalidades</span>
+  <span>Cap. 02</span>
+  <span>—</span>
+</div>
+
+<section class="features">
+  <div class="section-eyebrow">/ Capítulo 02</div>
+  <h2 class="section-title">Tudo o que sua clínica <em>precisa</em>, em um só lugar.</h2>
+
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-num">— 01</div>
+      <h3 class="feature-title">Prontuário <em>eletrônico</em></h3>
+      <p class="feature-desc">Ficha completa do paciente com anamnese, exame clínico, plano de tratamento e contrato digital.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">— 02</div>
+      <h3 class="feature-title">Odontograma <em>interativo</em></h3>
+      <p class="feature-desc">Mapa visual dos 32 dentes com status individualizado. Ideal para clínicas odontológicas.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">— 03</div>
+      <h3 class="feature-title">Agenda <em>inteligente</em></h3>
+      <p class="feature-desc">CRUD de agendamentos com integração ao Google Calendar. Lembretes automáticos.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">— 04</div>
+      <h3 class="feature-title">CRM via <em>WhatsApp</em></h3>
+      <p class="feature-desc">Histórico completo de conversas vinculado ao prontuário de cada paciente.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">— 05</div>
+      <h3 class="feature-title">Financeiro <em>completo</em></h3>
+      <p class="feature-desc">Controle de lançamentos, receitas e despesas. Relatórios simples e diretos.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">— 06</div>
+      <h3 class="feature-title">IA no <em>atendimento</em></h3>
+      <p class="feature-desc">Agente de IA integrado ao WhatsApp para pré-atendimento, agendamento e FAQs.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

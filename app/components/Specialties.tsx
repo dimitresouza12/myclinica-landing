@@ -9,7 +9,9 @@ interface Specialty {
   emoji: string;
   label: string;
   tagline: string;
-  features: { title: string; desc: string }[];
+  anamnese: string[];
+  exame: string[];
+  extra?: string;
 }
 
 const specialties: Specialty[] = [
@@ -18,91 +20,220 @@ const specialties: Specialty[] = [
     emoji: '🦷',
     label: 'Odontologia',
     tagline: 'Para clínicas e consultórios odontológicos',
-    features: [
-      { title: 'Odontograma interativo',     desc: 'Mapa dos 32 dentes com status individualizado (saudável, tratado, restaurado, ausente).' },
-      { title: 'Anamnese odontológica',      desc: 'Sangramento gengival, dor dentária, bruxismo, próteses, hábitos bucais e mais.' },
-      { title: 'Plano de tratamento',        desc: 'Procedimentos previstos, sessões e acompanhamento da evolução por dente.' },
-      { title: 'Contrato odontológico',      desc: 'Modelo de contrato digital com termos específicos da odontologia.' },
-      { title: 'Histórico por dente',        desc: 'Cada procedimento fica registrado vinculado ao dente correspondente.' },
+    anamnese: [
+      'Queixa principal / Motivo da consulta',
+      'Estado geral de saúde',
+      'Em tratamento médico? Qual?',
+      'Medicamentos em uso',
+      'Alergias (medicamentos, látex, anestésicos)',
+      'Pressão arterial / Cardiopatias',
+      'Fumante / Álcool',
+      'Sangramento gengival / Dor dentária',
+      'Histórico odontológico (última consulta, prótese, implante)',
+      'Bruxismo / Ranger de dentes',
+      'Hábitos bucais (chupar dedo, morder objetos)',
     ],
+    exame: [
+      'Higiene bucal (placa, tártaro)',
+      'Halitose',
+      'Mucosa oral (cor, lesões, úlceras)',
+      'Palato / Língua / Assoalho bucal',
+      'Oclusão / Articulação temporomandibular (ATM)',
+      'Mobilidade dentária',
+      'Profundidade de sondagem / Sangramento à sondagem',
+      'Dor à percussão / Sensibilidade ao frio/calor',
+      'Hipótese diagnóstica / Plano radiográfico',
+    ],
+    extra: 'Odontograma com os 32 dentes + Plano de Tratamento + Contrato',
   },
   {
     id: 'medico',
     emoji: '🩺',
     label: 'Medicina',
     tagline: 'Para clínicas médicas, consultórios e ambulatórios',
-    features: [
-      { title: 'Prontuário médico completo', desc: 'Queixa principal, história da doença atual, comorbidades, histórico familiar e exame físico.' },
-      { title: 'Prescrição e receitas',      desc: 'Receituário configurável com cabeçalho da clínica e dados do médico.' },
-      { title: 'Pedidos de exames',          desc: 'Solicitação digital de exames laboratoriais e de imagem.' },
-      { title: 'Cirurgias e internações',    desc: 'Registro do histórico cirúrgico e de internações anteriores.' },
-      { title: 'Atestados médicos',          desc: 'Geração de atestados com tempo de afastamento e impressão.' },
+    anamnese: [
+      'Queixa principal / Motivo da consulta',
+      'História da doença atual (início, evolução, intensidade)',
+      'Comorbidades (Diabetes, HAS, Cardiopatia, etc.)',
+      'Histórico familiar de doenças relevantes',
+      'Cirurgias / Internações anteriores',
+      'Medicamentos em uso',
+      'Alergias (medicamentos, alimentos, outros)',
+      'Hábitos de vida (Fumo / Álcool / Atividade física)',
+      'Qualidade do sono',
+      'Sintomas associados (febre, dor, náusea, etc.)',
     ],
+    exame: [
+      'Pressão Arterial (mmHg)',
+      'Frequência Cardíaca (bpm)',
+      'Frequência Respiratória (irpm)',
+      'Temperatura (°C)',
+      'Saturação O₂ (%)',
+      'Glicemia capilar (mg/dL)',
+      'Peso / Altura / IMC',
+      'Ausculta Cardíaca / Pulmonar',
+      'Exame físico específico (região de queixa)',
+      'Hipótese diagnóstica (CID)',
+      'Conduta / Solicitação de exames',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços médicos',
   },
   {
     id: 'estetica',
     emoji: '✨',
     label: 'Estética',
     tagline: 'Para clínicas estéticas e centros de beleza',
-    features: [
-      { title: 'Ficha de avaliação estética',  desc: 'Tratamentos anteriores, uso de cosméticos, isotretinoína, exposição solar e gestação.' },
-      { title: 'Fotos antes e depois',         desc: 'Galeria vinculada ao tratamento para acompanhar a evolução visual.' },
-      { title: 'Pacotes de sessões',           desc: 'Controle de pacotes com saldo de sessões consumidas e restantes.' },
-      { title: 'Triagem de contraindicações',  desc: 'Alergias a cosméticos, queloides, doenças de pele e uso de anticoagulantes.' },
-      { title: 'Estoque de produtos',          desc: 'Cremes, ampolas e materiais com alerta de estoque mínimo.' },
+    anamnese: [
+      'Queixa principal / Região de interesse',
+      'Expectativas com o tratamento',
+      'Tratamentos estéticos anteriores',
+      'Uso de cosméticos / Ácidos / Retinol',
+      'Uso de isotretinoína (últimos 6 meses?)',
+      'Uso de anticoagulantes / AAS',
+      'Exposição solar (usa protetor solar?)',
+      'Alergias (cosméticos, anestésicos, látex)',
+      'Histórico de queloides / Cicatrização ruim',
+      'Gestante / Lactante?',
+      'Doenças de pele (rosácea, psoríase, dermatite)',
     ],
+    exame: [
+      'Tipo de pele (Normal, Seca, Oleosa, Mista)',
+      'Fototipo (Fitzpatrick I–VI)',
+      'Grau de hidratação',
+      'Região de interesse / Área a tratar',
+      'Manchas / Melasma / Hiperpigmentação',
+      'Grau de flacidez / Celulite',
+      'Lesões visíveis (acne, rosácea, cicatrizes)',
+      'Procedimento proposto / Protocolo',
+      'Contraindicações identificadas',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços estéticos',
   },
   {
     id: 'vet',
     emoji: '🐾',
     label: 'Veterinária',
     tagline: 'Para clínicas e hospitais veterinários',
-    features: [
-      { title: 'Cadastro de pets e tutores',  desc: 'Pet vinculado ao tutor com espécie, raça, peso, pelagem, idade e castração.' },
-      { title: 'Carteira de vacinação',       desc: 'Histórico de vacinas e vermifugação, com lembretes para próximas doses.' },
-      { title: 'Anamnese veterinária',        desc: 'Alimentação, ambiente, comportamento, contato com outros animais e histórico reprodutivo.' },
-      { title: 'Prescrição por peso',         desc: 'Medicamentos com dose calculada por peso, frequência e duração.' },
-      { title: 'Histórico de cirurgias',      desc: 'Registro de procedimentos cirúrgicos com pré e pós-operatório.' },
+    anamnese: [
+      'Motivo da consulta / Queixa principal',
+      'Alimentação / Dieta (tipo, frequência, marca)',
+      'Ambiente onde vive (interno / externo)',
+      'Histórico de doenças / Cirurgias anteriores',
+      'Vacinação e vermifugação em dia?',
+      'Histórico reprodutivo (fêmeas: gestações, cio)',
+      'Medicamentos em uso',
+      'Alergias conhecidas',
+      'Contato com outros animais',
     ],
+    exame: [
+      'Temperatura retal (°C)',
+      'Mucosas (cor, TPC)',
+      'Grau de desidratação',
+      'Frequência Cardíaca (bpm)',
+      'Frequência Respiratória (mpm)',
+      'Linfonodos (tamanho, consistência)',
+      'Peso (kg) / Escore corporal',
+      'Ausculta cardíaca / Pulmonar',
+      'Palpação abdominal',
+      'Hipótese diagnóstica / Exames solicitados',
+    ],
+    extra: 'Cadastro do pet (espécie, raça, peso, castrado) + Plano de Tratamento + Contrato',
   },
   {
     id: 'fisio',
     emoji: '🤸',
     label: 'Fisioterapia',
     tagline: 'Para clínicas e consultórios de fisioterapia',
-    features: [
-      { title: 'Avaliação fisioterapêutica',   desc: 'Região acometida, intensidade da dor (0–10), tipo de dor, fatores que pioram/melhoram.' },
-      { title: 'Plano de sessões',             desc: 'Número de sessões previstas, frequência e evolução por sessão.' },
-      { title: 'Encaminhamento médico',        desc: 'Registro do diagnóstico médico e exames de imagem (RX, RM, USG).' },
-      { title: 'Histórico de lesões',          desc: 'Cirurgias, fraturas e traumas anteriores que afetam o tratamento.' },
-      { title: 'Acompanhamento de evolução',   desc: 'Notas de cada sessão com progresso, dificuldades e ajustes.' },
+    anamnese: [
+      'Queixa principal',
+      'Diagnóstico médico / Encaminhamento',
+      'Região acometida',
+      'Início e causa (trauma, postura, esforço, cirurgia)',
+      'Intensidade da dor (0–10) e tipo (queimação, pontada, etc.)',
+      'Fatores que pioram / melhoram',
+      'Cirurgias ou fraturas anteriores',
+      'Comorbidades (Diabetes, HAS, Osteoporose, etc.)',
+      'Medicamentos em uso',
+      'Exames de imagem disponíveis (RX, RM, USG)',
+      'Número de sessões previstas / Frequência',
     ],
+    exame: [
+      'Avaliação postural (anteriorização, escoliose, etc.)',
+      'ADM — Amplitude de Movimento (graus)',
+      'Força muscular (escala 0–5)',
+      'Sensibilidade / Parestesia / Dormência',
+      'Testes especiais (Lasègue, Phalen, Ortolani, etc.)',
+      'Dor à palpação / Pontos-gatilho',
+      'Edema / Inflamação / Temperatura local',
+      'Avaliação de marcha / Equilíbrio',
+      'Diagnóstico fisioterapêutico',
+    ],
+    extra: 'Plano de Tratamento + Contrato de prestação de serviços de fisioterapia',
   },
   {
     id: 'psico',
     emoji: '🧠',
     label: 'Psicologia',
     tagline: 'Para psicólogos e clínicas de saúde mental',
-    features: [
-      { title: 'Anamnese psicológica',         desc: 'Histórico pessoal, dinâmica familiar, traumas, relacionamentos e objetivos com a terapia.' },
-      { title: 'Triagem de risco',             desc: 'Avaliação de ideação suicida e autolesão para encaminhamento adequado.' },
-      { title: 'Evolução por sessão',          desc: 'Registro detalhado de cada sessão com sigilo profissional garantido.' },
-      { title: 'Tratamentos paralelos',        desc: 'Controle de medicamentos psiquiátricos e tratamentos anteriores.' },
-      { title: 'Sono e substâncias',           desc: 'Acompanhamento de qualidade do sono e uso de álcool, tabaco ou outras substâncias.' },
+    anamnese: [
+      'Queixa principal / Motivo da busca',
+      'Histórico pessoal relevante (infância, traumas, perdas)',
+      'Dinâmica familiar atual',
+      'Tratamentos psicológicos ou psiquiátricos anteriores',
+      'Medicamentos em uso (psiquiátricos ou outros)',
+      'Uso de álcool, tabaco ou outras substâncias',
+      'Qualidade do sono (insônia, hipersonia, pesadelos)',
+      'Relacionamentos (familiar, social, afetivo)',
+      'Situação profissional / escolar',
+      'Objetivos com a terapia',
+      'Triagem de risco (ideação suicida / autolesão)',
     ],
+    exame: [
+      'Apresentação geral (aparência, higiene, postura, contato visual)',
+      'Humor e afeto (eutímico, deprimido, eufórico, ansioso)',
+      'Curso e conteúdo do pensamento (acelerado, lento, ruminações)',
+      'Percepção (alucinações auditivas/visuais, ilusões)',
+      'Memória, atenção, concentração e orientação',
+      'Crítica e julgamento (insight sobre a condição)',
+      'Escala PHQ-9 / GAD-7 (pontuação se aplicada)',
+      'Hipótese diagnóstica (CID-10 / DSM-5)',
+      'Plano terapêutico / Abordagem utilizada',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços de psicologia',
   },
   {
     id: 'nutri',
     emoji: '🥗',
     label: 'Nutrição',
     tagline: 'Para nutricionistas e clínicas de nutrição',
-    features: [
-      { title: 'Avaliação nutricional',        desc: 'Objetivo, histórico clínico, alergias e intolerâncias alimentares.' },
-      { title: 'Recordatório alimentar 24h',   desc: 'Registro do que o paciente comeu nas últimas 24h para análise nutricional.' },
-      { title: 'Hábitos alimentares',          desc: 'Refeições por dia, horários, local, hidratação e restrições religiosas.' },
-      { title: 'Histórico de peso',            desc: 'Variações recentes, peso máximo, mínimo e curva de evolução.' },
-      { title: 'Atividade física e intestino', desc: 'Tipo de exercícios, frequência e funcionamento intestinal.' },
+    anamnese: [
+      'Objetivo principal / Queixa',
+      'Histórico clínico (Diabetes, HAS, dislipidemia, tireóide)',
+      'Cirurgias / Internações anteriores',
+      'Medicamentos em uso',
+      'Alergias ou intolerâncias alimentares',
+      'Hábitos alimentares (refeições/dia, horários, local)',
+      'Recordatório alimentar 24h (o que comeu ontem)',
+      'Restrições alimentares (religiosas, preferências, aversões)',
+      'Ingestão hídrica diária',
+      'Prática de atividade física (tipo, frequência, duração)',
+      'Funcionamento intestinal (frequência, consistência)',
+      'Histórico de peso (máximo, mínimo, variações recentes)',
     ],
+    exame: [
+      'Peso atual (kg)',
+      'Altura (cm)',
+      'IMC (kg/m²)',
+      'Circunferência abdominal (cm)',
+      'Relação cintura/quadril',
+      'Percentual de gordura corporal (%)',
+      'Massa magra (kg)',
+      'Pressão arterial',
+      'Exames laboratoriais (glicose, HbA1c, colesterol, TG, TSH)',
+      'Meta calórica / VET prescrito (kcal/dia)',
+      'Plano alimentar / Orientações prescritas',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços de nutrição',
   },
 ];
 
@@ -115,9 +246,9 @@ export default function Specialties() {
       <div className={styles.container}>
         <div className={styles.header}>
           <span className={styles.badge}>Especialidades</span>
-          <h2 className={styles.title}>Personalizado para sua clínica</h2>
+          <h2 className={styles.title}>Prontuário personalizado para cada área</h2>
           <p className={styles.subtitle}>
-            O sistema se adapta à sua especialidade — selecione abaixo e veja como fica configurado.
+            Cada especialidade tem seus próprios campos de anamnese e exame clínico — exatamente o que você precisa, sem sobrar.
           </p>
         </div>
 
@@ -143,17 +274,37 @@ export default function Specialties() {
             </div>
           </div>
 
-          <div className={styles.featuresList}>
-            {current.features.map(f => (
-              <div key={f.title} className={styles.featureRow}>
-                <span className={styles.check}>✓</span>
-                <div>
-                  <div className={styles.featureTitle}>{f.title}</div>
-                  <div className={styles.featureDesc}>{f.desc}</div>
-                </div>
-              </div>
-            ))}
+          <div className={styles.columnsWrap}>
+            <div className={styles.fieldCol}>
+              <div className={styles.colLabel}>📋 Anamnese</div>
+              <ul className={styles.fieldList}>
+                {current.anamnese.map(f => (
+                  <li key={f} className={styles.fieldItem}>
+                    <span className={styles.fieldDot} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.fieldCol}>
+              <div className={styles.colLabel}>🔬 Exame Clínico</div>
+              <ul className={styles.fieldList}>
+                {current.exame.map(f => (
+                  <li key={f} className={styles.fieldItem}>
+                    <span className={styles.fieldDot} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+
+          {current.extra && (
+            <div className={styles.extraRow}>
+              <span className={styles.extraIcon}>✦</span>
+              {current.extra}
+            </div>
+          )}
         </div>
       </div>
     </section>

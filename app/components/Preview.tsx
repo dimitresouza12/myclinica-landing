@@ -13,38 +13,49 @@ const tabs = [
 ];
 
 const navItems = [
-  { icon: '⊞', label: 'Dashboard' },
-  { icon: '👥', label: 'Pacientes' },
-  { icon: '📅', label: 'Agenda' },
-  { icon: '💬', label: 'CRM' },
-  { icon: '💰', label: 'Financeiro' },
-  { icon: '📦', label: 'Estoque' },
-  { icon: '🧑‍⚕️', label: 'Equipe' },
-  { icon: '⚙️', label: 'Config.' },
+  { label: 'Dashboard',      icon: '⊞' },
+  { label: 'Pacientes',      icon: '👥' },
+  { label: 'Agenda',         icon: '📅' },
+  { label: 'Financeiro',     icon: '💰' },
+  { label: 'Estoque',        icon: '📦' },
+  { label: 'Equipe',         icon: '👤' },
+  { label: 'CRM',            icon: '💬' },
+  { label: 'Configurações',  icon: '⚙' },
 ];
+
+const sidebarIndex: Record<string, number> = {
+  dashboard:  0,
+  pacientes:  1,
+  agenda:     2,
+  financeiro: 3,
+  estoque:    4,
+  equipe:     5,
+  crm:        6,
+  prontuario: 1,
+};
 
 function Sidebar({ activeIndex }: { activeIndex: number }) {
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarBrand}>
-        <div className={styles.sidebarBrandTop}>
+        <div className={styles.brandTop}>
           <Image src="/favicon.svg" alt="MyClínica" width={26} height={26} style={{ borderRadius: 6 }} />
-          <span className={styles.sidebarLogoText}>My<strong>Clínica</strong></span>
+          <span className={styles.logoText}>My<strong>Clinica</strong></span>
         </div>
-        <span className={styles.sidebarClinic}>Clínica Exemplo</span>
+        <span className={styles.clinicName}>Clínica Saúde+</span>
       </div>
-      <nav className={styles.sidebarNav}>
+      <nav className={styles.nav}>
         {navItems.map((item, i) => (
-          <div key={item.label} className={`${styles.navItem} ${i === activeIndex ? styles.navActive : ''}`}>
+          <div key={item.label} className={`${styles.navItem} ${i === activeIndex ? styles.active : ''}`}>
             <span className={styles.navIcon}>{item.icon}</span>
             <span className={styles.navLabel}>{item.label}</span>
           </div>
         ))}
       </nav>
       <div className={styles.sidebarFooter}>
-        <div className={styles.avatar}>DR</div>
+        <div className={styles.avatar}>AD</div>
         <div className={styles.userInfo}>
-          <span className={styles.userName}>Dr. Rafael</span>
+          <span className={styles.userName}>Administrador</span>
           <span className={styles.userRole}>admin</span>
         </div>
       </div>
@@ -52,42 +63,43 @@ function Sidebar({ activeIndex }: { activeIndex: number }) {
   );
 }
 
+function KpiCard({ label, value, icon, accent }: { label: string; value: string; icon: string; accent: string }) {
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardIconWrap} style={{ background: accent + '22' }}>
+        <span style={{ fontSize: '1rem' }}>{icon}</span>
+      </div>
+      <div>
+        <div className={styles.cardValue}>{value}</div>
+        <div className={styles.cardLabel}>{label}</div>
+      </div>
+    </div>
+  );
+}
+
 function DashboardMock() {
-  const kpis = [
-    { label: 'Pacientes ativos', value: '142', accent: '#0D9488' },
-    { label: 'Consultas hoje',   value: '12',  accent: '#6366f1' },
-    { label: 'Agendamentos',     value: '8',   accent: '#f59e0b' },
-    { label: 'Receita do mês',   value: 'R$ 8.4k', accent: '#10b981' },
-  ];
   const rows = [
-    { name: 'Ana Souza',       time: '09:00', status: 'Confirmado', sc: '#065F46', sb: '#ECFDF5' },
-    { name: 'Carlos Lima',     time: '10:30', status: 'Agendado',   sc: '#4338CA', sb: '#EEF2FF' },
-    { name: 'Maria Oliveira',  time: '11:00', status: 'Confirmado', sc: '#065F46', sb: '#ECFDF5' },
-    { name: 'João Pereira',    time: '14:00', status: 'Pendente',   sc: '#92400E', sb: '#FFFBEB' },
+    { name: 'Pedro A.',   proc: 'Consulta',       date: '20/05  09:00', sc: '#065F46', sb: '#ECFDF5', status: 'Confirmado' },
+    { name: 'Larissa B.', proc: 'Retorno',         date: '20/05  10:30', sc: '#1e3a8a', sb: '#EEF2FF', status: 'Agendado'   },
+    { name: 'Felipe C.',  proc: 'Avaliação',       date: '20/05  11:00', sc: '#065F46', sb: '#ECFDF5', status: 'Confirmado' },
+    { name: 'Mariana D.', proc: 'Procedimento',    date: '20/05  14:00', sc: '#92400E', sb: '#FFFBEB', status: 'Pendente'   },
   ];
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
-          <div className={styles.pageTitle}>Dashboard</div>
-          <div className={styles.pageSub}>Hoje, 14 de maio de 2025</div>
+          <div className={styles.pageTitle}>Boa tarde, Administrador</div>
+          <div className={styles.pageSub}>Terça-feira, 20 de maio de 2026</div>
         </div>
       </div>
       <div className={styles.mainScroll}>
-        <div className={styles.kpiGrid}>
-          {kpis.map(k => (
-            <div key={k.label} className={styles.kpiCard} style={{ '--accent': k.accent } as React.CSSProperties}>
-              <div className={styles.kpiIconWrap} style={{ background: k.accent + '20' }}>
-                <span style={{ color: k.accent, fontSize: '1rem' }}>◆</span>
-              </div>
-              <div className={styles.kpiBody}>
-                <div className={styles.kpiValue}>{k.value}</div>
-                <div className={styles.kpiLabel}>{k.label}</div>
-              </div>
-            </div>
-          ))}
+        <div className={styles.cards}>
+          <KpiCard label="Pacientes ativos"  value="147"        icon="👥" accent="#0D9488" />
+          <KpiCard label="Consultas hoje"    value="12"         icon="📅" accent="#6366f1" />
+          <KpiCard label="Agendamentos"      value="8"          icon="⏰" accent="#8b5cf6" />
+          <KpiCard label="Receita do mês"    value="R$ 8.400"   icon="💰" accent="#f59e0b" />
         </div>
-        <div className={styles.section}>
+        <div className={styles.sectionCard}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionTitle}>Próximos agendamentos</span>
           </div>
@@ -95,17 +107,21 @@ function DashboardMock() {
             <thead>
               <tr>
                 <th>Paciente</th>
-                <th>Hora</th>
+                <th>Procedimento</th>
+                <th>Data</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {rows.map(r => (
-                <tr key={r.name} className={styles.tableRow}>
+                <tr key={r.name}>
                   <td className={styles.bold}>{r.name}</td>
-                  <td>{r.time}</td>
+                  <td>{r.proc}</td>
+                  <td>{r.date}</td>
                   <td>
-                    <span className={styles.badge} style={{ color: r.sc, background: r.sb }}>{r.status}</span>
+                    <span className={styles.statusBadge} style={{ color: r.sc, background: r.sb }}>
+                      {r.status}
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -118,54 +134,56 @@ function DashboardMock() {
 }
 
 function AgendaMock() {
-  const hours = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00'];
-  const events: Record<number, { name: string; type: string; color: string }> = {
-    1: { name: 'Ana Souza',      type: 'Consulta',  color: '#0D9488' },
-    3: { name: 'Carlos Lima',    type: 'Retorno',   color: '#6366f1' },
-    5: { name: 'Maria Oliveira', type: 'Avaliação', color: '#f59e0b' },
-    6: { name: 'João Pereira',   type: 'Consulta',  color: '#0D9488' },
+  const days = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+  const weeks = [
+    [null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null],
+  ];
+  const dates = [
+    [null, null, null, null, 1, 2, 3],
+    [4, 5, 6, 7, 8, 9, 10],
+    [11, 12, 13, 14, 15, 16, 17],
+    [18, 19, 20, 21, 22, 23, 24],
+  ];
+  const events: Record<number, string[]> = {
+    6:  ['09:00 Pedro A.', '14:00 Larissa B.'],
+    7:  ['10:30 Felipe C.'],
+    8:  ['09:00 Mariana D.', '11:00 Renato E.'],
+    13: ['14:00 Sônia F.'],
+    14: ['09:30 Bruno G.', '16:00 Carla H.'],
+    20: ['09:00 Pedro A.', '11:00 Larissa B.', '14:30 Felipe C.'],
+    21: ['10:00 Mariana D.'],
   };
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
           <div className={styles.pageTitle}>Agenda</div>
-          <div className={styles.pageSub}>Maio 2025</div>
+          <div className={styles.pageSub}>Maio de 2026</div>
         </div>
-        <div className={styles.headerActions}>
-          <div className={styles.viewToggle}>
-            <button className={`${styles.toggleBtn} ${styles.toggleActive}`}>Calendário</button>
-            <button className={styles.toggleBtn}>Lista</button>
-          </div>
-          <button className={styles.btnPrimary}>+ Novo</button>
-        </div>
+        <button className={styles.addBtn}>+ Agendamento</button>
       </div>
       <div className={styles.mainScroll}>
-        <div className={styles.gcalBanner}>
-          <span>📅 Sincronize com o Google Calendar</span>
-          <button className={styles.gcalBannerBtn}>Conectar</button>
-        </div>
         <div className={styles.calendarWrap}>
-          <div className={styles.agendaGrid}>
-            <div className={styles.agendaHours}>
-              {hours.map(h => <div key={h} className={styles.agendaHour}>{h}</div>)}
-            </div>
-            <div className={styles.agendaSlots}>
-              {hours.map((h, i) => {
-                const ev = events[i];
-                return (
-                  <div key={h} className={styles.agendaSlot}>
-                    {ev && (
-                      <div className={styles.agendaEvent} style={{ background: ev.color + '18', borderLeft: `3px solid ${ev.color}` }}>
-                        <span className={styles.agendaEventName} style={{ color: ev.color }}>{ev.name}</span>
-                        <span className={styles.agendaEventType}>{ev.type}</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          <div className={styles.calendarHead}>
+            {days.map(d => (
+              <div key={d} className={styles.calendarDayLabel}>{d}</div>
+            ))}
           </div>
+          {dates.map((week, wi) => (
+            <div key={wi} className={styles.calendarRow}>
+              {week.map((day, di) => (
+                <div key={di} className={`${styles.calendarCell} ${day === 20 ? styles.calendarToday : ''} ${!day ? styles.calendarEmpty : ''}`}>
+                  {day && <div className={styles.calendarDate}>{day}</div>}
+                  {day && events[day] && events[day].map((ev, ei) => (
+                    <div key={ei} className={styles.calendarEvent}>{ev}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -173,65 +191,79 @@ function AgendaMock() {
 }
 
 function CrmMock() {
-  const columns = [
-    { label: 'Novos', color: '#6366f1', count: 3 },
-    { label: 'Em contato', color: '#f59e0b', count: 5 },
-    { label: 'Convertido', color: '#0D9488', count: 8 },
+  const kpis = [
+    { label: 'Total leads',       value: '24', icon: '👥', accent: '#0D1117' },
+    { label: 'Agendados',         value: '8',  icon: '📅', accent: '#6366f1' },
+    { label: 'Concluídos',        value: '11', icon: '✓',  accent: '#0D9488' },
+    { label: 'Sem identificação', value: '5',  icon: '❓', accent: '#f59e0b' },
   ];
-  const cards = [
-    [
-      { name: 'João Silva', phone: '(88) 9 9999-0001', proc: 'Consulta' },
-      { name: 'Larissa Melo', phone: '(85) 9 8888-0002', proc: 'Avaliação' },
-      { name: 'Pedro Alves', phone: '(88) 9 7777-0003', proc: 'Retorno' },
-    ],
-    [
-      { name: 'Carla Nunes', phone: '(85) 9 6666-0004', proc: 'Ortodontia' },
-      { name: 'Tiago Costa', phone: '(88) 9 5555-0005', proc: 'Consulta' },
-    ],
-    [
-      { name: 'Ana Souza', phone: '(88) 9 4444-0006', proc: 'Consulta' },
-      { name: 'Carlos Lima', phone: '(85) 9 3333-0007', proc: 'Retorno' },
-    ],
+  const cols = [
+    {
+      label: 'Novo Lead', dot: '#8B95A8', count: 5,
+      cards: [
+        { name: 'Beatriz M.', phone: '(88) 9xxxx-1234', proc: 'Consulta',    date: '15/05' },
+        { name: 'Roberto S.', phone: '(88) 9xxxx-5678', proc: 'Avaliação',   date: '16/05' },
+        { name: 'Carla D.',   phone: '(85) 9xxxx-9012', proc: 'Retorno',     date: '17/05' },
+      ],
+    },
+    {
+      label: 'Agendado', dot: '#6366f1', count: 3,
+      cards: [
+        { name: 'Lucas P.',    phone: '(88) 9xxxx-3456', proc: 'Procedimento', date: '20/05' },
+        { name: 'Fernanda R.', phone: '(85) 9xxxx-7890', proc: 'Consulta',     date: '21/05' },
+      ],
+    },
+    {
+      label: 'Concluído', dot: '#0D9488', count: 4,
+      cards: [
+        { name: 'Tiago K.',  phone: '(88) 9xxxx-2345', proc: 'Limpeza',  date: '12/05' },
+        { name: 'Paula N.',  phone: '(85) 9xxxx-6789', proc: 'Consulta', date: '14/05' },
+      ],
+    },
   ];
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
-          <div className={styles.pageTitle}>CRM</div>
-          <div className={styles.pageSub}>Leads e atendimento via WhatsApp</div>
-        </div>
-        <div className={styles.crmStats}>
-          {[{ l: 'Total', v: '16' }, { l: 'Hoje', v: '3' }, { l: 'Convertidos', v: '8' }, { l: 'Taxa', v: '50%' }].map(s => (
-            <div key={s.l} className={styles.crmStat}>
-              <span className={styles.crmStatVal}>{s.v}</span>
-              <span className={styles.crmStatLabel}>{s.l}</span>
-            </div>
-          ))}
+          <div className={styles.pageTitle}>CRM — Leads WhatsApp</div>
+          <div className={styles.pageSub}>Contatos captados pelo bot de IA</div>
         </div>
       </div>
       <div className={styles.mainScroll}>
+        <div className={styles.cards} style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+          {kpis.map(k => (
+            <div key={k.label} className={styles.card}>
+              <div className={styles.cardIconWrap} style={{ background: k.accent + '18' }}>
+                <span style={{ fontSize: '0.95rem' }}>{k.icon}</span>
+              </div>
+              <div>
+                <div className={styles.cardValue} style={{ color: k.accent === '#0D1117' ? '#0D1117' : undefined }}>{k.value}</div>
+                <div className={styles.cardLabel}>{k.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
         <div className={styles.kanban}>
-          {columns.map((col, ci) => (
+          {cols.map(col => (
             <div key={col.label} className={styles.kanbanCol}>
-              <div className={styles.colHeader}>
-                <span className={styles.colDot} style={{ background: col.color }} />
-                <span className={styles.colLabel}>{col.label}</span>
-                <span className={styles.colCount}>{col.count}</span>
+              <div className={styles.kanbanHeader}>
+                <span className={styles.kanbanDot} style={{ background: col.dot }} />
+                <span className={styles.kanbanLabel}>{col.label}</span>
+                <span className={styles.kanbanCount}>{col.count}</span>
               </div>
-              <div className={styles.colCards}>
-                {cards[ci].map(card => (
-                  <div key={card.name} className={styles.crmCard}>
-                    <div className={styles.crmCardTop}>
-                      <div className={styles.crmAvatar}>{card.name.split(' ').map(n => n[0]).join('').slice(0,2)}</div>
-                      <div className={styles.crmCardInfo}>
-                        <span className={styles.crmCardName}>{card.name}</span>
-                        <span className={styles.crmCardPhone}>{card.phone}</span>
-                      </div>
+              {col.cards.map(card => (
+                <div key={card.name} className={styles.kanbanCard}>
+                  <div className={styles.kanbanAvatar}>{card.name.split(' ').map(w => w[0]).join('').slice(0,2)}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className={styles.kanbanName}>{card.name}</div>
+                    <div className={styles.kanbanSub}>{card.phone}</div>
+                    <div style={{ display: 'flex', gap: 6, marginTop: 4, alignItems: 'center' }}>
+                      <span className={styles.crmChip}>{card.proc}</span>
+                      <span className={styles.crmDate}>📅 {card.date}</span>
                     </div>
-                    <span className={styles.crmBadgeProc}>{card.proc}</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -241,69 +273,63 @@ function CrmMock() {
 }
 
 function ProntuarioMock() {
-  const prontuarioTabs = ['Ficha', 'Odontograma', 'Timeline', 'Chat IA'];
-  const teeth = [
-    18,17,16,15,14,13,12,11,
-    21,22,23,24,25,26,27,28,
-    48,47,46,45,44,43,42,41,
-    31,32,33,34,35,36,37,38,
+  const upper = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+  const lower = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+  const cariado  = new Set([36, 46]);
+  const ausente  = new Set([17, 27]);
+  const restaurado = new Set([11, 22]);
+  function toothStyle(n: number) {
+    if (ausente.has(n))    return { bg: '#fca5a5', border: '#f87171', color: '#7f1d1d' };
+    if (cariado.has(n))    return { bg: '#fde68a', border: '#f59e0b', color: '#78350f' };
+    if (restaurado.has(n)) return { bg: '#5EEAD4', border: '#0D9488', color: '#0a3d36' };
+    return { bg: '#ECFDF5', border: '#5EEAD4', color: '#065F46' };
+  }
+  const legend = [
+    { color: '#ECFDF5', border: '#5EEAD4', label: 'Hígido' },
+    { color: '#fde68a', border: '#f59e0b', label: 'Cariado' },
+    { color: '#5EEAD4', border: '#0D9488', label: 'Restaurado' },
+    { color: '#fca5a5', border: '#f87171', label: 'Ausente' },
   ];
-  const treated = new Set([16, 15, 26, 36, 46]);
-  const missing  = new Set([18, 38]);
-
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
-          <div className={styles.pageTitle}>Prontuário — Ana Souza</div>
-          <div className={styles.pageSub}>Última consulta: 14/05/2025</div>
+          <div className={styles.pageTitle}>Prontuário — Pedro A.</div>
+          <div className={styles.pageSub}>Odontologia · última consulta 15/05/2026</div>
         </div>
       </div>
       <div className={styles.mainScroll}>
-        <div className={styles.prontuarioTabs}>
-          {prontuarioTabs.map((t, i) => (
-            <div key={t} className={`${styles.prontuarioTab} ${i === 1 ? styles.prontuarioTabActive : ''}`}>{t}</div>
+        <div className={styles.prontuTabs}>
+          {['📋 Ficha', '🦷 Odontograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA'].map((t, i) => (
+            <span key={t} className={`${styles.prontuTab} ${i === 1 ? styles.prontuTabActive : ''}`}>{t}</span>
           ))}
         </div>
-        {/* Odontograma */}
-        <div className={styles.odontogramaWrap}>
-          <div className={styles.odontogramaLabel}>Superior</div>
-          <div className={styles.odontogramaRow}>
-            {teeth.slice(0, 16).map(n => (
-              <div
-                key={n}
-                className={styles.tooth}
-                style={{
-                  background: missing.has(n) ? '#fca5a5' : treated.has(n) ? '#5EEAD4' : '#fff',
-                  borderColor: missing.has(n) ? '#f87171' : treated.has(n) ? '#0D9488' : '#E4E8F2',
-                  color: missing.has(n) ? '#b91c1c' : treated.has(n) ? '#0D9488' : '#9AA3B5',
-                }}
-              >
-                {n}
-              </div>
-            ))}
+        <div className={styles.sectionCard}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>Odontograma</span>
           </div>
-          <div className={styles.odontogramaDivider} />
-          <div className={styles.odontogramaRow}>
-            {teeth.slice(16, 32).map(n => (
-              <div
-                key={n}
-                className={styles.tooth}
-                style={{
-                  background: missing.has(n) ? '#fca5a5' : treated.has(n) ? '#5EEAD4' : '#fff',
-                  borderColor: missing.has(n) ? '#f87171' : treated.has(n) ? '#0D9488' : '#E4E8F2',
-                  color: missing.has(n) ? '#b91c1c' : treated.has(n) ? '#0D9488' : '#9AA3B5',
-                }}
-              >
-                {n}
-              </div>
-            ))}
-          </div>
-          <div className={styles.odontogramaLabel}>Inferior</div>
-          <div className={styles.odontogramaLegend}>
-            <span className={styles.legendItem}><span style={{ background: '#5EEAD4', borderColor: '#0D9488' }} className={styles.legendDot} />Tratado</span>
-            <span className={styles.legendItem}><span style={{ background: '#fca5a5', borderColor: '#f87171' }} className={styles.legendDot} />Ausente</span>
-            <span className={styles.legendItem}><span style={{ background: '#fff', borderColor: '#E4E8F2' }} className={styles.legendDot} />Hígido</span>
+          <div className={styles.odontoPad}>
+            <div className={styles.odontoLegendTop}>
+              {legend.map(l => (
+                <span key={l.label} className={styles.legendItem}>
+                  <span className={styles.legendSwatch} style={{ background: l.color, border: `1px solid ${l.border}` }} />
+                  {l.label}
+                </span>
+              ))}
+            </div>
+            <div className={styles.odontoLabel}>Superior</div>
+            <div className={styles.odontoRow}>
+              {upper.map(n => { const c = toothStyle(n); return (
+                <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
+              );})}
+            </div>
+            <div className={styles.odontoRow}>
+              {lower.map(n => { const c = toothStyle(n); return (
+                <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
+              );})}
+            </div>
+            <div className={styles.odontoLabel}>Inferior</div>
+            <button className={styles.saveOdontoBtn}>Salvar Odontograma</button>
           </div>
         </div>
       </div>
@@ -311,76 +337,125 @@ function ProntuarioMock() {
   );
 }
 
+function LineChart() {
+  const months = ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'];
+  const receitas = [6200, 7400, 6800, 9200, 10100, 12840];
+  const despesas = [3100, 2800, 3600, 3200, 4100, 4320];
+  const max = 14000;
+  const W = 340;
+  const H = 90;
+  const pad = { top: 8, right: 12, bottom: 4, left: 8 };
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+  const gridLines = [0, 3500, 7000, 10500, 14000];
+  const labels = ['R$ 0', 'R$ 25', 'R$ 50', 'R$ 75', 'R$ 100'];
+
+  function toX(i: number) { return pad.left + (i / (months.length - 1)) * chartW; }
+  function toY(v: number) { return pad.top + chartH - (v / max) * chartH; }
+
+  function polyline(vals: number[]) {
+    return vals.map((v, i) => `${toX(i)},${toY(v)}`).join(' ');
+  }
+
+  return (
+    <div className={styles.lineChart}>
+      <div className={styles.lineChartTitle}>Receitas vs Despesas — últimos 6 meses</div>
+      <div className={styles.lineChartBody}>
+        <div className={styles.lineChartYAxis}>
+          {labels.slice().reverse().map(l => (
+            <span key={l} className={styles.lineChartYLabel}>{l}</span>
+          ))}
+        </div>
+        <svg viewBox={`0 0 ${W} ${H}`} className={styles.lineChartSvg} preserveAspectRatio="none">
+          {gridLines.map((v, i) => (
+            <line
+              key={i}
+              x1={pad.left} y1={toY(v)}
+              x2={W - pad.right} y2={toY(v)}
+              stroke="#E4E8F2" strokeWidth="0.5"
+            />
+          ))}
+          <polyline
+            points={polyline(receitas)}
+            fill="none" stroke="#0D9488" strokeWidth="1.8"
+            strokeLinejoin="round" strokeLinecap="round"
+          />
+          <polyline
+            points={polyline(despesas)}
+            fill="none" stroke="#f87171" strokeWidth="1.8"
+            strokeLinejoin="round" strokeLinecap="round"
+          />
+          {receitas.map((v, i) => (
+            <circle key={i} cx={toX(i)} cy={toY(v)} r="2.5" fill="#0D9488" />
+          ))}
+          {despesas.map((v, i) => (
+            <circle key={i} cx={toX(i)} cy={toY(v)} r="2.5" fill="#f87171" />
+          ))}
+        </svg>
+      </div>
+      <div className={styles.lineChartXAxis}>
+        {months.map(m => <span key={m} className={styles.lineChartXLabel}>{m}</span>)}
+      </div>
+    </div>
+  );
+}
+
 function FinanceiroMock() {
-  const stats = [
-    { label: 'Receitas do mês',  value: 'R$ 12.840',  accent: '#10b981', sub: '+8% vs mês anterior' },
-    { label: 'Despesas do mês',  value: 'R$ 4.320',   accent: '#ef4444', sub: 'Material e salários' },
-    { label: 'Saldo do mês',     value: 'R$ 8.520',   accent: '#0D9488', sub: 'Lucro líquido' },
-  ];
   const rows = [
-    { desc: 'Consulta – Ana Souza',      cat: 'Consulta',   type: 'receita', value: 'R$ 350,00',  method: 'PIX',    date: '14/05' },
-    { desc: 'Material descartável',       cat: 'Material',   type: 'despesa', value: 'R$ 180,00',  method: 'Boleto', date: '13/05' },
-    { desc: 'Procedimento – Carlos Lima', cat: 'Procedimento',type: 'receita', value: 'R$ 720,00', method: 'Cartão', date: '13/05' },
-    { desc: 'Salário recepcionista',      cat: 'Salário',    type: 'despesa', value: 'R$ 1.800,00',method: 'TED',    date: '12/05' },
-    { desc: 'Consulta – Maria Oliveira',  cat: 'Consulta',   type: 'receita', value: 'R$ 350,00',  method: 'PIX',    date: '12/05' },
+    { tipo: 'receita', data: '20/05', paciente: 'Pedro A.',   cat: 'Consulta',     method: 'PIX',    value: 'R$ 350,00'   },
+    { tipo: 'despesa', data: '19/05', paciente: '—',          cat: 'Material',     method: 'Boleto', value: 'R$ 180,00'   },
+    { tipo: 'receita', data: '18/05', paciente: 'Larissa B.', cat: 'Procedimento', method: 'Cartão', value: 'R$ 220,00'   },
+    { tipo: 'despesa', data: '17/05', paciente: '—',          cat: 'Salário',      method: 'TED',    value: 'R$ 1.800,00' },
+    { tipo: 'receita', data: '16/05', paciente: 'Felipe C.',  cat: 'Consulta',     method: 'PIX',    value: 'R$ 180,00'   },
   ];
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
           <div className={styles.pageTitle}>Financeiro</div>
-          <div className={styles.pageSub}>Maio de 2025</div>
+          <div className={styles.pageSub}>Maio de 2026</div>
         </div>
-        <div className={styles.topBarActions}>
-          <span className={styles.filterChip}>Todos</span>
-          <span className={styles.filterChip}>Receitas</span>
-          <span className={styles.filterChip}>Despesas</span>
-          <button className={styles.addBtn}>+ Lançamento</button>
-        </div>
+        <button className={styles.addBtn}>+ Lançamento</button>
       </div>
       <div className={styles.mainScroll}>
-        <div className={styles.kpiGrid}>
-          {stats.map(s => (
-            <div key={s.label} className={styles.kpiCard} style={{ '--accent': s.accent } as React.CSSProperties}>
-              <div className={styles.kpiIconWrap} style={{ background: s.accent + '20' }}>
-                <span style={{ color: s.accent, fontSize: '1rem' }}>◆</span>
-              </div>
-              <div className={styles.kpiBody}>
-                <div className={styles.kpiValue}>{s.value}</div>
-                <div className={styles.kpiLabel}>{s.label}</div>
-                <div className={styles.kpiSub}>{s.sub}</div>
-              </div>
-            </div>
-          ))}
+        <div className={styles.cards}>
+          <KpiCard label="Receitas do mês" value="R$ 12.840" icon="📈" accent="#10b981" />
+          <KpiCard label="Despesas do mês" value="R$ 4.320"  icon="📉" accent="#f87171" />
+          <KpiCard label="Saldo líquido"   value="R$ 8.520"  icon="💳" accent="#0D9488" />
+          <KpiCard label="A receber"        value="R$ 2.100"  icon="⏳" accent="#6366f1" />
         </div>
-        <div className={styles.section}>
+        <LineChart />
+        <div className={styles.sectionCard}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionTitle}>Lançamentos recentes</span>
           </div>
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Descrição</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Paciente</th>
                 <th>Categoria</th>
                 <th>Método</th>
-                <th>Data</th>
                 <th>Valor</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((r, i) => (
-                <tr key={i} className={styles.tableRow}>
-                  <td className={styles.bold}>{r.desc}</td>
-                  <td><span className={styles.catChip}>{r.cat}</span></td>
-                  <td>{r.method}</td>
-                  <td>{r.date}</td>
+                <tr key={i}>
                   <td>
-                    <span className={styles.badge} style={
-                      r.type === 'receita'
-                        ? { color: '#065F46', background: '#ECFDF5' }
-                        : { color: '#991B1B', background: '#FEF2F2' }
-                    }>{r.value}</span>
+                    <span style={{ color: r.tipo === 'receita' ? '#10b981' : '#f87171', fontWeight: 700, fontSize: '0.76rem' }}>
+                      {r.tipo === 'receita'
+                        ? <><svg width="10" height="10" viewBox="0 0 10 10" style={{ marginRight: 2, verticalAlign: 'middle' }}><path d="M5 8V2M2 5l3-3 3 3" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" fill="none"/></svg>Receita</>
+                        : <><svg width="10" height="10" viewBox="0 0 10 10" style={{ marginRight: 2, verticalAlign: 'middle' }}><path d="M5 2v6M8 5L5 8 2 5" stroke="#f87171" strokeWidth="1.5" strokeLinecap="round" fill="none"/></svg>Despesa</>
+                      }
+                    </span>
                   </td>
+                  <td>{r.data}</td>
+                  <td className={styles.bold}>{r.paciente}</td>
+                  <td>{r.cat}</td>
+                  <td>{r.method}</td>
+                  <td className={styles.bold}>{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -393,56 +468,30 @@ function FinanceiroMock() {
 
 function EstoqueMock() {
   const items = [
-    { name: 'Luva de procedimento', cat: 'descartável', qty: 3,  min: 10, unit: 'caixa', price: 'R$ 18,00', supplier: 'MedSupply', low: true },
-    { name: 'Máscara cirúrgica',    cat: 'descartável', qty: 45, min: 20, unit: 'caixa', price: 'R$ 12,50', supplier: 'MedSupply', low: false },
-    { name: 'Seringa 5ml',          cat: 'material',    qty: 8,  min: 15, unit: 'caixa', price: 'R$ 9,00',  supplier: 'Cirúrgica',  low: true },
-    { name: 'Clorexidina 1L',       cat: 'medicamento', qty: 6,  min: 3,  unit: 'un',    price: 'R$ 32,00', supplier: 'Farmaven',   low: false },
-    { name: 'Algodão hidrófilo',    cat: 'material',    qty: 12, min: 5,  unit: 'rolo',  price: 'R$ 5,00',  supplier: 'Cirúrgica',  low: false },
+    { name: 'Luva de procedimento', cat: 'Descartável', qty: 3,   min: 10, unit: 'caixa', price: 'R$ 28,00', supplier: 'FornecedorA' },
+    { name: 'Máscara cirúrgica',    cat: 'Descartável', qty: 45,  min: 20, unit: 'caixa', price: 'R$ 12,00', supplier: 'FornecedorA' },
+    { name: 'Seringa 5ml',          cat: 'Material',    qty: 8,   min: 15, unit: 'unid.', price: 'R$  0,80', supplier: 'FornecedorB' },
+    { name: 'Clorexidina 1L',       cat: 'Medicamento', qty: 6,   min: 3,  unit: 'litro', price: 'R$ 42,00', supplier: 'FornecedorC' },
   ];
   return (
     <div className={styles.screenBody}>
-      <div className={styles.topBar}>
+      <div className={styles.pageHeader}>
         <div>
           <div className={styles.pageTitle}>Estoque de Produtos</div>
-          <div className={styles.pageSub}>5 produtos cadastrados</div>
+          <div className={styles.pageSub}>Maio de 2026</div>
         </div>
-        <button className={styles.btnPrimary}>+ Novo Produto</button>
+        <button className={styles.addBtn}>+ Produto</button>
       </div>
       <div className={styles.mainScroll}>
-        {/* Stats */}
-        <div className={styles.estoqueStats}>
-          <div className={styles.estoqueStatCard}>
-            <span className={styles.estoqueStatIcon}>📦</span>
-            <div>
-              <span className={styles.estoqueStatVal}>5</span>
-              <span className={styles.estoqueStatLabel}>Total de produtos</span>
-            </div>
-          </div>
-          <div className={`${styles.estoqueStatCard} ${styles.estoqueStatWarn}`}>
-            <span className={styles.estoqueStatIcon}>⚠️</span>
-            <div>
-              <span className={styles.estoqueStatVal} style={{ color: '#F59E0B' }}>2</span>
-              <span className={styles.estoqueStatLabel}>Estoque baixo</span>
-            </div>
-          </div>
-          <div className={styles.estoqueStatCard}>
-            <span className={styles.estoqueStatIcon}>💰</span>
-            <div>
-              <span className={styles.estoqueStatVal} style={{ color: '#059669' }}>R$ 1.240</span>
-              <span className={styles.estoqueStatLabel}>Valor em estoque</span>
-            </div>
-          </div>
+        <div className={styles.cards}>
+          <KpiCard label="Total produtos"     value="28"          icon="📦" accent="#0D9488" />
+          <KpiCard label="Estoque baixo"      value="4"           icon="⚠️" accent="#f87171" />
+          <KpiCard label="Valor em estoque"   value="R$ 3.240"    icon="💰" accent="#6366f1" />
         </div>
-        {/* Tabs toolbar */}
-        <div className={styles.estoqueToolbar}>
-          <div className={styles.estoqueTabs}>
-            <div className={`${styles.estoqueTab} ${styles.estoqueTabActive}`}>Produtos</div>
-            <div className={styles.estoqueTab}>Movimentações</div>
+        <div className={styles.sectionCard}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>Produtos</span>
           </div>
-          <div className={styles.estoqueSearch}>🔍 Buscar produto...</div>
-        </div>
-        {/* Table */}
-        <div className={styles.section}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -450,26 +499,23 @@ function EstoqueMock() {
                 <th>Categoria</th>
                 <th>Qtd</th>
                 <th>Mín.</th>
+                <th>Unidade</th>
                 <th>Preço</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {items.map(item => (
-                <tr key={item.name} className={item.low ? styles.estoqueRowLow : ''}>
-                  <td className={styles.bold}>
-                    {item.name}
-                    {item.low && <span className={styles.estoqueLowBadge}>Baixo</span>}
-                  </td>
-                  <td style={{ textTransform: 'capitalize' }}>{item.cat}</td>
-                  <td className={styles.bold} style={{ color: item.low ? '#F59E0B' : undefined }}>{item.qty} {item.unit}</td>
+                <tr key={item.name}>
+                  <td className={styles.bold}>{item.name}</td>
+                  <td>{item.cat}</td>
+                  <td style={{ color: item.qty < item.min ? '#f87171' : '#0D9488', fontWeight: 700 }}>{item.qty}</td>
                   <td>{item.min}</td>
+                  <td>{item.unit}</td>
                   <td>{item.price}</td>
                   <td>
-                    <div className={styles.estoqueActions}>
-                      <span className={styles.btnEntrada}>+ Entrada</span>
-                      <span className={styles.btnSaida}>− Saída</span>
-                    </div>
+                    <span className={styles.entradaBtn}>+ Entrada</span>
+                    <span className={styles.saidaBtn}>- Saída</span>
                   </td>
                 </tr>
               ))}
@@ -480,15 +526,6 @@ function EstoqueMock() {
     </div>
   );
 }
-
-const sidebarIndex: Record<string, number> = {
-  dashboard:  0,
-  agenda:     2,
-  crm:        3,
-  prontuario: 1,
-  financeiro: 4,
-  estoque:    5,
-};
 
 const screens: Record<string, React.ReactNode> = {
   dashboard:  <DashboardMock />,
@@ -501,18 +538,14 @@ const screens: Record<string, React.ReactNode> = {
 
 export default function Preview() {
   const [active, setActive] = useState('dashboard');
-
   return (
     <section className={styles.section} id="preview">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}>Preview</span>
+          <span className={styles.eyebrow}>/ Preview</span>
           <h2 className={styles.title}>Veja o sistema em ação</h2>
-          <p className={styles.subtitle}>
-            Interface limpa e intuitiva, pensada para o dia a dia da sua clínica.
-          </p>
+          <p className={styles.subtitle}>Interface limpa e intuitiva, pensada para o dia a dia da sua clínica.</p>
         </div>
-
         <div className={styles.tabsRow}>
           {tabs.map(tab => (
             <button
@@ -524,16 +557,9 @@ export default function Preview() {
             </button>
           ))}
         </div>
-
-        <div className={styles.mockupWrapper}>
-          <div className={styles.mockupBar}>
-            <span /><span /><span />
-            <div className={styles.mockupUrl}>app.myclinica.com.br</div>
-          </div>
-          <div className={styles.mockupShell}>
-            <Sidebar activeIndex={sidebarIndex[active]} />
-            {screens[active]}
-          </div>
+        <div className={styles.shell}>
+          <Sidebar activeIndex={sidebarIndex[active]} />
+          <div className={styles.content}>{screens[active]}</div>
         </div>
       </div>
     </section>

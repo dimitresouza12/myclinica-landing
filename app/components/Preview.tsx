@@ -272,11 +272,61 @@ function CrmMock() {
   );
 }
 
-function ProntuarioMock() {
+type SpecId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri';
+
+const specOptions: { id: SpecId; emoji: string; label: string }[] = [
+  { id: 'odonto',  emoji: '🦷', label: 'Odontologia' },
+  { id: 'medico',  emoji: '🩺', label: 'Medicina' },
+  { id: 'estetica',emoji: '✨', label: 'Estética' },
+  { id: 'vet',     emoji: '🐾', label: 'Veterinária' },
+  { id: 'fisio',   emoji: '🤸', label: 'Fisioterapia' },
+  { id: 'psico',   emoji: '🧠', label: 'Psicologia' },
+  { id: 'nutri',   emoji: '🥗', label: 'Nutrição' },
+];
+
+const specData: Record<SpecId, { patient: string; sub: string; anamnese: string[]; exame: string[] }> = {
+  odonto: {
+    patient: 'Pedro A.', sub: 'Odontologia · última consulta 15/05/2026',
+    anamnese: ['Queixa principal / Motivo da consulta', 'Estado geral de saúde', 'Medicamentos em uso', 'Alergias (medicamentos, látex, anestésicos)', 'Pressão arterial / Cardiopatias', 'Sangramento gengival / Dor dentária', 'Bruxismo / Ranger de dentes'],
+    exame: ['Higiene bucal (placa, tártaro)', 'Mucosa oral (cor, lesões)', 'Oclusão / ATM', 'Mobilidade dentária', 'Profundidade de sondagem', 'Dor à percussão / Sensibilidade', 'Hipótese diagnóstica'],
+  },
+  medico: {
+    patient: 'Larissa B.', sub: 'Medicina · última consulta 14/05/2026',
+    anamnese: ['Queixa principal / Motivo da consulta', 'História da doença atual', 'Comorbidades (Diabetes, HAS, etc.)', 'Medicamentos em uso', 'Alergias', 'Hábitos de vida (Fumo / Álcool)', 'Sintomas associados'],
+    exame: ['Pressão Arterial (mmHg)', 'Frequência Cardíaca (bpm)', 'Temperatura (°C)', 'Saturação O₂ (%)', 'Peso / Altura / IMC', 'Ausculta Cardíaca / Pulmonar', 'Hipótese diagnóstica (CID)'],
+  },
+  estetica: {
+    patient: 'Mariana D.', sub: 'Estética · última consulta 13/05/2026',
+    anamnese: ['Queixa principal / Região de interesse', 'Expectativas com o tratamento', 'Uso de cosméticos / Ácidos / Retinol', 'Uso de isotretinoína (últimos 6 meses?)', 'Alergias (cosméticos, anestésicos)', 'Gestante / Lactante?', 'Doenças de pele'],
+    exame: ['Tipo de pele (Normal, Seca, Oleosa, Mista)', 'Fototipo (Fitzpatrick I–VI)', 'Manchas / Melasma', 'Grau de flacidez / Celulite', 'Lesões visíveis (acne, cicatrizes)', 'Procedimento proposto', 'Contraindicações identificadas'],
+  },
+  vet: {
+    patient: 'Rex (Bruno G.)', sub: 'Veterinária · última consulta 12/05/2026',
+    anamnese: ['Motivo da consulta / Queixa principal', 'Alimentação / Dieta', 'Ambiente (interno / externo)', 'Vacinação e vermifugação em dia?', 'Histórico de doenças / Cirurgias', 'Medicamentos em uso', 'Contato com outros animais'],
+    exame: ['Temperatura retal (°C)', 'Mucosas (cor, TPC)', 'Frequência Cardíaca (bpm)', 'Peso (kg) / Escore corporal', 'Linfonodos', 'Ausculta cardíaca / Pulmonar', 'Hipótese diagnóstica'],
+  },
+  fisio: {
+    patient: 'Felipe C.', sub: 'Fisioterapia · última consulta 11/05/2026',
+    anamnese: ['Queixa principal', 'Diagnóstico médico / Encaminhamento', 'Região acometida', 'Início e causa (trauma, postura)', 'Intensidade da dor (0–10)', 'Cirurgias ou fraturas anteriores', 'Exames de imagem (RX, RM, USG)'],
+    exame: ['Avaliação postural', 'ADM — Amplitude de Movimento (graus)', 'Força muscular (escala 0–5)', 'Testes especiais (Lasègue, Phalen)', 'Dor à palpação / Pontos-gatilho', 'Edema / Inflamação', 'Diagnóstico fisioterapêutico'],
+  },
+  psico: {
+    patient: 'Sônia F.', sub: 'Psicologia · última consulta 10/05/2026',
+    anamnese: ['Queixa principal / Motivo da busca', 'Histórico pessoal relevante', 'Tratamentos anteriores', 'Medicamentos em uso', 'Qualidade do sono', 'Situação profissional / escolar', 'Triagem de risco (ideação suicida)'],
+    exame: ['Apresentação geral (aparência, postura)', 'Humor e afeto', 'Curso e conteúdo do pensamento', 'Memória, atenção e concentração', 'Crítica e julgamento (insight)', 'Escala PHQ-9 / GAD-7', 'Hipótese diagnóstica (CID-10 / DSM-5)'],
+  },
+  nutri: {
+    patient: 'Carla H.', sub: 'Nutrição · última consulta 09/05/2026',
+    anamnese: ['Objetivo principal / Queixa', 'Histórico clínico (Diabetes, HAS)', 'Alergias ou intolerâncias alimentares', 'Hábitos alimentares (refeições/dia)', 'Recordatório alimentar 24h', 'Ingestão hídrica diária', 'Prática de atividade física'],
+    exame: ['Peso atual (kg)', 'Altura (cm) / IMC (kg/m²)', 'Circunferência abdominal (cm)', 'Percentual de gordura corporal (%)', 'Massa magra (kg)', 'Exames laboratoriais (glicose, TSH)', 'Meta calórica / VET prescrito'],
+  },
+};
+
+function OdontogramaMock() {
   const upper = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
   const lower = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
-  const cariado  = new Set([36, 46]);
-  const ausente  = new Set([17, 27]);
+  const cariado   = new Set([36, 46]);
+  const ausente   = new Set([17, 27]);
   const restaurado = new Set([11, 22]);
   function toothStyle(n: number) {
     if (ausente.has(n))    return { bg: '#fca5a5', border: '#f87171', color: '#7f1d1d' };
@@ -291,47 +341,130 @@ function ProntuarioMock() {
     { color: '#fca5a5', border: '#f87171', label: 'Ausente' },
   ];
   return (
+    <div className={styles.sectionCard}>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionTitle}>Odontograma</span>
+      </div>
+      <div className={styles.odontoPad}>
+        <div className={styles.odontoLegendTop}>
+          {legend.map(l => (
+            <span key={l.label} className={styles.legendItem}>
+              <span className={styles.legendSwatch} style={{ background: l.color, border: `1px solid ${l.border}` }} />
+              {l.label}
+            </span>
+          ))}
+        </div>
+        <div className={styles.odontoLabel}>Superior</div>
+        <div className={styles.odontoRow}>
+          {upper.map(n => { const c = toothStyle(n); return (
+            <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
+          );})}
+        </div>
+        <div className={styles.odontoRow}>
+          {lower.map(n => { const c = toothStyle(n); return (
+            <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
+          );})}
+        </div>
+        <div className={styles.odontoLabel}>Inferior</div>
+        <button className={styles.saveOdontoBtn}>Salvar Odontograma</button>
+      </div>
+    </div>
+  );
+}
+
+function FichaMock({ spec }: { spec: SpecId }) {
+  const data = specData[spec];
+  const fields = [
+    { label: 'Nome completo', value: data.patient.replace(/\.$/, '').split(' ')[0] + ' Alves Santos' },
+    { label: 'Data de nascimento', value: '12/03/1985' },
+    { label: 'CPF', value: '•••.•••.•••-••' },
+    { label: 'Telefone', value: '(88) 9••••-••••' },
+    { label: 'E-mail', value: '••••@gmail.com' },
+  ];
+  return (
+    <div className={styles.fichaWrap}>
+      <div className={styles.fichaSection}>
+        <div className={styles.fichaSectionTitle}>Dados Pessoais</div>
+        <div className={styles.fichaGrid}>
+          {fields.map(f => (
+            <div key={f.label} className={styles.fichaField}>
+              <div className={styles.fichaFieldLabel}>{f.label}</div>
+              <div className={styles.fichaFieldValue}>{f.value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={styles.fichaColumns}>
+        <div className={styles.fichaSection}>
+          <div className={styles.fichaSectionTitle}>📋 Anamnese</div>
+          <div className={styles.fichaFieldList}>
+            {data.anamnese.map((item, i) => (
+              <div key={i} className={styles.fichaFieldItem}>
+                <span className={styles.fichaDot} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.fichaSection}>
+          <div className={styles.fichaSectionTitle}>🔬 Exame Clínico</div>
+          <div className={styles.fichaFieldList}>
+            {data.exame.map((item, i) => (
+              <div key={i} className={styles.fichaFieldItem}>
+                <span className={styles.fichaDot} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProntuarioMock() {
+  const [activeSpec, setActiveSpec] = useState<SpecId>('odonto');
+  const [activeTab, setActiveTab] = useState(0);
+  const data = specData[activeSpec];
+  const tabs = activeSpec === 'odonto'
+    ? ['📋 Ficha', '🦷 Odontograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA']
+    : ['📋 Ficha', '📝 Evolução', '📄 Documentos', '💬 Chat IA'];
+
+  return (
     <div className={styles.screenBody}>
       <div className={styles.pageHeader}>
         <div>
-          <div className={styles.pageTitle}>Prontuário — Pedro A.</div>
-          <div className={styles.pageSub}>Odontologia · última consulta 15/05/2026</div>
+          <div className={styles.pageTitle}>Prontuário — {data.patient}</div>
+          <div className={styles.pageSub}>{data.sub}</div>
         </div>
       </div>
+      <div className={styles.specSelector}>
+        {specOptions.map(s => (
+          <button
+            key={s.id}
+            className={`${styles.specBtn} ${activeSpec === s.id ? styles.specBtnActive : ''}`}
+            onClick={() => { setActiveSpec(s.id); setActiveTab(0); }}
+          >
+            {s.emoji} {s.label}
+          </button>
+        ))}
+      </div>
+      <div className={styles.prontuTabs}>
+        {tabs.map((t, i) => (
+          <span
+            key={t}
+            className={`${styles.prontuTab} ${i === activeTab ? styles.prontuTabActive : ''}`}
+            onClick={() => setActiveTab(i)}
+            style={{ cursor: 'pointer' }}
+          >{t}</span>
+        ))}
+      </div>
       <div className={styles.mainScroll}>
-        <div className={styles.prontuTabs}>
-          {['📋 Ficha', '🦷 Odontograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA'].map((t, i) => (
-            <span key={t} className={`${styles.prontuTab} ${i === 1 ? styles.prontuTabActive : ''}`}>{t}</span>
-          ))}
-        </div>
-        <div className={styles.sectionCard}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionTitle}>Odontograma</span>
-          </div>
-          <div className={styles.odontoPad}>
-            <div className={styles.odontoLegendTop}>
-              {legend.map(l => (
-                <span key={l.label} className={styles.legendItem}>
-                  <span className={styles.legendSwatch} style={{ background: l.color, border: `1px solid ${l.border}` }} />
-                  {l.label}
-                </span>
-              ))}
-            </div>
-            <div className={styles.odontoLabel}>Superior</div>
-            <div className={styles.odontoRow}>
-              {upper.map(n => { const c = toothStyle(n); return (
-                <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
-              );})}
-            </div>
-            <div className={styles.odontoRow}>
-              {lower.map(n => { const c = toothStyle(n); return (
-                <div key={n} className={styles.tooth} style={{ background: c.bg, borderColor: c.border, color: c.color }}>{n}</div>
-              );})}
-            </div>
-            <div className={styles.odontoLabel}>Inferior</div>
-            <button className={styles.saveOdontoBtn}>Salvar Odontograma</button>
-          </div>
-        </div>
+        {activeTab === 0 && <FichaMock spec={activeSpec} />}
+        {activeTab === 1 && activeSpec === 'odonto' && <OdontogramaMock />}
+        {((activeTab === 1 && activeSpec !== 'odonto') || (activeTab > 1)) && (
+          <div className={styles.emptyTab}>Em breve nesta aba</div>
+        )}
       </div>
     </div>
   );

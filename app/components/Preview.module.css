@@ -562,6 +562,132 @@
   color: #8B95A8;
 }
 
+/* ─── Prontuário — spec selector ─────────────────── */
+.specSelector {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #F4F6FB;
+  border-bottom: 1px solid #E4E8F2;
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.specSelector::-webkit-scrollbar { display: none; }
+
+.specBtn {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #5A6478;
+  background: #fff;
+  border: 1px solid #E4E8F2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+  flex-shrink: 0;
+}
+.specBtn:hover { border-color: #0D9488; color: #0D9488; }
+.specBtnActive {
+  background: #0D9488;
+  border-color: #0D9488;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ─── Ficha ──────────────────────────────────────── */
+.fichaWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fichaSection {
+  background: #fff;
+  border: 1px solid #EEF1F8;
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 1px 2px rgba(13,17,23,0.04);
+}
+
+.fichaSectionTitle {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #0D1117;
+  letter-spacing: -0.1px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #EEF1F8;
+}
+
+.fichaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 12px;
+}
+
+.fichaField {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fichaFieldLabel {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #8B95A8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.fichaFieldValue {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #0D1117;
+}
+
+.fichaColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.fichaFieldList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fichaFieldItem {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: #3D4A5C;
+  line-height: 1.35;
+}
+
+.fichaDot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #0D9488;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.emptyTab {
+  background: #fff;
+  border: 1px solid #EEF1F8;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #8B95A8;
+}
+
 /* ─── Prontuário ─────────────────────────────────── */
 .prontuTabs {
   display: flex;

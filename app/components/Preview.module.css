@@ -562,37 +562,43 @@
   color: #8B95A8;
 }
 
-/* ─── Prontuário — spec selector ─────────────────── */
-.specSelector {
+/* ─── Prontuário — spec selector (fora do shell) ──── */
+.specSelectorRow {
   display: flex;
-  gap: 4px;
-  padding: 8px 12px;
-  background: #F4F6FB;
-  border-bottom: 1px solid #E4E8F2;
-  flex-shrink: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
 }
-.specSelector::-webkit-scrollbar { display: none; }
+
+.specSelectorLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-geist-mono);
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
 
 .specBtn {
-  padding: 4px 10px;
+  padding: 6px 14px;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  color: #5A6478;
-  background: #fff;
-  border: 1px solid #E4E8F2;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.12s;
+  transition: all 0.15s;
   flex-shrink: 0;
 }
-.specBtn:hover { border-color: #0D9488; color: #0D9488; }
+.specBtn:hover { border-color: var(--primary); color: var(--text); }
 .specBtnActive {
-  background: #0D9488;
-  border-color: #0D9488;
-  color: #fff;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--bg);
   font-weight: 600;
 }
 

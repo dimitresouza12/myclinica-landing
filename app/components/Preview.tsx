@@ -422,11 +422,10 @@ function FichaMock({ spec }: { spec: SpecId }) {
   );
 }
 
-function ProntuarioMock() {
-  const [activeSpec, setActiveSpec] = useState<SpecId>('odonto');
+function ProntuarioMock({ spec }: { spec: SpecId }) {
   const [activeTab, setActiveTab] = useState(0);
-  const data = specData[activeSpec];
-  const tabs = activeSpec === 'odonto'
+  const data = specData[spec];
+  const prontuTabs = spec === 'odonto'
     ? ['📋 Ficha', '🦷 Odontograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA']
     : ['📋 Ficha', '📝 Evolução', '📄 Documentos', '💬 Chat IA'];
 
@@ -438,19 +437,8 @@ function ProntuarioMock() {
           <div className={styles.pageSub}>{data.sub}</div>
         </div>
       </div>
-      <div className={styles.specSelector}>
-        {specOptions.map(s => (
-          <button
-            key={s.id}
-            className={`${styles.specBtn} ${activeSpec === s.id ? styles.specBtnActive : ''}`}
-            onClick={() => { setActiveSpec(s.id); setActiveTab(0); }}
-          >
-            {s.emoji} {s.label}
-          </button>
-        ))}
-      </div>
       <div className={styles.prontuTabs}>
-        {tabs.map((t, i) => (
+        {prontuTabs.map((t, i) => (
           <span
             key={t}
             className={`${styles.prontuTab} ${i === activeTab ? styles.prontuTabActive : ''}`}
@@ -460,9 +448,9 @@ function ProntuarioMock() {
         ))}
       </div>
       <div className={styles.mainScroll}>
-        {activeTab === 0 && <FichaMock spec={activeSpec} />}
-        {activeTab === 1 && activeSpec === 'odonto' && <OdontogramaMock />}
-        {((activeTab === 1 && activeSpec !== 'odonto') || (activeTab > 1)) && (
+        {activeTab === 0 && <FichaMock spec={spec} />}
+        {activeTab === 1 && spec === 'odonto' && <OdontogramaMock />}
+        {((activeTab === 1 && spec !== 'odonto') || activeTab > 1) && (
           <div className={styles.emptyTab}>Em breve nesta aba</div>
         )}
       </div>
@@ -660,17 +648,22 @@ function EstoqueMock() {
   );
 }
 
-const screens: Record<string, React.ReactNode> = {
-  dashboard:  <DashboardMock />,
-  agenda:     <AgendaMock />,
-  crm:        <CrmMock />,
-  prontuario: <ProntuarioMock />,
-  financeiro: <FinanceiroMock />,
-  estoque:    <EstoqueMock />,
-};
-
 export default function Preview() {
   const [active, setActive] = useState('dashboard');
+  const [activeSpec, setActiveSpec] = useState<SpecId>('odonto');
+
+  const screen = (() => {
+    switch (active) {
+      case 'dashboard':  return <DashboardMock />;
+      case 'agenda':     return <AgendaMock />;
+      case 'crm':        return <CrmMock />;
+      case 'prontuario': return <ProntuarioMock spec={activeSpec} />;
+      case 'financeiro': return <FinanceiroMock />;
+      case 'estoque':    return <EstoqueMock />;
+      default:           return null;
+    }
+  })();
+
   return (
     <section className={styles.section} id="preview">
       <div className={styles.container}>
@@ -679,6 +672,7 @@ export default function Preview() {
           <h2 className={styles.title}>Veja o sistema em ação</h2>
           <p className={styles.subtitle}>Interface limpa e intuitiva, pensada para o dia a dia da sua clínica.</p>
         </div>
+
         <div className={styles.tabsRow}>
           {tabs.map(tab => (
             <button
@@ -690,9 +684,25 @@ export default function Preview() {
             </button>
           ))}
         </div>
+
+        {active === 'prontuario' && (
+          <div className={styles.specSelectorRow}>
+            <span className={styles.specSelectorLabel}>Especialidade:</span>
+            {specOptions.map(s => (
+              <button
+                key={s.id}
+                className={`${styles.specBtn} ${activeSpec === s.id ? styles.specBtnActive : ''}`}
+                onClick={() => setActiveSpec(s.id)}
+              >
+                {s.emoji} {s.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className={styles.shell}>
           <Sidebar activeIndex={sidebarIndex[active]} />
-          <div className={styles.content}>{screens[active]}</div>
+          <div className={styles.content}>{screen}</div>
         </div>
       </div>
     </section>

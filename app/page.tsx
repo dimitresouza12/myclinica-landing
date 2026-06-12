@@ -4,6 +4,7 @@ import Features from './components/Features';
 import Specialties from './components/Specialties';
 import Preview from './components/Preview';
 import Plans from './components/Plans';
+import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -17,6 +18,7 @@ export default function Home() {
         <Specialties />
         <Preview />
         <Plans />
+        <Faq />
         <Contact />
       </main>
       <Footer />

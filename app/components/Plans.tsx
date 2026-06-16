@@ -168,11 +168,14 @@ export default function Plans() {
 
               {plan.highlight && (
                 <div className={styles.contactNote}>
-                  <IconWhatsApp /> O plano Completo+ é personalizado para cada clínica.{' '}
-                  <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink}>
-                    Fale com a gente no WhatsApp
-                  </a>{' '}
-                  e monte o seu <strong>Atendente Virtual</strong> e <strong>CRM</strong> sob medida.
+                  <IconWhatsApp />
+                  <span>
+                    O plano Completo+ é personalizado para cada clínica.{' '}
+                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink}>
+                      Fale com a gente no WhatsApp
+                    </a>{' '}
+                    e monte o seu <strong>Atendente Virtual</strong> e <strong>CRM</strong> sob medida.
+                  </span>
                 </div>
               )}
               {plan.highlight ? (

@@ -5,7 +5,7 @@
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -42,10 +42,13 @@
 }
 
 .trialBanner {
-  text-align: center;
-  background: linear-gradient(135deg, rgba(94, 234, 212, 0.12), rgba(13, 148, 136, 0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.08), rgba(13, 148, 136, 0.04));
   color: var(--primary);
-  border: 1px solid rgba(94, 234, 212, 0.3);
+  border: 1px solid rgba(13, 148, 136, 0.2);
   border-radius: 12px;
   padding: 14px 24px;
   font-size: 0.95rem;
@@ -53,13 +56,57 @@
   font-weight: 500;
 }
 .trialBanner strong {
-  color: #b8f5e8;
+  color: var(--primary);
   font-weight: 700;
+}
+
+.copaBanner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: linear-gradient(135deg, #0a3d36 0%, #0d4a40 100%);
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+.copaBanner strong {
+  color: #fff;
+}
+.copaIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.copaCode {
+  display: inline-block;
+  font-family: var(--font-geist-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: rgba(94, 234, 212, 0.2);
+  color: #5EEAD4;
+  border: 1px solid rgba(94, 234, 212, 0.4);
+  padding: 1px 9px;
+  border-radius: 5px;
+}
+.copaSep {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 580px) {
+  .copaSep { display: none; }
+  .copaBanner { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   align-items: stretch;
 }
@@ -85,7 +132,6 @@
   box-shadow: 0 0 0 1px rgba(94, 234, 212, 0.2), 0 24px 48px rgba(94, 234, 212, 0.12);
   position: relative;
   overflow: visible;
-  margin-top: 20px;
 }
 .highlighted::after {
   content: '';
@@ -104,8 +150,9 @@
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--primary);
-  color: var(--bg);
+  background: rgba(94, 234, 212, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(94, 234, 212, 0.4);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 5px 16px;
@@ -115,6 +162,11 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   z-index: 2;
+}
+.highlighted .popularBadge {
+  background: var(--primary);
+  color: var(--bg);
+  border-color: transparent;
 }
 
 .planName {
@@ -136,7 +188,7 @@
   letter-spacing: -1.5px;
   position: relative;
 }
-.highlighted .planPrice { color: var(--primary); }
+.highlighted .planPrice { color: var(--primary-light, #5EEAD4); }
 
 .planDesc {
   font-size: 0.88rem;
@@ -147,9 +199,23 @@
   border-bottom: 1px solid var(--line);
   position: relative;
 }
+.highlighted .planName { color: #F8FAFC; }
 .highlighted .planDesc {
   color: rgba(255,255,255,0.7);
   border-bottom-color: rgba(255,255,255,0.1);
+}
+.highlighted .featureItem { color: rgba(255,255,255,0.82); }
+.highlighted .missing { color: rgba(255,255,255,0.35); }
+.highlighted .check { color: #5EEAD4; }
+.highlighted .x { color: rgba(255,255,255,0.25); }
+.highlighted .primaryBtn {
+  background: #5EEAD4;
+  color: #0F172A;
+}
+.highlighted .contactNote {
+  background: rgba(94, 234, 212, 0.12);
+  border-color: rgba(94, 234, 212, 0.25);
+  color: rgba(255,255,255,0.85);
 }
 
 .featureList {
@@ -228,16 +294,20 @@
 }
 
 .contactNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.85);
-  background: rgba(94, 234, 212, 0.1);
-  border: 1px solid rgba(94, 234, 212, 0.25);
+  color: var(--text-muted);
+  background: rgba(13, 148, 136, 0.06);
+  border: 1px solid rgba(13, 148, 136, 0.15);
   border-radius: 10px;
   padding: 12px 14px;
   line-height: 1.55;
   margin-bottom: 16px;
   position: relative;
 }
+.contactNote svg { flex-shrink: 0; margin-top: 1px; color: var(--primary); }
 
 .contactNoteLink {
   font-size: 0.82rem;
@@ -252,6 +322,8 @@
   color: #b8f5e8;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .grid { grid-template-columns: 1fr; }
+  .highlighted { overflow: hidden; }
+  .highlighted::after { display: none; }
 }

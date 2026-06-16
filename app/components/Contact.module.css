@@ -42,7 +42,7 @@
   font-family: var(--font-instrument);
   font-style: italic;
   font-weight: 400;
-  background: linear-gradient(120deg, var(--primary), #b8f5e8 60%, var(--primary));
+  background: linear-gradient(120deg, var(--primary), var(--primary-light) 60%, var(--primary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

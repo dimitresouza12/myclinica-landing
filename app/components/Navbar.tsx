@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Navbar.module.css';
 
-const SAAS_REGISTER = 'https://myclinica.online/login?mode=register';
+const SAAS_REGISTER = 'https://myclinica.online/login?quiz=true';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -12,7 +12,7 @@ export default function Navbar() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <a href="#hero" className={styles.logo}>
-          <Image src="/favicon.svg" alt="MyClínica" width={30} height={30} className={styles.logoImg} priority />
+          <Image src="/logo.png" alt="MyClínica" width={30} height={30} className={styles.logoImg} priority />
           <span>My<strong>Clínica</strong></span>
         </a>
 

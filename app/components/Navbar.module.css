@@ -1,10 +1,10 @@
 .header {
   position: fixed;
-  top: 0;
+  top: var(--banner-h, 0px);
   left: 0;
   right: 0;
-  z-index: 100;
-  background: rgba(10, 10, 11, 0.7);
+  z-index: 300;
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   border-bottom: 1px solid var(--line);
@@ -32,7 +32,7 @@
 }
 .logo strong {
   font-weight: 800;
-  color: #5EEAD4;
+  color: #4DD9C0;
 }
 .logoImg {
   border-radius: 8px;
@@ -73,14 +73,18 @@
 }
 .ctaBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2);
 }
 
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
-  padding: 4px;
+  padding: 14px 11px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
 }
 .hamburger span {
   display: block;
@@ -95,7 +99,7 @@
   .hamburger { display: flex; }
   .links {
     position: fixed;
-    top: 64px;
+    top: calc(var(--banner-h, 0px) + 64px);
     left: 0;
     right: 0;
     background: var(--surface-1);

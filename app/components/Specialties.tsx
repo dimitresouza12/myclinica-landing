@@ -276,7 +276,12 @@ export default function Specialties() {
 
           <div className={styles.columnsWrap}>
             <div className={styles.fieldCol}>
-              <div className={styles.colLabel}>📋 Anamnese</div>
+              <div className={styles.colLabel}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{display:'inline',marginRight:6,verticalAlign:'middle'}}>
+                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/>
+              </svg>
+              Anamnese
+            </div>
               <ul className={styles.fieldList}>
                 {current.anamnese.map(f => (
                   <li key={f} className={styles.fieldItem}>
@@ -287,7 +292,12 @@ export default function Specialties() {
               </ul>
             </div>
             <div className={styles.fieldCol}>
-              <div className={styles.colLabel}>🔬 Exame Clínico</div>
+              <div className={styles.colLabel}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{display:'inline',marginRight:6,verticalAlign:'middle'}}>
+                <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11"/><path d="M3 9v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/><circle cx="12" cy="15" r="2"/>
+              </svg>
+              Exame Clínico
+            </div>
               <ul className={styles.fieldList}>
                 {current.exame.map(f => (
                   <li key={f} className={styles.fieldItem}>

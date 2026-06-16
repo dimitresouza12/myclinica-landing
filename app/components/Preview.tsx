@@ -40,7 +40,7 @@ function Sidebar({ activeIndex }: { activeIndex: number }) {
       <div className={styles.sidebarBrand}>
         <div className={styles.brandTop}>
           <Image src="/favicon.svg" alt="MyClínica" width={26} height={26} style={{ borderRadius: 6 }} />
-          <span className={styles.logoText}>My<strong>Clinica</strong></span>
+          <span className={styles.logoText}>My<strong>Clínica</strong></span>
         </div>
         <span className={styles.clinicName}>Clínica Saúde+</span>
       </div>

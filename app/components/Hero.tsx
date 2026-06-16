@@ -1,6 +1,6 @@
 import styles from './Hero.module.css';
 
-const SAAS_REGISTER = 'https://myclinica.online/login?mode=register';
+const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
 
 export default function Hero() {
   return (
@@ -22,7 +22,7 @@ export default function Hero() {
         </p>
 
         <div className={styles.ctas}>
-          <a href={SAAS_REGISTER} className={styles.primary}>
+          <a href={SAAS_QUIZ} className={styles.primary}>
             Testar 7 dias grátis
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

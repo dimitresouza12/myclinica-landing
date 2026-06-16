@@ -7,12 +7,12 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.brand}>
           <span className={styles.logo}>
-            <Image src="/favicon.svg" alt="MyClínica" width={22} height={22} style={{ borderRadius: 5 }} />
+            <Image src="/logo.png" alt="MyClínica" width={22} height={22} style={{ borderRadius: 5 }} />
             My<strong>Clínica</strong>
           </span>
           <span className={styles.tagline}>Sistema completo de gestão para clínicas</span>
         </div>
-        <nav className={styles.links}>
+        <nav className={styles.links} aria-label="Footer">
           <a href="#features">Funcionalidades</a>
           <a href="#plans">Planos</a>
           <a href="#contact">Contato</a>

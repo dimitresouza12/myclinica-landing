@@ -65,4 +65,9 @@
   }
   .brand { margin-right: 0; }
   .copy { white-space: normal; }
+  .links {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .links a { padding: 4px 0; }
 }

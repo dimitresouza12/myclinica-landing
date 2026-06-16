@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar';
+import PromoBanner from './components/PromoBanner';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Specialties from './components/Specialties';
@@ -11,6 +12,7 @@ import Footer from './components/Footer';
 export default function Home() {
   return (
     <>
+      <PromoBanner />
       <Navbar />
       <main>
         <Hero />

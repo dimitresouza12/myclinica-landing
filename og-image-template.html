@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>OG Image — MyClínica</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #1a1a1d;
+  }
+
+  .frame {
+    width: 1200px;
+    height: 630px;
+    background: radial-gradient(circle at 20% 20%, rgba(94, 234, 212, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(13, 148, 136, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #0A0A0B 0%, #131316 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Geist', sans-serif;
+    color: #FAFAFA;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Grid de fundo sutil */
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .logoMark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(94, 234, 212, 0.3);
+  }
+  .logoText {
+    font-size: 1.7rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
+  .logoText strong {
+    font-weight: 800;
+    color: #5EEAD4;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(94, 234, 212, 0.08);
+    border: 1px solid rgba(94, 234, 212, 0.25);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    color: #5EEAD4;
+    font-family: 'Geist Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    align-self: flex-start;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #5EEAD4;
+    box-shadow: 0 0 12px #5EEAD4;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 5.2rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -3px;
+    margin-bottom: 28px;
+    max-width: 900px;
+  }
+  h1 .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #5EEAD4;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+    max-width: 800px;
+    font-weight: 400;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .features {
+    display: flex;
+    gap: 28px;
+  }
+  .feat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+  .feat .check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(94, 234, 212, 0.15);
+    color: #5EEAD4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  .url {
+    font-family: 'Geist Mono', monospace;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+
+  /* Orb decorativo */
+  .orb {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(94, 234, 212, 0.25) 0%, transparent 65%);
+    right: -150px;
+    top: -150px;
+    filter: blur(60px);
+    z-index: 1;
+  }
+
+  .instructions {
+    background: #fff;
+    color: #111;
+    padding: 16px 24px;
+    font-family: monospace;
+    font-size: 14px;
+    margin: 20px auto;
+    max-width: 1200px;
+    border-radius: 8px;
+    border-left: 4px solid #5EEAD4;
+  }
+  .instructions strong { color: #0d9488; }
+  @media print {
+    .instructions { display: none; }
+    body { background: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <strong>📸 Como salvar:</strong><br>
+  1. Abra este arquivo no Chrome<br>
+  2. Pressione <strong>Cmd+Shift+P</strong> → digite "screenshot" → escolha <strong>"Capture node screenshot"</strong><br>
+  3. No painel Elements, clique no <code>&lt;div class="frame"&gt;</code> antes de capturar<br>
+  4. Salve o PNG resultante em <code>public/og-image.png</code><br>
+  <em>Alternativa: tirar print manual da área 1200×630 do bloco abaixo.</em>
+</div>
+
+<div class="frame">
+  <div class="orb"></div>
+
+  <div class="logo">
+    <svg class="logoMark" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#5EEAD4"/>
+      <polyline
+        points="8,32 18,32 22,20 27,44 32,26 37,38 41,32 56,32"
+        fill="none"
+        stroke="white"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span class="logoText">My<strong>Clínica</strong></span>
+  </div>
+
+  <div class="content">
+    <div class="badge">
+      <span class="dot"></span>
+      Novo · IA no WhatsApp
+    </div>
+    <h1>
+      Sua clínica gerenciada<br>
+      com <span class="italic">inteligência</span>.
+    </h1>
+    <p class="subtitle">
+      Prontuário, agenda, financeiro e CRM via WhatsApp — em uma só plataforma.
+    </p>
+  </div>
+
+  <div class="footer">
+    <div class="features">
+      <div class="feat"><span class="check">✓</span> 7 dias grátis</div>
+      <div class="feat"><span class="check">✓</span> Sem cartão</div>
+      <div class="feat"><span class="check">✓</span> 7 especialidades</div>
+    </div>
+    <div class="url">site.myclinica.online</div>
+  </div>
+</div>
+
+</body>
+</html>

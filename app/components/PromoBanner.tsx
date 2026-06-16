@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './PromoBanner.module.css';
 
 function Track() {
@@ -24,13 +24,17 @@ function Track() {
   );
 }
 
-const BANNER_H = 44;
-
 export default function PromoBanner() {
   const [visible, setVisible] = useState(true);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const h = visible ? `${BANNER_H}px` : '0px';
+    if (!visible) {
+      document.documentElement.style.setProperty('--banner-h', '0px');
+      return;
+    }
+    const el = bannerRef.current;
+    const h = el ? `${el.offsetHeight}px` : '44px';
     document.documentElement.style.setProperty('--banner-h', h);
     return () => { document.documentElement.style.setProperty('--banner-h', '0px'); };
   }, [visible]);
@@ -38,7 +42,7 @@ export default function PromoBanner() {
   if (!visible) return null;
 
   return (
-    <div className={styles.banner} role="region" aria-label="Promoções ativas">
+    <div ref={bannerRef} className={styles.banner} role="region" aria-label="Promoções ativas">
       {/* Texto acessível para screen readers — o marquee fica aria-hidden */}
       <p className={styles.srOnly}>
         Promoção Copa do Mundo: 50% na primeira mensalidade com código COPA50.

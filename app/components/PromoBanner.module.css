@@ -146,6 +146,37 @@
   border: 0;
 }
 
+/* ─── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .banner {
+    height: 40px;
+  }
+  .item {
+    font-size: 0.78rem;
+    padding: 0 20px;
+    gap: 4px;
+  }
+  .code {
+    font-size: 0.72rem;
+    padding: 1px 6px;
+  }
+  .dot {
+    font-size: 0.9rem;
+  }
+  .marqueeWrap {
+    padding-right: 48px;
+  }
+  .closeBtn {
+    width: 36px;
+    height: 36px;
+    right: 4px;
+    font-size: 0.65rem;
+  }
+  .marquee {
+    animation-duration: 24s;
+  }
+}
+
 /* ─── Acessibilidade: sem animação ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .marquee {

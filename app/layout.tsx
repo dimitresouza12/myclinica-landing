@@ -20,6 +20,10 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+export const viewport = {
+  viewportFit: 'cover',
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://site.myclinica.online"),
   title: "MyClínica — Sistema de Gestão para Clínicas",

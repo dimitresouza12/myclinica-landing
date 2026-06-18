@@ -24,6 +24,12 @@ export default function PromoBanner() {
         Indique um amigo e ganhe 1 mês grátis a cada indicação que assinar.
       </p>
 
+      {/* Mobile: frase estática única, sem marquee */}
+      <p className={styles.mobileMsg} aria-hidden="true">
+        🏆 <strong>Copa 2026:</strong> 50% na 1ª mensalidade — código{' '}
+        <span className={styles.code}>COPA50</span>
+      </p>
+
       <div className={styles.marqueeWrap}>
         {/*
           .strip é position:absolute — fica fora do algoritmo flex do

@@ -37,18 +37,20 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  /* espaço para o botão de fechar não sobrepor o texto */
-  padding-right: 44px;
+  /* respiro simétrico nas bordas (sem botão de fechar) */
+  padding: 0 16px;
 }
 
 /* ─── Animated strip (2× tracks para loop contínuo) ───────
-   iOS Safari 17 ignora `width: max-content` em flex containers
-   dentro de overflow:hidden e quebra os itens em várias linhas.
-   Por isso o marquee NÃO usa flex: usa inline-block + nowrap,
-   que nenhum navegador consegue quebrar. */
+   Cadeia 100% flex com `flex-shrink: 0` em TODOS os filhos.
+   No iOS WebKit, caixas inline-flex/inline-block quebram em
+   várias linhas mesmo com `white-space: nowrap` quando o
+   container é shrink-to-fit. Forçar flex + flex-shrink:0 +
+   width:max-content é o único padrão que o WebKit não quebra. */
 .marquee {
-  display: inline-block;
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
   animation: marquee 32s linear infinite;
   will-change: transform;
 }
@@ -64,15 +66,16 @@
 
 /* ─── Uma cópia do conteúdo ──────────────────────────────── */
 .track {
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: top;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
 }
 
 /* ─── Item individual ────────────────────────────────────── */
 .item {
-  display: inline-flex;
-  vertical-align: middle;
+  display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 5px;
   padding: 0 36px;
@@ -91,8 +94,7 @@
 
 /* ─── Separador entre itens ──────────────────────────────── */
 .dot {
-  display: inline-block;
-  vertical-align: middle;
+  flex-shrink: 0;
   color: #FFDF00;
   font-size: 1.1rem;
   opacity: 0.7;
@@ -102,7 +104,7 @@
 
 /* ─── Código do cupom ────────────────────────────────────── */
 .code {
-  display: inline-block;
+  flex-shrink: 0;
   font-family: var(--font-geist-mono, monospace);
   font-size: 0.78rem;
   font-weight: 700;
@@ -113,38 +115,6 @@
   padding: 2px 8px;
   border-radius: 4px;
   margin-left: 2px;
-}
-
-/* ─── Botão fechar ───────────────────────────────────────── */
-.closeBtn {
-  position: absolute;
-  right: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  flex-shrink: 0;
-}
-
-.closeBtn:hover {
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-}
-
-.closeBtn:focus-visible {
-  outline: 2px solid #FFDF00;
-  outline-offset: 2px;
 }
 
 /* ─── Screen reader only ─────────────────────────────────── */
@@ -165,16 +135,21 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     animation: none;
-    white-space: normal;
-    text-align: center;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   /* esconde a cópia duplicada quando animação está desligada */
   .track:last-child {
     display: none;
   }
   .track {
-    display: block;
-    white-space: normal;
+    /* anula o flex-shrink:0 da regra base p/ o track poder
+       encolher e quebrar em vez de estourar o overflow:hidden */
+    flex: 0 1 auto;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 6px 44px 6px 12px;
   }
   .item {
@@ -182,13 +157,9 @@
   }
   .banner {
     animation: none;
-    height: auto;
   }
   .marqueeWrap {
     display: flex;
     justify-content: center;
-  }
-  .bgShift {
-    animation: none;
   }
 }

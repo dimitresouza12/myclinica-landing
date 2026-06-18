@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './PromoBanner.module.css';
 
 function Track() {
@@ -25,21 +25,22 @@ function Track() {
 }
 
 export default function PromoBanner() {
-  const [visible, setVisible] = useState(true);
   const bannerRef = useRef<HTMLDivElement>(null);
 
+  // Mede a altura real do banner (varia com a safe-area do iOS) e
+  // expõe em --banner-h para o Navbar/Hero se posicionarem abaixo.
+  // Remede no resize/rotação, quando a safe-area muda.
   useEffect(() => {
-    if (!visible) {
-      document.documentElement.style.setProperty('--banner-h', '0px');
-      return;
-    }
-    const el = bannerRef.current;
-    const h = el ? `${el.offsetHeight}px` : '44px';
-    document.documentElement.style.setProperty('--banner-h', h);
-    return () => { document.documentElement.style.setProperty('--banner-h', '0px'); };
-  }, [visible]);
-
-  if (!visible) return null;
+    const setBannerHeight = () => {
+      const el = bannerRef.current;
+      if (el) {
+        document.documentElement.style.setProperty('--banner-h', `${el.offsetHeight}px`);
+      }
+    };
+    setBannerHeight();
+    window.addEventListener('resize', setBannerHeight);
+    return () => window.removeEventListener('resize', setBannerHeight);
+  }, []);
 
   return (
     <div ref={bannerRef} className={styles.banner} role="region" aria-label="Promoções ativas">
@@ -55,15 +56,6 @@ export default function PromoBanner() {
           <Track />
         </div>
       </div>
-
-      <button
-        className={styles.closeBtn}
-        onClick={() => setVisible(false)}
-        aria-label="Fechar banner de promoção"
-        type="button"
-      >
-        ✕
-      </button>
     </div>
   );
 }

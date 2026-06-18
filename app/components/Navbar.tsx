@@ -19,7 +19,7 @@ export default function Navbar() {
         <ul className={`${styles.links} ${open ? styles.open : ''}`}>
           <li><a href="#features" onClick={() => setOpen(false)}>Produto</a></li>
           <li><a href="#specialties" onClick={() => setOpen(false)}>Especialidades</a></li>
-          <li><a href="#preview" onClick={() => setOpen(false)}>Preview</a></li>
+          <li><a href="#demonstracao" onClick={() => setOpen(false)}>Demonstração</a></li>
           <li><a href="#plans" onClick={() => setOpen(false)}>Planos</a></li>
           <li><a href="#faq" onClick={() => setOpen(false)}>FAQ</a></li>
           <li><a href="#contact" onClick={() => setOpen(false)}>Contato</a></li>

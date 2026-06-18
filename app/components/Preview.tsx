@@ -6,9 +6,10 @@ import styles from './Preview.module.css';
 const tabs = [
   { id: 'dashboard',  label: '📊 Dashboard' },
   { id: 'agenda',     label: '📅 Agenda' },
-  { id: 'crm',        label: '💬 CRM' },
   { id: 'prontuario', label: '📋 Prontuário' },
   { id: 'financeiro', label: '💰 Financeiro' },
+  { id: 'relatorios', label: '📈 Relatórios' },
+  { id: 'crm',        label: '💬 CRM' },
   { id: 'estoque',    label: '📦 Estoque' },
 ];
 
@@ -17,9 +18,12 @@ const navItems = [
   { label: 'Pacientes',      icon: '👥' },
   { label: 'Agenda',         icon: '📅' },
   { label: 'Financeiro',     icon: '💰' },
+  { label: 'Procedimentos',  icon: '🩺' },
+  { label: 'Relatórios',     icon: '📈' },
   { label: 'Estoque',        icon: '📦' },
   { label: 'Equipe',         icon: '👤' },
   { label: 'CRM',            icon: '💬' },
+  { label: 'Campanhas',      icon: '📣' },
   { label: 'Configurações',  icon: '⚙' },
 ];
 
@@ -28,9 +32,10 @@ const sidebarIndex: Record<string, number> = {
   pacientes:  1,
   agenda:     2,
   financeiro: 3,
-  estoque:    4,
-  equipe:     5,
-  crm:        6,
+  relatorios: 5,
+  estoque:    6,
+  equipe:     7,
+  crm:        8,
   prontuario: 1,
 };
 
@@ -427,6 +432,8 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
   const data = specData[spec];
   const prontuTabs = spec === 'odonto'
     ? ['📋 Ficha', '🦷 Odontograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA']
+    : spec === 'estetica'
+    ? ['📋 Ficha', '🎨 Faceograma', '📝 Evolução', '📄 Documentos', '💬 Chat IA']
     : ['📋 Ficha', '📝 Evolução', '📄 Documentos', '💬 Chat IA'];
 
   return (
@@ -450,7 +457,8 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
       <div className={styles.mainScroll}>
         {activeTab === 0 && <FichaMock spec={spec} />}
         {activeTab === 1 && spec === 'odonto' && <OdontogramaMock />}
-        {((activeTab === 1 && spec !== 'odonto') || activeTab > 1) && (
+        {activeTab === 1 && spec === 'estetica' && <FaceogramaMock />}
+        {((activeTab === 1 && spec !== 'odonto' && spec !== 'estetica') || activeTab > 1) && (
           <div className={styles.emptyTab}>Em breve nesta aba</div>
         )}
       </div>
@@ -587,6 +595,132 @@ function FinanceiroMock() {
   );
 }
 
+function RelatoriosMock() {
+  const procs = [
+    { name: 'Consulta',     value: 4200, pct: 100 },
+    { name: 'Procedimento', value: 3100, pct: 74  },
+    { name: 'Avaliação',    value: 2400, pct: 57  },
+    { name: 'Limpeza',      value: 1800, pct: 43  },
+    { name: 'Retorno',      value: 1340, pct: 32  },
+  ];
+  const profs = [
+    { name: 'Dra. Ana Lima',    value: 6200, pct: 100 },
+    { name: 'Dr. Carlos M.',    value: 4100, pct: 66  },
+    { name: 'Dra. Fernanda R.', value: 2540, pct: 41  },
+  ];
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.pageHeader}>
+        <div>
+          <div className={styles.pageTitle}>Relatórios</div>
+          <div className={styles.pageSub}>Maio de 2026 · Todos os profissionais</div>
+        </div>
+      </div>
+      <div className={styles.mainScroll}>
+        <div className={styles.cards}>
+          <KpiCard label="Atendimentos"    value="124"       icon="📋" accent="#0D9488" />
+          <KpiCard label="Faturamento"     value="R$ 12.840" icon="💰" accent="#6366f1" />
+          <KpiCard label="Ticket médio"    value="R$ 103"    icon="📊" accent="#f59e0b" />
+          <KpiCard label="Novos pacientes" value="18"        icon="👥" accent="#8b5cf6" />
+        </div>
+        <div className={styles.sectionCard}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>Faturamento por Procedimento</span>
+          </div>
+          <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {procs.map(p => (
+              <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 86, fontSize: '0.7rem', color: '#5A6478', textAlign: 'right', flexShrink: 0 }}>{p.name}</span>
+                <div style={{ flex: 1, height: 10, background: '#F4F6FB', borderRadius: 999, overflow: 'hidden' }}>
+                  <div style={{ width: `${p.pct}%`, height: '100%', background: '#0D9488', borderRadius: 999 }} />
+                </div>
+                <span style={{ width: 58, fontSize: '0.7rem', fontWeight: 600, color: '#0D1117', textAlign: 'right', flexShrink: 0 }}>R$ {p.value.toLocaleString('pt-BR')}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.sectionCard}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>Faturamento por Profissional</span>
+          </div>
+          <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {profs.map(p => (
+              <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 100, fontSize: '0.7rem', color: '#5A6478', textAlign: 'right', flexShrink: 0 }}>{p.name}</span>
+                <div style={{ flex: 1, height: 10, background: '#F4F6FB', borderRadius: 999, overflow: 'hidden' }}>
+                  <div style={{ width: `${p.pct}%`, height: '100%', background: '#6366f1', borderRadius: 999 }} />
+                </div>
+                <span style={{ width: 58, fontSize: '0.7rem', fontWeight: 600, color: '#0D1117', textAlign: 'right', flexShrink: 0 }}>R$ {p.value.toLocaleString('pt-BR')}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FaceogramaMock() {
+  const points = [
+    { x: 50, y: 28, type: 'toxina',         abbr: 'Tx', color: '#3B82F6', bg: '#DBEAFE' },
+    { x: 73, y: 28, type: 'toxina',         abbr: 'Tx', color: '#3B82F6', bg: '#DBEAFE' },
+    { x: 50, y: 42, type: 'preenchimento',  abbr: 'Pr', color: '#8B5CF6', bg: '#EDE9FE' },
+    { x: 62, y: 55, type: 'bioestimulador', abbr: 'Bi', color: '#F59E0B', bg: '#FEF3C7' },
+    { x: 38, y: 55, type: 'bioestimulador', abbr: 'Bi', color: '#F59E0B', bg: '#FEF3C7' },
+    { x: 62, y: 68, type: 'preenchimento',  abbr: 'Pr', color: '#8B5CF6', bg: '#EDE9FE' },
+  ];
+  const W = 120; const H = 100;
+  const legend = [
+    { color: '#3B82F6', bg: '#DBEAFE', label: 'Toxina botulínica' },
+    { color: '#8B5CF6', bg: '#EDE9FE', label: 'Preenchimento' },
+    { color: '#F59E0B', bg: '#FEF3C7', label: 'Bioestimulador' },
+  ];
+  return (
+    <div className={styles.sectionCard}>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionTitle}>Faceograma — Sessão 20/05/2026</span>
+      </div>
+      <div style={{ padding: '10px 14px', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+        <div style={{ flexShrink: 0 }}>
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ display: 'block', border: '1px solid #EEF1F8', borderRadius: 8, background: '#FAFAFA' }}>
+            {/* Simple face outline */}
+            <ellipse cx="62" cy="45" rx="30" ry="38" fill="none" stroke="#D1D5DB" strokeWidth="0.8" />
+            <ellipse cx="62" cy="20" rx="20" ry="14" fill="none" stroke="#D1D5DB" strokeWidth="0.6" />
+            {/* Eyes */}
+            <ellipse cx="52" cy="35" rx="5" ry="3" fill="none" stroke="#D1D5DB" strokeWidth="0.7" />
+            <ellipse cx="72" cy="35" rx="5" ry="3" fill="none" stroke="#D1D5DB" strokeWidth="0.7" />
+            {/* Nose */}
+            <path d="M62 42 L59 50 Q62 52 65 50 Z" fill="none" stroke="#D1D5DB" strokeWidth="0.7" />
+            {/* Mouth */}
+            <path d="M55 58 Q62 63 69 58" fill="none" stroke="#D1D5DB" strokeWidth="0.7" />
+            {/* Annotation points */}
+            {points.map((p, i) => (
+              <g key={i}>
+                <circle cx={p.x} cy={p.y} r={8} fill={p.bg} stroke={p.color} strokeWidth="1.2" />
+                <text x={p.x} y={p.y + 3} textAnchor="middle" fill={p.color} fontSize="5" fontWeight="700">{p.abbr}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ marginBottom: 8 }}>
+            {legend.map(l => (
+              <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
+                <span style={{ fontSize: '0.68rem', color: '#5A6478' }}>{l.label}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: '#F4F6FB', border: '1px solid #EEF1F8', borderRadius: 8, padding: '7px 10px' }}>
+            <div style={{ fontSize: '0.62rem', fontWeight: 700, color: '#8B95A8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>Observações da sessão</div>
+            <div style={{ fontSize: '0.7rem', color: '#3D4A5C', lineHeight: 1.5 }}>Paciente sem contraindicações. Lote toxina: BC2241. Diluição 2,5ml. Próxima sessão em 21 dias.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function EstoqueMock() {
   const items = [
     { name: 'Luva de procedimento', cat: 'Descartável', qty: 3,   min: 10, unit: 'caixa', price: 'R$ 28,00', supplier: 'FornecedorA' },
@@ -659,16 +793,17 @@ export default function Preview() {
       case 'crm':        return <CrmMock />;
       case 'prontuario': return <ProntuarioMock spec={activeSpec} />;
       case 'financeiro': return <FinanceiroMock />;
+      case 'relatorios': return <RelatoriosMock />;
       case 'estoque':    return <EstoqueMock />;
       default:           return null;
     }
   })();
 
   return (
-    <section className={styles.section} id="preview">
+    <section className={styles.section} id="demonstracao">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.eyebrow}>/ Preview</span>
+          <span className={styles.eyebrow}>/ Demonstração</span>
           <h2 className={styles.title}>Veja o sistema em ação</h2>
           <p className={styles.subtitle}>Interface limpa e intuitiva, pensada para o dia a dia da sua clínica.</p>
         </div>

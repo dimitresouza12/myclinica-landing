@@ -26,8 +26,7 @@ export default function PromoBanner() {
 
       {/* Mobile: frase estática única, sem marquee */}
       <p className={styles.mobileMsg} aria-hidden="true">
-        🏆 <strong>Copa 2026:</strong> 50% na 1ª mensalidade — código{' '}
-        <span className={styles.code}>COPA50</span>
+        🏆 <strong>50% na 1ª mensalidade</strong> · use o código <strong>COPA50</strong>
       </p>
 
       <div className={styles.marqueeWrap}>

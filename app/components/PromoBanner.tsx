@@ -51,10 +51,8 @@ export default function PromoBanner() {
       </p>
 
       <div className={styles.marqueeWrap}>
-        <div className={styles.marquee}>
-          <Track />
-          <Track />
-        </div>
+        <Track />
+        <Track />
       </div>
     </div>
   );

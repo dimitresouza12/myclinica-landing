@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import styles from './Specialties.module.css';
+import RevealSection from './RevealSection';
 
 type SpecialtyId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri';
 
@@ -244,13 +245,13 @@ export default function Specialties() {
   return (
     <section className={styles.section} id="specialties">
       <div className={styles.container}>
-        <div className={styles.header}>
+        <RevealSection className={styles.header} tag="div">
           <span className={styles.badge}>Especialidades</span>
           <h2 className={styles.title}>Prontuário personalizado para cada área</h2>
           <p className={styles.subtitle}>
             Cada especialidade tem seus próprios campos de anamnese e exame clínico — exatamente o que você precisa, sem sobrar.
           </p>
-        </div>
+        </RevealSection>
 
         <div className={styles.tabsRow}>
           {specialties.map(s => (

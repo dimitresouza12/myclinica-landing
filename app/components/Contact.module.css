@@ -87,3 +87,34 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+.ctaRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.trialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--text);
+  color: var(--bg);
+  padding: 16px 28px;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: var(--shadow-glow);
+}
+.trialLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.3), 0 16px 40px rgba(13, 148, 136, 0.2);
+}
+.trialLink svg {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.trialLink:hover svg { transform: translateX(3px); }

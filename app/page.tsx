@@ -8,6 +8,7 @@ import Plans from './components/Plans';
 import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import StickyCta from './components/StickyCta';
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <StickyCta />
     </>
   );
 }

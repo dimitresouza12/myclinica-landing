@@ -21,6 +21,11 @@
   pointer-events: none;
   z-index: 0;
   border-radius: 50%;
+  animation: orbDrift 8s ease-in-out infinite;
+}
+@keyframes orbDrift {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50%       { transform: translateX(-50%) translateY(-20px); }
 }
 
 .container {
@@ -109,11 +114,27 @@
   gap: 8px;
   box-shadow: var(--shadow-glow);
   transition: transform 0.15s, box-shadow 0.2s;
+  position: relative;
+}
+.primary::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.25s;
 }
 .primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.2), 0 16px 40px rgba(13, 148, 136, 0.15);
+  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.3), 0 16px 40px rgba(13, 148, 136, 0.2);
 }
+.primary:hover::after { opacity: 0.15; }
+.primary svg {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.primary:hover svg { transform: translateX(3px); }
 
 .secondary {
   color: var(--text);
@@ -174,9 +195,59 @@
   background: var(--line);
 }
 
+/* ─── Trust strip ────────────────────────────────────────────── */
+.trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.trustItem {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.trustDot {
+  color: var(--line);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ─── Hero entrada animada ───────────────────────────────────── */
+.heroBadge, .heroTitle, .heroSub, .heroCtaRow, .heroGuarantee, .heroStats, .heroTrust {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.heroBadge    { animation-delay: 0.05s; }
+.heroTitle    { animation-delay: 0.15s; }
+.heroSub      { animation-delay: 0.25s; }
+.heroCtaRow   { animation-delay: 0.35s; }
+.heroGuarantee { animation-delay: 0.42s; }
+.heroStats    { animation-delay: 0.52s; }
+.heroTrust    { animation-delay: 0.62s; }
+
+@keyframes heroFadeUp {
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroBadge, .heroTitle, .heroSub, .heroCtaRow,
+  .heroGuarantee, .heroStats, .heroTrust, .orb {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .hero { padding: calc(var(--banner-h) + 64px + 56px) 20px 64px; }
   .title { letter-spacing: -2px; }
   .stats { gap: 24px; }
   .divider { display: none; }
+  .trust { gap: 8px; }
+  .trustDot { display: none; }
+  .trustItem { font-size: 0.8rem; }
 }

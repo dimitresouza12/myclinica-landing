@@ -7,35 +7,36 @@ export default function Hero() {
     <section className={styles.hero} id="hero">
       <div className={styles.orb} aria-hidden />
       <div className={styles.container}>
-        <div className={styles.badge}>
+
+        <div className={`${styles.badge} ${styles.heroBadge}`}>
           <span className={styles.dot} />
           Novo — IA no atendimento via WhatsApp
         </div>
 
-        <h1 className={styles.title}>
+        <h1 className={`${styles.title} ${styles.heroTitle}`}>
           Sua clínica gerenciada com{' '}
           <span className={styles.italic}>inteligência</span>
         </h1>
 
-        <p className={styles.subtitle}>
+        <p className={`${styles.subtitle} ${styles.heroSub}`}>
           Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp — uma plataforma que se adapta a 7 especialidades clínicas.
         </p>
 
-        <div className={styles.ctas}>
+        <div className={`${styles.ctas} ${styles.heroCtaRow}`}>
           <a href={SAAS_QUIZ} className={styles.primary}>
             Testar 7 dias grátis
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           </a>
-          <a href="#preview" className={styles.secondary}>Ver demonstração</a>
+          <a href="#demonstracao" className={styles.secondary}>Ver demonstração</a>
         </div>
 
-        <p className={styles.guarantee}>
+        <p className={`${styles.guarantee} ${styles.heroGuarantee}`}>
           7 dias grátis · Sem cartão de crédito · Cancele quando quiser
         </p>
 
-        <div className={styles.stats}>
+        <div className={`${styles.stats} ${styles.heroStats}`}>
           <div className={styles.stat}>
             <strong>7</strong>
             <span>Especialidades suportadas</span>
@@ -51,6 +52,8 @@ export default function Hero() {
             <span>Dados isolados por clínica</span>
           </div>
         </div>
+
+
       </div>
     </section>
   );

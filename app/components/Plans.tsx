@@ -1,4 +1,5 @@
 import styles from './Plans.module.css';
+import RevealSection from './RevealSection';
 
 const WHATSAPP = 'https://wa.me/5588988557247';
 const BASE_URL = 'https://myclinica.online/login';
@@ -72,7 +73,7 @@ const plans = [
     slug: 'completo',
     price: 'R$ 129,90/mês',
     description: 'Gestão completa com relatórios avançados e suporte prioritário.',
-    highlight: false,
+    highlight: true,
     badge: 'Mais popular',
     features: [
       'Prontuário eletrônico completo',
@@ -97,8 +98,8 @@ const plans = [
     slug: null,
     price: 'A partir de R$ 199/mês',
     description: 'Para clínicas que querem automatizar o atendimento e crescer com IA.',
-    highlight: true,
-    badge: null,
+    highlight: false,
+    badge: 'Com IA',
     features: [
       'Tudo do plano Completo',
       'Atendente virtual com IA',
@@ -142,8 +143,13 @@ export default function Plans() {
         </div>
 
         <div className={styles.grid}>
-          {plans.map((plan) => (
-            <div key={plan.name} className={`${styles.card} ${plan.highlight ? styles.highlighted : ''}`}>
+          {plans.map((plan, i) => (
+            <RevealSection
+              key={plan.name}
+              className={`${styles.card} ${plan.highlight ? styles.highlighted : ''}`}
+              delay={i}
+              variant="scale"
+            >
               {plan.badge && (
                 <div className={styles.popularBadge}>{plan.badge}</div>
               )}
@@ -166,7 +172,7 @@ export default function Plans() {
                 ))}
               </ul>
 
-              {plan.highlight && (
+              {plan.slug === null && (
                 <div className={styles.contactNote}>
                   <IconWhatsApp />
                   <span>
@@ -178,16 +184,19 @@ export default function Plans() {
                   </span>
                 </div>
               )}
-              {plan.highlight ? (
+              {plan.slug === null ? (
                 <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
                   Faça seu orçamento →
                 </a>
               ) : (
-                <a href={`${BASE_URL}?plan=${plan.slug}`} className={styles.secondaryBtn}>
-                  Testar grátis por 7 dias →
-                </a>
+                <>
+                  <a href={`${BASE_URL}?plan=${plan.slug}`} className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn}>
+                    Testar grátis por 7 dias →
+                  </a>
+                  <p className={styles.btnSubtext}>sem cartão de crédito · cancele quando quiser</p>
+                </>
               )}
-            </div>
+            </RevealSection>
           ))}
         </div>
       </div>

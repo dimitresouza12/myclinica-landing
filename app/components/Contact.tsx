@@ -1,6 +1,8 @@
 import styles from './Contact.module.css';
+import RevealSection from './RevealSection';
 
 const WHATSAPP = 'https://wa.me/5588988557247';
+const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
 
 const IconWhatsApp = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -12,24 +14,31 @@ export default function Contact() {
   return (
     <section className={styles.section} id="contact">
       <div className={styles.container}>
-        <div className={styles.inner}>
+        <RevealSection className={styles.inner} tag="div">
           <span className={styles.badge}>Contato</span>
           <h2 className={styles.title}>
             Pronto para transformar<br />
             <span className={styles.highlight}>sua clínica?</span>
           </h2>
           <p className={styles.subtitle}>
-            Fale com a nossa equipe pelo WhatsApp. Respondemos rapidinho e ajudamos você a configurar tudo.
+            Comece agora com 7 dias grátis — ou fale com nossa equipe no WhatsApp para tirar dúvidas.
           </p>
-          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.btn}>
-            <span className={styles.btnIcon}><IconWhatsApp /></span>
-            Falar pelo WhatsApp
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-              <path d="M1 9h16M10 3l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-            </svg>
-          </a>
-          <p className={styles.note}>Resposta em até 1 hora · Seg–Sáb, 8h–18h</p>
-        </div>
+
+          <div className={styles.ctaRow}>
+            <a href={SAAS_QUIZ} className={styles.trialLink}>
+              Testar 7 dias grátis
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+            </a>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.btn}>
+              <span className={styles.btnIcon}><IconWhatsApp /></span>
+              Falar pelo WhatsApp
+            </a>
+          </div>
+
+          <p className={styles.note}>sem cartão de crédito · resposta em até 1 hora · Seg–Sáb 8h–18h</p>
+        </RevealSection>
       </div>
     </section>
   );

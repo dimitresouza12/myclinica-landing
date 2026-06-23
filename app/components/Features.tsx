@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import styles from './Features.module.css';
+import RevealSection from './RevealSection';
 
 interface Feature {
   icon: ReactNode;
@@ -103,7 +104,7 @@ export default function Features() {
   return (
     <section className={styles.section} id="features">
       <div className={styles.container}>
-        <div className={styles.header}>
+        <RevealSection className={styles.header} tag="div">
           <span className={styles.eyebrow}>/ Funcionalidades</span>
           <h2 className={styles.title}>
             Tudo que sua clínica precisa,{' '}
@@ -112,20 +113,22 @@ export default function Features() {
           <p className={styles.subtitle}>
             Uma plataforma pensada do zero para o fluxo real de clínicas e consultórios.
           </p>
-        </div>
+        </RevealSection>
 
         <div className={styles.grid}>
-          {features.map((f) => (
-            <div
+          {features.map((f, i) => (
+            <RevealSection
               key={f.title}
               className={`${styles.card} ${f.hero ? styles.cardHero : ''} ${f.span === 2 ? styles.span2 : ''}`}
+              delay={i}
+              variant="scale"
             >
               <div className={styles.iconWrap}>
                 <span className={styles.icon}>{f.icon}</span>
               </div>
               <h3 className={styles.cardTitle}>{f.title}</h3>
               <p className={styles.cardDesc}>{f.desc}</p>
-            </div>
+            </RevealSection>
           ))}
         </div>
       </div>

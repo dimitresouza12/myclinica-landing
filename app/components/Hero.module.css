@@ -102,39 +102,63 @@
 }
 
 .primary {
-  background: var(--text);
-  color: var(--bg);
-  padding: 13px 22px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 60%, var(--primary-dark) 100%);
+  color: #fff;
+  padding: 15px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: var(--shadow-glow);
-  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.5), 0 8px 24px rgba(13, 148, 136, 0.35);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
   position: relative;
+  overflow: hidden;
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 3s ease-in-out infinite;
 }
 .primary::after {
   content: '';
   position: absolute;
-  inset: -1px;
-  border-radius: 13px;
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
-  opacity: 0;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
   z-index: -1;
-  transition: opacity 0.25s;
+  opacity: 0.4;
+  filter: blur(8px);
+  transition: opacity 0.2s;
 }
 .primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.3), 0 16px 40px rgba(13, 148, 136, 0.2);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 0 0 rgba(13, 148, 136, 0), 0 16px 40px rgba(13, 148, 136, 0.5);
+  animation: none;
 }
-.primary:hover::after { opacity: 0.15; }
+.primary:hover::after { opacity: 0.7; }
 .primary svg {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.primary:hover svg { transform: translateX(3px); }
+.primary:hover svg { transform: translateX(4px); }
+
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.5), 0 8px 24px rgba(13, 148, 136, 0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(13, 148, 136, 0), 0 8px 32px rgba(13, 148, 136, 0.45); }
+}
+@keyframes shimmer {
+  0%   { left: -100%; }
+  60%, 100% { left: 160%; }
+}
 
 .secondary {
   color: var(--text);

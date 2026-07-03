@@ -61,19 +61,20 @@
 }
 
 .ctaBtn {
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 60%, var(--primary-dark) 100%);
+  color: #fff;
   padding: 9px 18px;
   border-radius: 10px;
   font-size: 0.86rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.1px;
   transition: transform 0.15s, box-shadow 0.2s;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
 }
 .ctaBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2);
+  box-shadow: 0 8px 20px rgba(13, 148, 136, 0.5);
 }
 
 .hamburger {

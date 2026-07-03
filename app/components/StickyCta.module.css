@@ -38,8 +38,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 60%, var(--primary-dark) 100%);
+  color: #fff;
   padding: 11px 22px;
   border-radius: 10px;
   font-size: 0.9rem;

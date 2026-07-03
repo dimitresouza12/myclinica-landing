@@ -161,7 +161,8 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -2px;
-  background: linear-gradient(120deg, var(--primary), var(--primary-light) 60%, var(--primary));
+  line-height: 1.25;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light) 45%, var(--primary) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

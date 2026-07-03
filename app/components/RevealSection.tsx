@@ -8,9 +8,10 @@ interface Props {
   delay?: number;
   variant?: 'up' | 'scale';
   id?: string;
+  style?: React.CSSProperties;
 }
 
-export default function RevealSection({ children, className = '', tag: Tag = 'div', delay = 0, variant = 'up', id }: Props) {
+export default function RevealSection({ children, className = '', tag: Tag = 'div', delay = 0, variant = 'up', id, style }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function RevealSection({ children, className = '', tag: Tag = 'di
     <Tag
       ref={ref as React.RefObject<HTMLElement & HTMLDivElement & HTMLElement>}
       className={`${cls} ${className}`}
-      style={delay ? { '--i': delay } as React.CSSProperties : undefined}
+      style={{ ...(delay ? { '--i': delay } as React.CSSProperties : undefined), ...style }}
       id={id}
     >
       {children}

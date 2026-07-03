@@ -6,8 +6,10 @@ interface Feature {
   icon: ReactNode;
   title: string;
   desc: string;
+  color: string;
   span?: 1 | 2 | 3;
   hero?: boolean;
+  proof?: 'ficha' | 'chat';
 }
 
 const features: Feature[] = [
@@ -21,8 +23,10 @@ const features: Feature[] = [
     ),
     title: 'Prontuário Eletrônico',
     desc: 'Ficha completa do paciente com anamnese, exame clínico, plano de tratamento e contrato digital.',
+    color: '#0D9488',
     span: 2,
     hero: true,
+    proof: 'ficha',
   },
   {
     icon: (
@@ -35,6 +39,7 @@ const features: Feature[] = [
     ),
     title: 'Agenda Inteligente',
     desc: 'Agendamentos com integração ao Google Calendar e lembretes automáticos.',
+    color: '#2563EB',
   },
   {
     icon: (
@@ -44,6 +49,7 @@ const features: Feature[] = [
     ),
     title: 'CRM via WhatsApp',
     desc: 'Histórico de conversas vinculado ao prontuário.',
+    color: '#16A34A',
   },
   {
     icon: (
@@ -54,6 +60,7 @@ const features: Feature[] = [
     ),
     title: 'Financeiro',
     desc: 'Lançamentos, receitas e despesas com relatórios simples.',
+    color: '#D97706',
   },
   {
     icon: (
@@ -63,7 +70,9 @@ const features: Feature[] = [
     ),
     title: 'IA no Atendimento',
     desc: 'Agente de IA integrado ao WhatsApp para triagem, pré-atendimento e agendamento via chat.',
+    color: '#7C3AED',
     span: 2,
+    proof: 'chat',
   },
   {
     icon: (
@@ -76,6 +85,7 @@ const features: Feature[] = [
     ),
     title: 'Gestão de Equipe',
     desc: 'Cadastro de profissionais com perfis e permissões.',
+    color: '#0EA5E9',
   },
   {
     icon: (
@@ -87,6 +97,7 @@ const features: Feature[] = [
     ),
     title: 'Estoque',
     desc: 'Controle com alertas de mínimo, entradas e saídas.',
+    color: '#E11D48',
   },
   {
     icon: (
@@ -97,8 +108,35 @@ const features: Feature[] = [
     ),
     title: 'Multi-clínica Seguro',
     desc: 'Dados isolados por clínica. Superadmin gerencia todas as unidades.',
+    color: '#4F46E5',
   },
 ];
+
+function FichaProof() {
+  return (
+    <div className={styles.proofFicha}>
+      {['Queixa principal', 'Exame clínico', 'Plano de tratamento'].map((l) => (
+        <div key={l} className={styles.proofField}>
+          <span>{l}</span>
+          <div className={styles.proofLine} />
+        </div>
+      ))}
+      <div className={styles.proofSigned}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        Assinado digitalmente
+      </div>
+    </div>
+  );
+}
+
+function ChatProof() {
+  return (
+    <div className={styles.proofChat}>
+      <div className={`${styles.proofBubble} ${styles.proofBubbleIn}`}>Oi, quero marcar uma consulta</div>
+      <div className={`${styles.proofBubble} ${styles.proofBubbleOut}`}>Claro! Temos horário quinta às 14h — confirma? ✅</div>
+    </div>
+  );
+}
 
 export default function Features() {
   return (
@@ -122,12 +160,15 @@ export default function Features() {
               className={`${styles.card} ${f.hero ? styles.cardHero : ''} ${f.span === 2 ? styles.span2 : ''}`}
               delay={i}
               variant="scale"
+              style={{ '--accent': f.color, borderTopColor: f.color } as React.CSSProperties}
             >
-              <div className={styles.iconWrap}>
+              <div className={styles.iconWrap} style={{ color: f.color, background: `${f.color}18`, borderColor: `${f.color}40` }}>
                 <span className={styles.icon}>{f.icon}</span>
               </div>
               <h3 className={styles.cardTitle}>{f.title}</h3>
               <p className={styles.cardDesc}>{f.desc}</p>
+              {f.proof === 'ficha' && <FichaProof />}
+              {f.proof === 'chat' && <ChatProof />}
             </RevealSection>
           ))}
         </div>

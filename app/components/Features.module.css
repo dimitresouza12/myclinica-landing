@@ -53,9 +53,10 @@
 }
 
 .card {
-  background: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 100%);
+  background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-top: 3px solid var(--accent, var(--primary));
+  border-radius: 16px;
   padding: 26px;
   position: relative;
   overflow: hidden;
@@ -65,16 +66,14 @@
   min-height: 220px;
 }
 .card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(13, 148, 136, 0.3);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -8px color-mix(in srgb, var(--accent, var(--primary)) 35%, transparent);
 }
 
 .span2 { grid-column: span 2; }
 
 .cardHero {
-  background: linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(13, 148, 136, 0.04) 100%);
-  border-color: rgba(13, 148, 136, 0.25);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 6%, var(--bg)) 0%, var(--bg) 100%);
 }
 .cardHero::after {
   content: '';
@@ -83,8 +82,8 @@
   width: 280px;
   height: 280px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
-  opacity: 0.2;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.12;
   pointer-events: none;
 }
 .cardHero .cardTitle { font-size: 1.45rem; }
@@ -92,17 +91,14 @@
 .iconWrap {
   width: 40px;
   height: 40px;
-  background: var(--surface-3);
-  border: 1px solid var(--line);
+  border: 1px solid;
   border-radius: 11px;
   display: grid;
   place-items: center;
   margin-bottom: 16px;
+  transition: transform 0.2s;
 }
-.cardHero .iconWrap {
-  background: rgba(94, 234, 212, 0.15);
-  border-color: rgba(94, 234, 212, 0.25);
-}
+.card:hover .iconWrap { transform: scale(1.08) rotate(-4deg); }
 .icon { font-size: 1.15rem; }
 
 .cardTitle {
@@ -119,6 +115,69 @@
   line-height: 1.55;
 }
 .cardHero .cardDesc { color: var(--text-muted); }
+
+/* ─── Prova visual: mini ficha (card Prontuário) ──── */
+.proofFicha {
+  margin-top: auto;
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.proofField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+.proofLine {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.proofSigned {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* ─── Prova visual: mini chat (card IA) ─────────────── */
+.proofChat {
+  margin-top: auto;
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.proofBubble {
+  max-width: 82%;
+  padding: 7px 12px;
+  border-radius: 12px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+.proofBubbleIn {
+  align-self: flex-start;
+  background: var(--surface-2);
+  color: var(--text);
+  border-bottom-left-radius: 3px;
+}
+.proofBubbleOut {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
 
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }

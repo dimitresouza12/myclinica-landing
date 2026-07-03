@@ -64,14 +64,14 @@
 .fcHead { display: flex; align-items: baseline; gap: 7px; }
 .fcHead strong {
   font-size: 1.7rem; font-weight: 700; color: var(--text); line-height: 1;
-  font-family: var(--font-instrument); font-style: italic;
+  font-variant-numeric: tabular-nums;
 }
 .fcHead span { font-size: 0.78rem; color: var(--text-muted); }
 
 .fcTopRow { display: flex; align-items: center; justify-content: space-between; }
 .fcTopRow strong {
   font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1;
-  font-family: var(--font-instrument); font-style: italic;
+  font-variant-numeric: tabular-nums;
 }
 .fcTag {
   font-size: 0.72rem; font-weight: 700; color: var(--success);

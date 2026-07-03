@@ -100,7 +100,7 @@ export default function Journey() {
             >
               <div
                 className={styles.iconWrap}
-                style={{ color: s.color, background: s.soft, borderColor: s.color }}
+                style={{ color: s.color, background: `linear-gradient(${s.soft}, ${s.soft}), #fff`, borderColor: s.color }}
               >
                 {s.icon}
               </div>

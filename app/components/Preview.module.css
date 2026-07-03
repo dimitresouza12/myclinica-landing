@@ -120,14 +120,58 @@
   font-weight: 600;
 }
 
-/* ─── App shell ───────────────────────────────── */
-.shell {
-  display: flex;
-  height: 560px;
+/* ─── Browser chrome (moldura estilo Safari) ──── */
+.browserFrame {
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #E0F5F2;
   box-shadow: 0 24px 48px rgba(13,36,33,0.12);
+}
+
+.browserBar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  padding: 0 14px;
+  background: linear-gradient(#FBFEFE, #F2FDFB);
+  border-bottom: 1px solid #E0F5F2;
+}
+
+.browserDots { display: flex; gap: 7px; }
+.browserDot { width: 11px; height: 11px; border-radius: 50%; }
+.browserDot:nth-child(1) { background: #FF5F57; }
+.browserDot:nth-child(2) { background: #FEBC2E; }
+.browserDot:nth-child(3) { background: #28C840; }
+
+.browserUrlWrap { display: flex; justify-content: center; min-width: 0; }
+.browserUrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F2FDFB;
+  border: 1px solid #D0EBE8;
+  border-radius: 999px;
+  padding: 5px 16px;
+  font-size: 0.72rem;
+  color: #5C7B79;
+  font-family: var(--font-geist-mono);
+  max-width: 340px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.browserUrl svg { flex-shrink: 0; color: #4DD9C0; }
+
+.browserActions { display: flex; gap: 10px; color: #B7D9D5; flex-shrink: 0; }
+.browserActions svg { display: block; }
+
+/* ─── App shell ───────────────────────────────── */
+.shell {
+  display: flex;
+  height: 560px;
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════════
@@ -762,32 +806,34 @@
 
 .pmTabs {
   display: flex;
-  gap: 0;
+  gap: 6px;
   background: #FFFFFF;
   border-bottom: 1px solid #D0EBE8;
-  padding: 0 12px;
+  padding: 8px 12px;
   flex-shrink: 0;
   overflow-x: auto;
 }
 
 .pmTab {
-  padding: 9px 12px;
-  border: none;
-  background: none;
+  padding: 7px 12px;
+  border: 1px solid #D0EBE8;
+  border-radius: 8px;
+  background: #F7FEFD;
   font-size: 0.74rem;
   font-weight: 500;
   color: #5C7B79;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
   white-space: nowrap;
-  margin-bottom: -1px;
   flex-shrink: 0;
+  transition: all 0.15s;
 }
-.pmTab:hover { color: #0D2421; }
+.pmTab:hover { background: #E5F9F5; border-color: #4DD9C0; color: #0D2421; }
 .pmTabActive {
-  color: #4DD9C0;
-  border-bottom-color: #4DD9C0;
+  background: #4DD9C0;
+  border-color: #4DD9C0;
+  color: #FFFFFF;
   font-weight: 600;
+  box-shadow: 0 2px 6px rgba(77,217,192,0.35);
 }
 
 /* ─── Ficha ───────────────────────────────────── */
@@ -972,6 +1018,216 @@
   font-size: 0.8rem;
   color: #9BB5B3;
 }
+
+/* ─── Evolução (timeline) ──────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid #E5F5F2;
+  border-radius: 14px;
+  padding: 16px 18px 4px;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 12px;
+}
+
+.timelineRail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timelineDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4DD9C0;
+  box-shadow: 0 0 0 3px #E5F9F5;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.timelineLine {
+  flex: 1;
+  width: 2px;
+  min-height: 24px;
+  background: #E0F5F2;
+  margin-top: 4px;
+}
+
+.timelineBody {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 18px;
+}
+
+.timelineTop {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 3px;
+}
+
+.timelineDate {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0D2421;
+  font-variant-numeric: tabular-nums;
+}
+
+.timelineAuthor {
+  font-size: 0.66rem;
+  color: #4DD9C0;
+  font-weight: 600;
+}
+
+.timelineText {
+  font-size: 0.76rem;
+  color: #5C7B79;
+  line-height: 1.5;
+}
+
+/* ─── Documentos ────────────────────────────────── */
+.docList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.docItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid #E5F5F2;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.docIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #E5F9F5;
+  color: #0B9B85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.docBody { flex: 1; min-width: 0; }
+.docName {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0D2421;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.docMeta { font-size: 0.66rem; color: #9BB5B3; margin-top: 2px; }
+
+.docDownload {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #D0EBE8;
+  background: #F7FEFD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5C7B79;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.docDownload:hover { background: #E5F9F5; border-color: #4DD9C0; color: #0B9B85; }
+
+/* ─── Chat IA (WhatsApp) ─────────────────────────── */
+.chatWrap {
+  background: #F7FEFD;
+  border: 1px solid #E5F5F2;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E5F5F2;
+}
+
+.chatAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4DD9C0, #0B9B85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.chatHeaderInfo { display: flex; flex-direction: column; }
+.chatHeaderName { font-size: 0.76rem; font-weight: 700; color: #0D2421; }
+.chatHeaderStatus {
+  font-size: 0.64rem;
+  color: #4DD9C0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chatHeaderStatus::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4DD9C0;
+}
+
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+
+.chatRow { display: flex; flex-direction: column; max-width: 78%; }
+.chatRowOut { align-self: flex-end; align-items: flex-end; }
+.chatRowIn { align-self: flex-start; align-items: flex-start; }
+
+.chatBubble {
+  padding: 7px 11px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+.chatRowOut .chatBubble {
+  background: #4DD9C0;
+  color: #FFFFFF;
+  border-bottom-right-radius: 3px;
+}
+.chatRowIn .chatBubble {
+  background: #FFFFFF;
+  border: 1px solid #E5F5F2;
+  color: #0D2421;
+  border-bottom-left-radius: 3px;
+}
+
+.chatTime { font-size: 0.6rem; color: #9BB5B3; margin-top: 3px; padding: 0 2px; }
 
 /* ═══════════════════════════════════════════════
    4. FINANCEIRO — cards icon+barra, filtros, tags

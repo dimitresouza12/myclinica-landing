@@ -620,9 +620,104 @@ function FaceogramaMock() {
   );
 }
 
+/* ── Evolução — linha do tempo de atendimentos ── */
+function TimelineMock({ firstName }: { firstName: string }) {
+  const items = [
+    { date: '15/05/2026 09:40', author: 'Dra. Camila Rocha', text: `${firstName} retornou para avaliação de rotina. Sem queixas relevantes — orientações de manutenção reforçadas.` },
+    { date: '02/05/2026 14:15', author: 'Dra. Camila Rocha', text: 'Procedimento realizado conforme plano de tratamento. Paciente tolerou bem, sem intercorrências.' },
+    { date: '18/04/2026 10:00', author: 'Recepção · WhatsApp', text: 'Confirmação automática enviada e recebida — consulta remarcada a pedido do paciente.' },
+    { date: '05/04/2026 16:30', author: 'Dra. Camila Rocha', text: 'Primeira consulta. Anamnese completa e exame clínico realizados. Plano de tratamento iniciado.' },
+  ];
+  return (
+    <div className={styles.timeline}>
+      {items.map((it, i) => (
+        <div key={i} className={styles.timelineItem}>
+          <div className={styles.timelineRail}>
+            <span className={styles.timelineDot} />
+            {i < items.length - 1 && <span className={styles.timelineLine} />}
+          </div>
+          <div className={styles.timelineBody}>
+            <div className={styles.timelineTop}>
+              <span className={styles.timelineDate}>{it.date}</span>
+              <span className={styles.timelineAuthor}>{it.author}</span>
+            </div>
+            <p className={styles.timelineText}>{it.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Documentos — receitas, atestados, exames ── */
+function DocumentosMock() {
+  const docs = [
+    { name: 'Atestado médico.pdf', meta: '15/05/2026 · 128 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
+    { name: 'Receituário — controle contínuo.pdf', meta: '15/05/2026 · 96 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
+    { name: 'Termo de consentimento.pdf', meta: '05/04/2026 · 210 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
+    { name: 'Exame complementar.jpg', meta: '02/05/2026 · 1.4 MB', icon: 'M3 3h18v18H3z M8.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z M21 15l-5-5L5 21' },
+  ];
+  return (
+    <div className={styles.docList}>
+      {docs.map((d, i) => (
+        <div key={i} className={styles.docItem}>
+          <div className={styles.docIcon}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {d.icon.split(' M').map((seg, j) => <path key={j} d={j === 0 ? seg : `M${seg}`} />)}
+            </svg>
+          </div>
+          <div className={styles.docBody}>
+            <div className={styles.docName}>{d.name}</div>
+            <div className={styles.docMeta}>{d.meta}</div>
+          </div>
+          <div className={styles.docDownload}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+            </svg>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Chat IA — histórico de conversa via WhatsApp ── */
+function ChatMock({ firstName }: { firstName: string }) {
+  const msgs = [
+    { out: true,  text: `Olá, ${firstName}! 👋 Aqui é a assistente virtual da Clínica Saúde+. Tudo bem?`, time: '09:12' },
+    { out: false, text: 'Oi! Tudo sim, queria remarcar minha consulta de amanhã', time: '09:14' },
+    { out: true,  text: 'Claro! Encontrei seu agendamento de 21/05 às 09:00. Para qual data você prefere remarcar?', time: '09:14' },
+    { out: false, text: 'Pode ser sexta, dia 23, de manhã?', time: '09:15' },
+    { out: true,  text: 'Perfeito ✅ Reagendei para 23/05 às 09:30. Você vai receber um lembrete 24h antes. Precisa de mais alguma coisa?', time: '09:15' },
+    { out: false, text: 'Não, obrigado!', time: '09:16' },
+    { out: true,  text: 'Disponha! Qualquer coisa é só chamar 💙', time: '09:16' },
+  ];
+  const initials = firstName.slice(0, 2).toUpperCase();
+  return (
+    <div className={styles.chatWrap}>
+      <div className={styles.chatHeader}>
+        <div className={styles.chatAvatar}>{initials}</div>
+        <div className={styles.chatHeaderInfo}>
+          <span className={styles.chatHeaderName}>{firstName} · WhatsApp</span>
+          <span className={styles.chatHeaderStatus}>IA conectada</span>
+        </div>
+      </div>
+      <div className={styles.chatBody}>
+        {msgs.map((m, i) => (
+          <div key={i} className={`${styles.chatRow} ${m.out ? styles.chatRowOut : styles.chatRowIn}`}>
+            <div className={styles.chatBubble}>{m.text}</div>
+            <span className={styles.chatTime}>{m.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ProntuarioMock({ spec }: { spec: SpecId }) {
   const data = specData[spec];
   const initials = data.patient.replace(/\(.*\)/, '').trim().split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const firstName = data.patient.replace(/\(.*\)/, '').trim().split(' ')[0];
   const tabList = [
     { key: 'ficha', label: 'Ficha Clínica' },
     ...(spec === 'odonto' ? [{ key: 'odontograma', label: 'Odontograma' }] : []),
@@ -657,13 +752,9 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
         {activeTab === 'ficha' && <FichaMock spec={spec} />}
         {activeTab === 'odontograma' && <OdontogramaMock />}
         {activeTab === 'faceograma' && <FaceogramaMock />}
-        {(activeTab === 'timeline' || activeTab === 'documentos' || activeTab === 'chat') && (
-          <div className={styles.emptyTab}>
-            {activeTab === 'timeline' ? 'Linha do tempo de evoluções clínicas do paciente.' :
-             activeTab === 'documentos' ? 'Receitas, atestados e declarações em PDF.' :
-             'Histórico de conversas do WhatsApp com a IA.'}
-          </div>
-        )}
+        {activeTab === 'timeline' && <TimelineMock firstName={firstName} />}
+        {activeTab === 'documentos' && <DocumentosMock />}
+        {activeTab === 'chat' && <ChatMock firstName={firstName} />}
       </div>
     </div>
   );
@@ -1040,9 +1131,31 @@ export default function Preview() {
           </div>
         )}
 
-        <div className={styles.shell}>
-          <Sidebar active={sidebarActive[active]} />
-          <div className={styles.content}>{screen}</div>
+        <div className={styles.browserFrame}>
+          <div className={styles.browserBar}>
+            <div className={styles.browserDots}>
+              <span className={styles.browserDot} />
+              <span className={styles.browserDot} />
+              <span className={styles.browserDot} />
+            </div>
+            <div className={styles.browserUrlWrap}>
+              <div className={styles.browserUrl}>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 018 0v4" />
+                </svg>
+                app.myclinica.com.br/{active}
+              </div>
+            </div>
+            <div className={styles.browserActions}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M23 4v6h-6M1 20v-6h6" /><path d="M20.49 9A9 9 0 105.64 18.36L1 20M23 4l-4.64 4.64" />
+              </svg>
+            </div>
+          </div>
+          <div className={styles.shell}>
+            <Sidebar active={sidebarActive[active]} />
+            <div className={styles.content}>{screen}</div>
+          </div>
         </div>
       </div>
     </section>

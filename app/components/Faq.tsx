@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import styles from './Faq.module.css';
+import RevealSection from './RevealSection';
 
 const faqs = [
   {
@@ -51,15 +52,15 @@ export default function Faq() {
   return (
     <section className={styles.section} id="faq">
       <div className={styles.container}>
-        <div className={styles.header}>
+        <RevealSection className={styles.header} tag="div">
           <span className={styles.badge}>FAQ</span>
           <h2 className={styles.title}>Perguntas frequentes</h2>
           <p className={styles.subtitle}>
             Tudo que você precisa saber antes de começar.
           </p>
-        </div>
+        </RevealSection>
 
-        <div className={styles.list}>
+        <RevealSection className={styles.list} tag="div">
           {faqs.map((faq, i) => (
             <div
               key={i}
@@ -79,7 +80,7 @@ export default function Faq() {
               )}
             </div>
           ))}
-        </div>
+        </RevealSection>
       </div>
     </section>
   );

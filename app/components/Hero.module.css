@@ -36,6 +36,89 @@
   align-items: center;
 }
 
+/* ─── Cards flutuantes ───────────────────────────────────────── */
+.floatCard {
+  position: absolute;
+  z-index: 1;
+  width: 210px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+  text-align: left;
+  animation: cardFloat 6s ease-in-out infinite;
+}
+.floatCard[data-pos="tl"] { top: 12%;  left: 3%;  animation-delay: 0s;   }
+.floatCard[data-pos="tr"] { top: 20%;  right: 3%; animation-delay: 1.5s; }
+.floatCard[data-pos="bl"] { bottom: 8%; left: 4%;  animation-delay: 0.8s; }
+.floatCard[data-pos="br"] { bottom: 14%; right: 4%; animation-delay: 2.2s; }
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+
+.fcHead { display: flex; align-items: baseline; gap: 7px; }
+.fcHead strong {
+  font-size: 1.7rem; font-weight: 700; color: var(--text); line-height: 1;
+  font-family: var(--font-instrument); font-style: italic;
+}
+.fcHead span { font-size: 0.78rem; color: var(--text-muted); }
+
+.fcTopRow { display: flex; align-items: center; justify-content: space-between; }
+.fcTopRow strong {
+  font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1;
+  font-family: var(--font-instrument); font-style: italic;
+}
+.fcTag {
+  font-size: 0.72rem; font-weight: 700; color: var(--success);
+  background: rgba(5, 150, 105, 0.1); padding: 2px 8px; border-radius: 999px;
+}
+.fcLabel { display: block; font-size: 0.76rem; color: var(--text-muted); margin: 4px 0 10px; }
+
+.fcBar {
+  height: 6px; background: var(--surface-2); border-radius: 999px;
+  overflow: hidden; margin: 10px 0 8px;
+}
+.fcBar span {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--primary-light), var(--primary));
+  border-radius: 999px;
+}
+.fcFoot { display: flex; justify-content: space-between; font-style: normal; }
+.fcFoot em { font-size: 0.72rem; font-style: normal; }
+.fcGood { color: var(--success); font-weight: 600; }
+.fcWarn { color: var(--warning); font-weight: 600; }
+
+.fcDots { display: flex; gap: 4px; }
+.fcDots i {
+  width: 100%; height: 8px; background: var(--surface-2); border-radius: 3px;
+}
+.fcDotOn { background: var(--primary) !important; }
+
+.fcChart {
+  display: flex; align-items: flex-end; gap: 5px; height: 44px;
+}
+.fcChart i {
+  flex: 1; background: linear-gradient(180deg, var(--primary-light), var(--primary));
+  border-radius: 4px 4px 0 0; min-height: 6px;
+}
+.fcChart i:last-child { background: linear-gradient(180deg, var(--primary), var(--primary-dark)); }
+
+.fcReactivate {
+  margin-top: 10px; font-size: 0.76rem; font-weight: 600; color: var(--primary);
+  background: var(--primary-soft); padding: 7px 10px; border-radius: 9px;
+  text-align: center;
+}
+
+/* Esconde os cards flutuantes em telas médias/pequenas — não cabem */
+@media (max-width: 1180px) {
+  .floatCard { display: none; }
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

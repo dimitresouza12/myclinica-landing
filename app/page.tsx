@@ -3,6 +3,7 @@ import PromoBanner from './components/PromoBanner';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Specialties from './components/Specialties';
+import Journey from './components/Journey';
 import Preview from './components/Preview';
 import Plans from './components/Plans';
 import Faq from './components/Faq';
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <Features />
         <Specialties />
+        <Journey />
         <Preview />
         <Plans />
         <Faq />

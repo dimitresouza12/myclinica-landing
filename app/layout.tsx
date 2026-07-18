@@ -29,9 +29,12 @@ export const metadata: Metadata = {
   title: "MyClínica — Sistema de Gestão para Clínicas",
   description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 7 dias grátis, sem cartão.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/icons/icon-192.png",
+    apple: "/icons/icon-192.png",
   },
   openGraph: {
     title: "MyClínica — Sistema de Gestão para Clínicas",

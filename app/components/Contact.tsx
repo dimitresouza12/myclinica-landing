@@ -1,8 +1,20 @@
+'use client';
+
 import styles from './Contact.module.css';
 import RevealSection from './RevealSection';
 
 const WHATSAPP = 'https://wa.me/55889200205070';
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
+function trackLead(source: string) {
+  window.fbq?.('track', 'Lead', { content_name: source });
+}
 
 const IconWhatsApp = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -25,15 +37,15 @@ export default function Contact() {
           </p>
 
           <div className={styles.ctaRow}>
-            <a href={SAAS_QUIZ} className={styles.trialLink}>
+            <a href={SAAS_QUIZ} className={styles.trialLink} onClick={() => trackLead('contact_testar_gratis')}>
               Testar 7 dias grátis
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
             </a>
-            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.btn}>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.btn} onClick={() => trackLead('contact_falar_especialista')}>
               <span className={styles.btnIcon}><IconWhatsApp /></span>
-              Falar pelo WhatsApp
+              Falar com especialista
             </a>
           </div>
 

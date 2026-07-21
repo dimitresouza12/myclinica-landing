@@ -399,6 +399,9 @@
 }
 
 .ghostBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.78rem;
   font-weight: 600;
   color: #5C7B79;
@@ -517,45 +520,259 @@
 }
 
 /* ═══════════════════════════════════════════════
-   1. DASHBOARD — cards com border-top accent
+   1. DASHBOARD — réplica do bento real (hero + meta + avisos)
    ═══════════════════════════════════════════════ */
-.dashCards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
-}
 
-.dashCard {
-  background: #FFFFFF;
-  border: 1px solid #E5F5F2;
-  border-top: 3px solid #4DD9C0;
+/* — Widget de Ações necessárias — */
+.alertWidget {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
   border-radius: 12px;
-  padding: 14px 14px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-  box-shadow: 0 1px 3px rgba(13,36,33,0.05);
+  overflow: hidden;
+  flex-shrink: 0;
 }
-
-.dashCardValue {
-  font-size: 1.5rem;
-  font-weight: 800;
+.alertHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+}
+.alertHeaderIcon { color: #F59E0B; display: flex; }
+.alertTitle { font-size: 0.8rem; font-weight: 700; color: #92400E; }
+.alertCount {
+  background: #F59E0B;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+.alertCollapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: auto;
+  color: #92400E;
+  transform: rotate(90deg);
+}
+.alertCollapseBtn svg { width: 12px; height: 12px; }
+.alertList { display: flex; flex-direction: column; background: #FFFFFF; }
+.alertItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-top: 1px solid #E5F5F2;
+}
+.alertBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.alertBadge svg { width: 10px; height: 10px; }
+.alertInfo { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.alertName {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: #0D2421;
-  line-height: 1;
-  letter-spacing: -0.5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.dashCardLabel {
-  font-size: 0.66rem;
-  font-weight: 600;
+.alertDate { font-size: 0.66rem; color: #5C7B79; }
+.alertActions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.alertBtnWa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.alertBtnIgnore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid #D0EBE8;
   color: #5C7B79;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* — Bento: Financeiro (herói) + Meta do mês — */
+.bento {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.cardHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.eyebrow {
+  font-size: 0.62rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1.3;
+  letter-spacing: 0.08em;
+  color: #9BB5B3;
+}
+
+.heroCard {
+  background: #FFFFFF;
+  border: 1px solid #E5F5F2;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(13,36,33,0.05);
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.heroRow { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; min-width: 0; }
+.heroValue {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  line-height: 1;
+  color: #0D2421;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.deltaUp { color: #0F9F6E; background: rgba(16,185,129,0.1); }
+.deltaRef { color: #9BB5B3; font-weight: 500; margin-left: 2px; }
+.spark { display: flex; align-items: flex-end; gap: 4px; height: 30px; margin: 10px 0 4px; }
+.spark span { flex: 1; border-radius: 3px 3px 0 0; background: #E8F9F5; }
+.spark span.sparkOn { background: linear-gradient(180deg, #4DD9C0, #0B9B85); }
+.sparkAxis { display: flex; justify-content: space-between; font-size: 0.56rem; color: #9BB5B3; font-weight: 600; }
+.subGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid #E5F5F2;
+  margin-top: auto;
+  padding-top: 10px;
+  gap: 4px;
+}
+.subGrid > div + div { padding-left: 12px; border-left: 1px solid #E5F5F2; }
+.subMetric {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #0D2421;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.subAccent { color: #0B9B85; }
+.subLabel { font-size: 0.62rem; color: #5C7B79; margin-top: 1px; }
+
+.metaCard {
+  background: linear-gradient(158deg, #E8FAF7 0%, #FFFFFF 60%);
+  border: 1px solid #E5F5F2;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(13,36,33,0.05);
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.metaEdit { display: inline-flex; align-items: center; gap: 2px; font-size: 0.62rem; font-weight: 600; color: #0B9B85; }
+.metaEdit svg { width: 10px; height: 10px; }
+.ring { position: relative; width: 96px; height: 96px; margin: 2px auto 8px; }
+.ring svg { display: block; }
+.ringTrack { stroke: #E8F9F5; }
+.ringPct { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.ringPct b { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.4px; color: #0D2421; }
+.ringPct small { font-size: 0.54rem; color: #9BB5B3; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.metaFig { text-align: center; font-size: 0.82rem; font-weight: 700; color: #0D2421; }
+.metaOf { color: #5C7B79; font-weight: 500; font-size: 0.72rem; }
+.metaPace {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #E5F5F2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  color: #5C7B79;
+  line-height: 1.4;
+}
+.pacePill { width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0; }
+
+/* — Tira operacional — */
+.opsStrip {
+  background: #FFFFFF;
+  border: 1px solid #E5F5F2;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(13,36,33,0.05);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.opsCell { padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.opsCell + .opsCell { border-left: 1px solid #E5F5F2; }
+.cellVal { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.3px; color: #0D2421; }
+.cellSplit { display: flex; align-items: baseline; gap: 5px; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.3px; color: #0D2421; }
+.cellSep { color: #9BB5B3; font-weight: 400; font-size: 0.95rem; }
+.cellWarn { color: #B77416; }
+.cellLabel { font-size: 0.64rem; font-weight: 600; color: #5C7B79; }
+
+/* — Gráficos lado a lado — */
+.chartsGrid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; align-items: start; }
+.chartPad { padding: 12px 16px 10px; }
+
+.catList { display: flex; flex-direction: column; gap: 10px; }
+.catRow { display: flex; align-items: center; gap: 10px; }
+.catLabel { font-size: 0.7rem; color: #5C7B79; font-weight: 500; width: 84px; flex-shrink: 0; }
+.catBarTrack { flex: 1; height: 6px; border-radius: 999px; background: #F2FDFB; overflow: hidden; }
+.catBarFill { height: 100%; border-radius: 999px; }
+.catValue { font-size: 0.7rem; font-weight: 700; color: #0D2421; flex-shrink: 0; white-space: nowrap; }
+
+/* — Conclusões & Dicas — */
+.insightsCard { background: #FFFFFF; border: 1px solid #E5F5F2; border-radius: 12px; padding: 14px 16px; }
+.insightsTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0D2421;
+  padding-left: 0.55rem;
+  border-left: 2px solid #4DD9C0;
+  margin-bottom: 10px;
+}
+.insightsList { display: flex; flex-direction: column; gap: 10px; }
+.insightItem { display: flex; align-items: flex-start; gap: 10px; }
+.insightIcon {
+  width: 24px; height: 24px; border-radius: 8px; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+}
+.insightIcon svg { width: 13px; height: 13px; }
+.insightText { font-size: 0.76rem; line-height: 1.5; color: #5C7B79; }
+
+@media (max-width: 640px) {
+  .bento { grid-template-columns: 1fr; }
+  .opsStrip { grid-template-columns: repeat(2, 1fr); }
+  .chartsGrid { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -565,9 +782,10 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 16px;
-  height: 60px;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  padding: 10px 16px;
+  min-height: 60px;
   border-bottom: 1px solid #E5F5F2;
   background: #FFFFFF;
 }
@@ -656,6 +874,31 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.profFilters {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  background: #F2FDFB;
+  border: 1px solid #E5F5F2;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.profAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.56rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
 }
 
 .gcal {
@@ -1249,16 +1492,6 @@
   box-shadow: 0 1px 3px rgba(13,36,33,0.05);
 }
 
-.finCardIcon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .finCardBody {
   display: flex;
   flex-direction: column;
@@ -1332,6 +1565,7 @@
 .tagReceita {
   display: inline-flex;
   align-items: center;
+  gap: 3px;
   padding: 2px 8px;
   background: #ECFDF5;
   color: #065F46;
@@ -1343,6 +1577,7 @@
 .tagDespesa {
   display: inline-flex;
   align-items: center;
+  gap: 3px;
   padding: 2px 8px;
   background: #FEF2F2;
   color: #B91C1C;
@@ -1678,6 +1913,20 @@
   font-weight: 600;
   white-space: nowrap;
 }
+
+.rowIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #E5F5F2;
+  background: #FFFFFF;
+  color: #5C7B79;
+  border-radius: 7px;
+  flex-shrink: 0;
+}
+.rowIconBtn svg { width: 12px; height: 12px; }
 
 /* ═══════════════════════════════════════════════
    LINE CHART (Receitas vs Despesas)

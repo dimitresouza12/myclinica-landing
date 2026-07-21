@@ -30,6 +30,17 @@ const ICON_PATHS: Record<string, string> = {
   crm:          'M22 12h-4l-3 9L9 3l-3 9H2',
   campaigns:    'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z',
   settings:     'M12 2a10 10 0 100 20 10 10 0 000-20zM12 8v8M8 12h8',
+  alert:        'M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01',
+  cake:         'M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C9 2 12 7 12 7z',
+  chevronRight: 'M9 18l6-6-6-6',
+  check:        'M20 6L9 17l-5-5',
+  target:       'M12 2a10 10 0 100 20 10 10 0 000-20zM12 6a6 6 0 100 12 6 6 0 000-12zM12 11a1 1 0 100 2 1 1 0 000-2z',
+  download:     'M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3',
+  arrowUp:      'M12 19V5M5 12l7-7 7 7',
+  arrowDown:    'M12 5v14M19 12l-7 7-7-7',
+  refresh:      'M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15',
+  edit:         'M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5z',
+  trash:        'M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6',
 };
 function NavIcon({ name }: { name: string }) {
   return (
@@ -94,19 +105,40 @@ function Sidebar({ active }: { active: string }) {
    1. DASHBOARD
    ════════════════════════════════════════════════════════════════ */
 function DashboardMock() {
-  const cards = [
-    { label: 'Pacientes ativos',     value: '147',       accent: '#0D9488' },
-    { label: 'Consultas hoje',       value: '12',        accent: '#0EA5E9' },
-    { label: 'Novos este mês',       value: '18',        accent: '#8B5CF6' },
-    { label: 'Agendamentos abertos', value: '8',         accent: '#F59E0B' },
-    { label: 'Receita do mês',       value: 'R$ 12.840', accent: '#10B981' },
-    { label: 'Despesa do mês',       value: 'R$ 4.320',  accent: '#EF4444' },
+  const monthly = [
+    { month: 'Fev', receita: 9200 },
+    { month: 'Mar', receita: 10800 },
+    { month: 'Abr', receita: 12200 },
+    { month: 'Mai', receita: 11400 },
+    { month: 'Jun', receita: 13100 },
+    { month: 'Jul', receita: 12840 },
+  ];
+  const maxReceita = Math.max(...monthly.map(m => m.receita));
+  const alerts = [
+    { icon: 'alert',    color: '#EF4444', label: 'Faltou',      name: 'Pedro Alves',    date: '15/07/26' },
+    { icon: 'cake',     color: '#8B5CF6', label: 'Aniversário', name: 'Larissa Barros', date: 'Hoje' },
+    { icon: 'calendar', color: '#F59E0B', label: 'Sem retorno', name: 'Felipe Costa',   date: '30/04/26' },
   ];
   const rows = [
     { name: 'Pedro Alves',    proc: 'Consulta',     date: '20/05/2026 09:00', status: 'confirmado' },
     { name: 'Larissa Barros', proc: 'Retorno',      date: '20/05/2026 10:30', status: 'agendado'   },
     { name: 'Felipe Costa',   proc: 'Avaliação',    date: '20/05/2026 11:00', status: 'confirmado' },
   ];
+  const categories = [
+    { label: 'Consultas',    value: 'R$ 5.240', pct: 100, color: '#4DD9C0' },
+    { label: 'Procedimentos',value: 'R$ 4.180', pct: 80,  color: '#0EA5E9' },
+    { label: 'Retornos',     value: 'R$ 2.120', pct: 40,  color: '#8B5CF6' },
+    { label: 'Venda produto',value: 'R$ 1.300', pct: 25,  color: '#F59E0B' },
+  ];
+  const insights = [
+    { icon: 'target', color: '#10B981', text: 'Meta do mês batida — você já alcançou 93% do objetivo de faturamento.' },
+    { icon: 'finance', color: '#0EA5E9', text: 'Receita 12% acima do mês anterior — melhor performance dos últimos 3 meses.' },
+  ];
+  const goalPct = 93;
+  const RING_R = 40;
+  const RING_C = 2 * Math.PI * RING_R;
+  const ringOffset = RING_C * (1 - goalPct / 100);
+
   return (
     <div className={styles.screenBody}>
       <div className={styles.pageHead}>
@@ -121,13 +153,113 @@ function DashboardMock() {
         </button>
       </div>
       <div className={styles.mainScroll}>
-        <div className={styles.dashCards}>
-          {cards.map(c => (
-            <div key={c.label} className={styles.dashCard} style={{ borderTopColor: c.accent }}>
-              <span className={styles.dashCardValue}>{c.value}</span>
-              <span className={styles.dashCardLabel}>{c.label}</span>
+
+        <div className={styles.alertWidget}>
+          <div className={styles.alertHeader}>
+            <span className={styles.alertHeaderIcon}><NavIcon name="alert" /></span>
+            <h2 className={styles.alertTitle}>Ações necessárias</h2>
+            <span className={styles.alertCount}>{alerts.length}</span>
+            <span className={styles.alertCollapseBtn}><NavIcon name="chevronRight" /></span>
+          </div>
+          <div className={styles.alertList}>
+            {alerts.map(a => (
+              <div key={a.name} className={styles.alertItem}>
+                <span className={styles.alertBadge} style={{ background: `${a.color}1a`, color: a.color }}>
+                  <NavIcon name={a.icon} /> {a.label}
+                </span>
+                <div className={styles.alertInfo}>
+                  <span className={styles.alertName}>{a.name}</span>
+                  <span className={styles.alertDate}>{a.date}</span>
+                </div>
+                <div className={styles.alertActions}>
+                  <span className={styles.alertBtnWa}>WhatsApp</span>
+                  <span className={styles.alertBtnIgnore}>Ignorar</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.bento}>
+          <article className={styles.heroCard}>
+            <div className={styles.cardHead}><span className={styles.eyebrow}>Financeiro do mês</span></div>
+            <div className={styles.heroRow}>
+              <span className={styles.heroValue}>R$ 12.840,00</span>
+              <span className={`${styles.delta} ${styles.deltaUp}`}>▲ 12%<span className={styles.deltaRef}>vs. mês anterior</span></span>
             </div>
-          ))}
+            <div className={styles.spark}>
+              {monthly.map((m, i) => (
+                <span
+                  key={m.month}
+                  className={i === monthly.length - 1 ? styles.sparkOn : ''}
+                  style={{ height: `${Math.max(6, Math.round((m.receita / maxReceita) * 100))}%` }}
+                />
+              ))}
+            </div>
+            <div className={styles.sparkAxis}>{monthly.map(m => <span key={m.month}>{m.month}</span>)}</div>
+            <div className={styles.subGrid}>
+              <div>
+                <div className={styles.subMetric}>R$ 4.320,00</div>
+                <div className={styles.subLabel}>Despesas</div>
+              </div>
+              <div>
+                <div className={`${styles.subMetric} ${styles.subAccent}`}>R$ 8.520,00</div>
+                <div className={styles.subLabel}>Lucro líquido</div>
+              </div>
+              <div>
+                <div className={styles.subMetric}>R$ 285,00</div>
+                <div className={styles.subLabel}>Ticket médio</div>
+              </div>
+            </div>
+          </article>
+
+          <div className={styles.metaCard}>
+            <div className={styles.cardHead}>
+              <span className={styles.eyebrow}>Meta do mês</span>
+              <span className={styles.metaEdit}>Editar <NavIcon name="chevronRight" /></span>
+            </div>
+            <div className={styles.ring}>
+              <svg width="96" height="96" viewBox="0 0 96 96">
+                <circle className={styles.ringTrack} cx="48" cy="48" r={RING_R} fill="none" strokeWidth="9" />
+                <circle
+                  className={styles.ringFill}
+                  cx="48" cy="48" r={RING_R} fill="none" strokeWidth="9"
+                  strokeDasharray={RING_C} strokeDashoffset={ringOffset} strokeLinecap="round"
+                  transform="rotate(-90 48 48)" stroke="url(#previewGoalGrad)"
+                />
+                <defs>
+                  <linearGradient id="previewGoalGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#4DD9C0" /><stop offset="1" stopColor="#0B9B85" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className={styles.ringPct}><b>{goalPct}%</b><small>da meta</small></div>
+            </div>
+            <div className={styles.metaFig}>R$ 12.840,00 <span className={styles.metaOf}>de R$ 13.800,00</span></div>
+            <div className={styles.metaPace}>
+              <span className={styles.pacePill} style={{ background: '#10B981' }} />
+              No ritmo — faltam R$ 960,00 em 8 dia(s)
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.opsStrip}>
+          <div className={styles.opsCell}>
+            <span className={styles.cellVal}>147</span>
+            <span className={styles.cellLabel}>Pacientes ativos</span>
+          </div>
+          <div className={styles.opsCell}>
+            <span className={styles.cellVal}>12</span>
+            <span className={styles.cellLabel}>Consultas hoje</span>
+          </div>
+          <div className={styles.opsCell}>
+            <span className={styles.cellVal}>18</span>
+            <span className={styles.cellLabel}>Novos este mês</span>
+          </div>
+          <div className={styles.opsCell}>
+            <span className={styles.cellSplit}><b>34</b><span className={styles.cellSep}>/</span><b className={styles.cellWarn}>8</b></span>
+            <span className={styles.cellLabel}>Concluídos / em aberto</span>
+          </div>
         </div>
 
         <div className={styles.section}>
@@ -146,6 +278,42 @@ function DashboardMock() {
             </tbody>
           </table>
         </div>
+
+        <div className={styles.chartsGrid}>
+          <div className={styles.section}>
+            <div className={styles.sectionHead}><span className={styles.sectionTitle}>Receitas vs Despesas — 6 meses</span></div>
+            <div className={styles.chartPad}><LineChart /></div>
+          </div>
+          <div className={styles.section}>
+            <div className={styles.sectionHead}><span className={styles.sectionTitle}>Receita por categoria</span></div>
+            <div className={styles.chartPad}>
+              <div className={styles.catList}>
+                {categories.map(c => (
+                  <div key={c.label} className={styles.catRow}>
+                    <span className={styles.catLabel}>{c.label}</span>
+                    <div className={styles.catBarTrack}><div className={styles.catBarFill} style={{ width: `${c.pct}%`, background: c.color }} /></div>
+                    <span className={styles.catValue}>{c.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.insightsCard}>
+          <h2 className={styles.insightsTitle}>Conclusões &amp; Dicas</h2>
+          <div className={styles.insightsList}>
+            {insights.map((ins, i) => (
+              <div key={i} className={styles.insightItem}>
+                <span className={styles.insightIcon} style={{ background: `${ins.color}1a`, color: ins.color }}>
+                  <NavIcon name={ins.icon} />
+                </span>
+                <p className={styles.insightText}>{ins.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -195,11 +363,16 @@ function AgendaMock() {
           </div>
         </div>
         <div className={styles.agSeg}>
-          <button className={`${styles.agSegBtn} ${styles.agSegActive}`}>Calendário</button>
-          <button className={styles.agSegBtn}>Dia geral</button>
-          <button className={styles.agSegBtn}>Lista</button>
+          <button className={`${styles.agSegBtn} ${styles.agSegActive}`}>Mês</button>
+          <button className={styles.agSegBtn}>Semana</button>
+          <button className={styles.agSegBtn}>Dia</button>
         </div>
         <div className={styles.agRight}>
+          <div className={styles.profFilters}>
+            {[['DB', '#4DD9C0'], ['DE', '#0B9B85'], ['DS', '#127C9A']].map(([initials, color]) => (
+              <span key={initials} className={styles.profAvatar} style={{ background: color }}>{initials}</span>
+            ))}
+          </div>
           <div className={styles.gcal}><span className={styles.gcalDot} />Google Calendar</div>
           <button className={styles.primaryBtn}>+ Novo Agendamento</button>
         </div>
@@ -765,10 +938,10 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
    ════════════════════════════════════════════════════════════════ */
 function FinanceiroMock() {
   const cards = [
-    { value: 'R$ 12.840', label: 'Receitas mensal',  iconBg: '#E8FBF7', iconColor: '#0B9B85', bar: 'linear-gradient(to right, #4DD9C0, #0B9B85)', pct: 100, icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6' },
-    { value: 'R$ 4.320',  label: 'Despesas mensal',  iconBg: '#FEF2F2', iconColor: '#DC2626', bar: 'linear-gradient(to right, #FCA5A5, #EF4444)', pct: 34, icon: 'M3 3h18M3 9h18M3 15h18M3 21h18' },
-    { value: 'R$ 8.520',  label: 'Saldo mensal',     iconBg: '#E8FBF7', iconColor: '#0B9B85', bar: 'linear-gradient(to right, #4DD9C0, #0B9B85)', pct: 66, valueColor: '#059669', icon: 'M12 22V2M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6' },
-    { value: '48',        label: 'Lançamentos',      iconBg: '#EFF6FF', iconColor: '#2563EB', bar: 'linear-gradient(to right, #60A5FA, #2563EB)', pct: 80, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+    { value: 'R$ 12.840,00', label: 'Receitas',   bar: 'linear-gradient(to right, #4DD9C0, #0B9B85)', pct: 100 },
+    { value: 'R$ 4.320,00',  label: 'Despesas',   bar: 'linear-gradient(to right, #FCA5A5, #EF4444)', pct: 34 },
+    { value: 'R$ 8.520,00',  label: 'Saldo',      bar: 'linear-gradient(to right, #4DD9C0, #0B9B85)', pct: 66, valueColor: '#059669' },
+    { value: '48',           label: 'Lançamentos',bar: 'linear-gradient(to right, #60A5FA, #2563EB)', pct: 80 },
   ];
   const rows = [
     { tipo: 'receita', data: '20/05/2026 14:30', pac: 'Pedro Alves',    cat: 'Consulta',     desc: 'Consulta inicial',  met: 'PIX',    val: 'R$ 350,00' },
@@ -783,7 +956,7 @@ function FinanceiroMock() {
           <p className={styles.pageSub}>48 lançamentos — todos os períodos</p>
         </div>
         <div className={styles.headActions}>
-          <button className={styles.ghostBtn}>⬇ Exportar</button>
+          <button className={styles.ghostBtn}><NavIcon name="download" /> Exportar</button>
           <button className={styles.despesaBtn}>− Despesa</button>
           <button className={styles.receitaBtn}>+ Receita</button>
         </div>
@@ -792,11 +965,6 @@ function FinanceiroMock() {
         <div className={styles.finCards}>
           {cards.map((c, i) => (
             <div key={i} className={styles.finCard}>
-              <div className={styles.finCardIcon} style={{ background: c.iconBg, color: c.iconColor }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 18, height: 18 }} strokeLinecap="round">
-                  {c.icon.split('M').filter(Boolean).map((seg, j) => <path key={j} d={`M${seg}`} />)}
-                </svg>
-              </div>
               <div className={styles.finCardBody}>
                 <span className={styles.finCardValue} style={c.valueColor ? { color: c.valueColor } : undefined}>{c.value}</span>
                 <span className={styles.finCardLabel}>{c.label}</span>
@@ -810,8 +978,8 @@ function FinanceiroMock() {
           <div className={styles.finFilters}>
             <div className={styles.pillTabs}>
               <button className={`${styles.pillTab} ${styles.pillTabActive}`}>Todos</button>
-              <button className={styles.pillTab}>📈 Receitas</button>
-              <button className={styles.pillTab}>📉 Despesas</button>
+              <button className={styles.pillTab}>Receitas</button>
+              <button className={styles.pillTab}>Despesas</button>
             </div>
             <div className={styles.pillTabs}>
               <button className={styles.pillTab}>Diário</button>
@@ -825,7 +993,7 @@ function FinanceiroMock() {
             <tbody>
               {rows.map((r, i) => (
                 <tr key={i}>
-                  <td><span className={r.tipo === 'receita' ? styles.tagReceita : styles.tagDespesa}>{r.tipo === 'receita' ? '↑ Receita' : '↓ Despesa'}</span></td>
+                  <td><span className={r.tipo === 'receita' ? styles.tagReceita : styles.tagDespesa}><NavIcon name={r.tipo === 'receita' ? 'arrowUp' : 'arrowDown'} /> {r.tipo === 'receita' ? 'Receita' : 'Despesa'}</span></td>
                   <td>{r.data}</td>
                   <td className={styles.bold}>{r.pac}</td>
                   <td>{r.cat}</td>
@@ -867,7 +1035,7 @@ function RelatoriosMock() {
         </div>
         <div className={styles.headActions}>
           <div className={styles.selectFake}>Últimos 6 meses ▾</div>
-          <button className={styles.ghostBtn}>↓ Exportar planilha</button>
+          <button className={styles.ghostBtn}><NavIcon name="download" /> Exportar planilha</button>
         </div>
       </div>
       <div className={styles.relTabs}>
@@ -940,7 +1108,7 @@ function CrmMock() {
           <h1 className={styles.pageTitle}>CRM — Leads WhatsApp</h1>
           <p className={styles.pageSub}>Contatos captados pelo bot de IA</p>
         </div>
-        <button className={styles.ghostBtn}>↻ Atualizar</button>
+        <button className={styles.ghostBtn}><NavIcon name="refresh" /> Atualizar</button>
       </div>
       <div className={styles.mainScroll}>
         <div className={styles.crmStats}>
@@ -1036,6 +1204,8 @@ function EstoqueMock() {
                     <div className={styles.rowActions}>
                       <span className={styles.entradaBtn}>+ Entrada</span>
                       <span className={styles.saidaBtn}>− Saída</span>
+                      <span className={styles.rowIconBtn}><NavIcon name="edit" /></span>
+                      <span className={styles.rowIconBtn}><NavIcon name="trash" /></span>
                     </div>
                   </td>
                 </tr>

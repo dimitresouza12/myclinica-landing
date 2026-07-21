@@ -61,11 +61,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--surface-2);
-  color: var(--text);
+  background: #25D366;
+  color: #FFFFFF;
   padding: 15px 28px;
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 1px solid #25D366;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: -0.2px;
@@ -74,13 +74,13 @@
 }
 .btn:hover {
   transform: translateY(-2px);
-  background: var(--surface-3);
-  border-color: var(--surface-hi);
+  background: #1EBE5B;
+  border-color: #1EBE5B;
 }
 
 .btnIcon {
   display: inline-flex;
-  color: #25D366;
+  color: #FFFFFF;
 }
 .btnIcon svg {
   width: 18px;

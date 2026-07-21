@@ -245,19 +245,22 @@
 }
 
 .secondary {
-  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFFFFF;
   padding: 13px 22px;
   border-radius: 12px;
   font-weight: 500;
   font-size: 0.95rem;
   text-decoration: none;
-  border: 1px solid var(--line);
-  background: var(--surface-2);
+  border: 1px solid #25D366;
+  background: #25D366;
   transition: background 0.2s, border-color 0.2s;
 }
 .secondary:hover {
-  background: var(--surface-3);
-  border-color: var(--surface-hi);
+  background: #1EBE5B;
+  border-color: #1EBE5B;
 }
 
 .guarantee {

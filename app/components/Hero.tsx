@@ -2,6 +2,7 @@
 
 import styles from './Hero.module.css';
 import RotatingText from './RotatingText';
+import { trackContact, trackTrialLead } from '../lib/pixel';
 
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
 const WHATSAPP = 'https://wa.me/5588920020570';
@@ -19,15 +20,6 @@ const HEADLINE_PHRASES = [
   'CRM no WhatsApp',
 ];
 
-declare global {
-  interface Window {
-    fbq?: (...args: unknown[]) => void;
-  }
-}
-
-function trackLead(source: string) {
-  window.fbq?.('track', 'Lead', { content_name: source });
-}
 
 export default function Hero() {
   return (
@@ -99,13 +91,13 @@ export default function Hero() {
         </p>
 
         <div className={`${styles.ctas} ${styles.heroCtaRow}`}>
-          <a href={SAAS_QUIZ} className={styles.primary} onClick={() => trackLead('hero_testar_gratis')}>
+          <a href={SAAS_QUIZ} className={styles.primary} onClick={() => trackTrialLead('hero_testar_gratis')}>
             Testar 7 dias grátis
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           </a>
-          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.secondary} onClick={() => trackLead('hero_falar_especialista')}>
+          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.secondary} onClick={() => trackContact('hero_falar_especialista')}>
             <IconWhatsApp />
             Falar com especialista
           </a>

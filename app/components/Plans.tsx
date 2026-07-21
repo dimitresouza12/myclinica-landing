@@ -1,5 +1,8 @@
+'use client';
+
 import styles from './Plans.module.css';
 import RevealSection from './RevealSection';
+import { trackContact, trackTrialLead } from '../lib/pixel';
 
 const WHATSAPP = 'https://wa.me/5588920020570';
 const BASE_URL = 'https://myclinica.online/login';
@@ -177,7 +180,7 @@ export default function Plans() {
                   <IconWhatsApp />
                   <span>
                     O plano Completo+ é personalizado para cada clínica.{' '}
-                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink}>
+                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink} onClick={() => trackContact('plans_completo_plus_note')}>
                       Fale com a gente no WhatsApp
                     </a>{' '}
                     e monte o seu <strong>Atendente Virtual</strong> e <strong>CRM</strong> sob medida.
@@ -185,12 +188,12 @@ export default function Plans() {
                 </div>
               )}
               {plan.slug === null ? (
-                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn}>
+                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn} onClick={() => trackContact('plans_completo_plus_orcamento')}>
                   Faça seu orçamento →
                 </a>
               ) : (
                 <>
-                  <a href={`${BASE_URL}?plan=${plan.slug}`} className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn}>
+                  <a href={`${BASE_URL}?plan=${plan.slug}`} className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn} onClick={() => trackTrialLead(`plans_${plan.slug}`)}>
                     Testar grátis por 7 dias →
                   </a>
                   <p className={styles.btnSubtext}>sem cartão de crédito · cancele quando quiser</p>

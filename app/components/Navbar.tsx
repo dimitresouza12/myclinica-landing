@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Navbar.module.css';
+import { trackTrialLead } from '../lib/pixel';
 
 const SAAS_REGISTER = 'https://myclinica.online/login?quiz=true';
 
@@ -26,7 +27,7 @@ export default function Navbar() {
         </ul>
 
         <div className={styles.actions}>
-          <a href={SAAS_REGISTER} className={styles.ctaBtn}>Testar grátis</a>
+          <a href={SAAS_REGISTER} className={styles.ctaBtn} onClick={() => trackTrialLead('navbar_testar_gratis')}>Testar grátis</a>
           <button
             type="button"
             className={styles.hamburger}

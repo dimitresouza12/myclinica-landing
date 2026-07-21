@@ -1,7 +1,7 @@
 import styles from './Plans.module.css';
 import RevealSection from './RevealSection';
 
-const WHATSAPP = 'https://wa.me/55889200205070';
+const WHATSAPP = 'https://wa.me/5588920020570';
 const BASE_URL = 'https://myclinica.online/login';
 
 const IconGift = () => (

@@ -4,7 +4,7 @@ import styles from './Hero.module.css';
 import RotatingText from './RotatingText';
 
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
-const WHATSAPP = 'https://wa.me/55889200205070';
+const WHATSAPP = 'https://wa.me/5588920020570';
 
 const IconWhatsApp = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>

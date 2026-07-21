@@ -3,7 +3,7 @@
 import styles from './Contact.module.css';
 import RevealSection from './RevealSection';
 
-const WHATSAPP = 'https://wa.me/55889200205070';
+const WHATSAPP = 'https://wa.me/5588920020570';
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
 
 declare global {

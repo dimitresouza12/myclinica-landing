@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const META_PIXEL_ID = "1585607579973708";
+const GA4_MEASUREMENT_ID = "G-4Z212ZY2NG";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -94,6 +95,21 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
+
+        {/* Google Analytics 4 */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA4_MEASUREMENT_ID}');
+          `}
+        </Script>
+
         {children}
       </body>
     </html>

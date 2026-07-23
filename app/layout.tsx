@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import { ScrollTracker } from "./ScrollTracker";
 
 const META_PIXEL_ID = "1585607579973708";
 const GA4_MEASUREMENT_ID = "G-4Z212ZY2NG";
@@ -109,6 +110,8 @@ export default function RootLayout({
             gtag('config', '${GA4_MEASUREMENT_ID}');
           `}
         </Script>
+
+        <ScrollTracker />
 
         {children}
       </body>

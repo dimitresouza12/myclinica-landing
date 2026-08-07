@@ -133,13 +133,6 @@ export default function Plans() {
         </div>
 
         <div className={styles.copaBanner}>
-          <span className={styles.copaIcon}>🏆</span>
-          <span>
-            <strong>Promoção Copa do Mundo:</strong> assine durante a copa e pague{' '}
-            <strong>50% na primeira mensalidade</strong>. Use o código{' '}
-            <span className={styles.copaCode}>COPA50</span> ao contratar.
-          </span>
-          <span className={styles.copaSep}>·</span>
           <span>
             <strong>Indique um amigo</strong> e ganhe <strong>1 mês grátis</strong> a cada indicação que assinar.
           </span>

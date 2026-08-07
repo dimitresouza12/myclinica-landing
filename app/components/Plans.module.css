@@ -77,30 +77,8 @@
 .copaBanner strong {
   color: #fff;
 }
-.copaIcon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-.copaCode {
-  display: inline-block;
-  font-family: var(--font-geist-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  background: rgba(94, 234, 212, 0.2);
-  color: #5EEAD4;
-  border: 1px solid rgba(94, 234, 212, 0.4);
-  padding: 1px 9px;
-  border-radius: 5px;
-}
-.copaSep {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
 
 @media (max-width: 580px) {
-  .copaSep { display: none; }
   .copaBanner { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 

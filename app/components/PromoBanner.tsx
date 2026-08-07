@@ -20,13 +20,12 @@ export default function PromoBanner() {
   return (
     <div ref={bannerRef} className={styles.banner} role="region" aria-label="Promoções ativas">
       <p className={styles.srOnly}>
-        Promoção Copa do Mundo: 50% na primeira mensalidade com código COPA50.
         Indique um amigo e ganhe 1 mês grátis a cada indicação que assinar.
       </p>
 
       {/* Mobile: frase estática única, sem marquee */}
       <p className={styles.mobileMsg} aria-hidden="true">
-        🏆 <strong>50% na 1ª mensalidade</strong> · use o código <strong>COPA50</strong>
+        🎁 <strong>Indique e ganhe:</strong> 1 mês grátis a cada indicação que assinar
       </p>
 
       <div className={styles.marqueeWrap}>
@@ -39,34 +38,14 @@ export default function PromoBanner() {
         <div className={styles.strip} aria-hidden="true">
           {/* Set 1 */}
           <span className={styles.item}>
-            🏆 <strong>Copa do Mundo:</strong> assine durante a copa e pague{' '}
-            <strong>50% na 1ª mensalidade</strong> — código{' '}
-            <span className={styles.code}>COPA50</span>
-          </span>
-          <span className={styles.dot}>·</span>
-          <span className={styles.item}>
             🎁 <strong>Indique e ganhe:</strong> cada indicação que assinar te dá{' '}
             <strong>1 mês grátis</strong>
-          </span>
-          <span className={styles.dot}>·</span>
-          <span className={styles.item}>
-            🇧🇷 <strong>Promoção válida</strong> durante toda a Copa do Mundo 2026
           </span>
           <span className={styles.dot}>·</span>
           {/* Set 2 — duplicado para loop contínuo; hidden em reduced-motion */}
           <span className={`${styles.item} ${styles.dup}`}>
-            🏆 <strong>Copa do Mundo:</strong> assine durante a copa e pague{' '}
-            <strong>50% na 1ª mensalidade</strong> — código{' '}
-            <span className={styles.code}>COPA50</span>
-          </span>
-          <span className={`${styles.dot} ${styles.dup}`}>·</span>
-          <span className={`${styles.item} ${styles.dup}`}>
             🎁 <strong>Indique e ganhe:</strong> cada indicação que assinar te dá{' '}
             <strong>1 mês grátis</strong>
-          </span>
-          <span className={`${styles.dot} ${styles.dup}`}>·</span>
-          <span className={`${styles.item} ${styles.dup}`}>
-            🇧🇷 <strong>Promoção válida</strong> durante toda a Copa do Mundo 2026
           </span>
           <span className={`${styles.dot} ${styles.dup}`}>·</span>
         </div>

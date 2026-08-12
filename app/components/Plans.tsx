@@ -132,12 +132,6 @@ export default function Plans() {
           <IconGift /> <strong>7 dias grátis</strong> em qualquer plano — sem cartão de crédito
         </div>
 
-        <div className={styles.copaBanner}>
-          <span>
-            <strong>Indique um amigo</strong> e ganhe <strong>1 mês grátis</strong> a cada indicação que assinar.
-          </span>
-        </div>
-
         <div className={styles.grid}>
           {plans.map((plan, i) => (
             <RevealSection

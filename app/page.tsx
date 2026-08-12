@@ -1,5 +1,4 @@
 import Navbar from './components/Navbar';
-import PromoBanner from './components/PromoBanner';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Specialties from './components/Specialties';
@@ -14,7 +13,6 @@ import StickyCta from './components/StickyCta';
 export default function Home() {
   return (
     <>
-      <PromoBanner />
       <Navbar />
       <main>
         <Hero />

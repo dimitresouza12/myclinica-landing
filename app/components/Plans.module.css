@@ -60,28 +60,6 @@
   font-weight: 700;
 }
 
-.copaBanner {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: linear-gradient(135deg, #0a3d36 0%, #0d4a40 100%);
-  color: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(94, 234, 212, 0.3);
-  border-radius: 14px;
-  padding: 14px 20px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 32px;
-}
-.copaBanner strong {
-  color: #fff;
-}
-
-@media (max-width: 580px) {
-  .copaBanner { flex-direction: column; align-items: flex-start; gap: 6px; }
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

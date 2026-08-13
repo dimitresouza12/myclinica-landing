@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: 'Quantos usuários posso cadastrar?',
-    a: 'Depende do plano. No Profissional você cadastra até 3 usuários (recepcionista, dentista, gerente). No Clínica o número é ilimitado. Todos com controle de permissões por perfil.',
+    a: 'Depende do plano — e só contam profissionais que atendem paciente (dentista, médico, terapeuta etc). No Essencial é 1 profissional, no Completo até 3, e no Ilimitado ou Ilimitado + IA não há limite. Recepcionistas e auxiliares têm login ilimitado em qualquer plano, sem custo extra. Todos com controle de permissões por perfil.',
   },
   {
     q: 'O prontuário eletrônico tem validade jurídica?',
@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     q: 'Tem suporte em caso de dúvidas?',
-    a: 'Suporte por WhatsApp de segunda a sábado, das 8h às 18h. Respondemos em até 1 hora. Para planos Clínica, há suporte prioritário com gerente de conta dedicado.',
+    a: 'Suporte por WhatsApp de segunda a sábado, das 8h às 18h. Respondemos em até 1 hora. No plano Ilimitado + IA, há suporte prioritário com gerente de conta dedicado.',
   },
 ];
 

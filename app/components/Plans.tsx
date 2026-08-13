@@ -24,7 +24,7 @@ const plans = [
   {
     name: 'Essencial',
     slug: 'essencial',
-    price: 'R$ 99/mês',
+    price: 'R$ 99,90/mês',
     description: 'Para profissionais autônomos que estão começando a organizar sua clínica.',
     highlight: false,
     badge: null,
@@ -33,37 +33,12 @@ const plans = [
       'Agenda com lembretes',
       'Financeiro básico',
       'Cadastro de até 100 pacientes',
-      '1 usuário (profissional)',
+      '1 profissional',
       'Suporte humanizado por WhatsApp',
     ],
     missing: [
       'Relatórios avançados',
       'Gestão de equipe',
-      'Atendente virtual com IA',
-      'CRM integrado via WhatsApp',
-      'Agendamento automático pelo WhatsApp',
-      'Respostas automáticas 24/7',
-      'Multi-clínica',
-    ],
-  },
-  {
-    name: 'Avançado',
-    slug: 'avancado',
-    price: 'R$ 119,90/mês',
-    description: 'Ideal para consultórios em crescimento com equipe e pacientes ilimitados.',
-    highlight: false,
-    badge: null,
-    features: [
-      'Prontuário eletrônico completo',
-      'Agenda com lembretes',
-      'Financeiro completo',
-      'Pacientes ilimitados',
-      'Até 3 usuários (profissional + recepcionistas)',
-      'Gestão de equipe',
-      'Relatórios avançados',
-      'Suporte humanizado por WhatsApp',
-    ],
-    missing: [
       'Atendente virtual com IA',
       'CRM integrado via WhatsApp',
       'Agendamento automático pelo WhatsApp',
@@ -75,7 +50,7 @@ const plans = [
     name: 'Completo',
     slug: 'completo',
     price: 'R$ 129,90/mês',
-    description: 'Gestão completa com relatórios avançados e suporte prioritário.',
+    description: 'Ideal para clínicas em crescimento, com pacientes ilimitados e equipe de até 3 profissionais.',
     highlight: true,
     badge: 'Mais popular',
     features: [
@@ -83,9 +58,29 @@ const plans = [
       'Agenda com lembretes',
       'Financeiro completo',
       'Pacientes ilimitados',
-      'Usuários ilimitados (profissionais, recepcionistas, gerentes)',
+      'Até 3 profissionais (recepção ilimitada)',
       'Gestão de equipe',
       'Relatórios avançados',
+      'Suporte humanizado por WhatsApp',
+    ],
+    missing: [
+      'Multi-clínica',
+      'Atendente virtual com IA',
+      'CRM integrado via WhatsApp',
+      'Agendamento automático pelo WhatsApp',
+      'Respostas automáticas 24/7',
+    ],
+  },
+  {
+    name: 'Ilimitado',
+    slug: 'ilimitado',
+    price: 'R$ 169,90/mês',
+    description: 'Para clínicas grandes e redes com múltiplas unidades e equipe sem limite.',
+    highlight: false,
+    badge: null,
+    features: [
+      'Tudo do plano Completo',
+      'Profissionais ilimitados',
       'Multi-clínica',
       'Suporte humanizado por WhatsApp',
     ],
@@ -97,14 +92,14 @@ const plans = [
     ],
   },
   {
-    name: 'Completo+',
+    name: 'Ilimitado + IA',
     slug: null,
-    price: 'A partir de R$ 199/mês',
+    price: 'A partir de R$ 199,90/mês',
     description: 'Para clínicas que querem automatizar o atendimento e crescer com IA.',
     highlight: false,
     badge: 'Com IA',
     features: [
-      'Tudo do plano Completo',
+      'Tudo do plano Ilimitado',
       'Atendente virtual com IA',
       'CRM integrado via WhatsApp',
       'Agendamento automático pelo WhatsApp',
@@ -166,7 +161,7 @@ export default function Plans() {
                 <div className={styles.contactNote}>
                   <IconWhatsApp />
                   <span>
-                    O plano Completo+ é personalizado para cada clínica.{' '}
+                    O plano Ilimitado + IA é personalizado para cada clínica.{' '}
                     <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink} onClick={() => trackContact('plans_completo_plus_note')}>
                       Fale com a gente no WhatsApp
                     </a>{' '}

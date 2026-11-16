@@ -106,8 +106,8 @@ const features: Feature[] = [
         <path d="m9 12 2 2 4-4"/>
       </svg>
     ),
-    title: 'Multi-clínica Seguro',
-    desc: 'Dados isolados por clínica. Superadmin gerencia todas as unidades.',
+    title: 'Dados protegidos',
+    desc: 'Os dados de cada clínica ficam isolados e só a sua equipe tem acesso.',
     color: '#4F46E5',
   },
 ];

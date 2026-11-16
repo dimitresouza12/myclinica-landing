@@ -43,7 +43,6 @@ const plans = [
       'CRM integrado via WhatsApp',
       'Agendamento automático pelo WhatsApp',
       'Respostas automáticas 24/7',
-      'Multi-clínica',
     ],
   },
   {
@@ -64,7 +63,6 @@ const plans = [
       'Suporte humanizado por WhatsApp',
     ],
     missing: [
-      'Multi-clínica',
       'Atendente virtual com IA',
       'CRM integrado via WhatsApp',
       'Agendamento automático pelo WhatsApp',
@@ -75,13 +73,12 @@ const plans = [
     name: 'Ilimitado',
     slug: 'ilimitado',
     price: 'R$ 169,90/mês',
-    description: 'Para clínicas grandes e redes com múltiplas unidades e equipe sem limite.',
+    description: 'Para clínicas grandes, com equipe sem limite de profissionais.',
     highlight: false,
     badge: null,
     features: [
       'Tudo do plano Completo',
       'Profissionais ilimitados',
-      'Multi-clínica',
       'Suporte humanizado por WhatsApp',
     ],
     missing: [

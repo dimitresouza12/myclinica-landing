@@ -1,13 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import styles from './Specialties.module.css';
 import RevealSection from './RevealSection';
 
-type SpecialtyId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri';
+type SpecialtyId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri' | 'fono' | 'to';
 
 interface Specialty {
   id: SpecialtyId;
-  emoji: string;
+  icon: ReactNode;
   label: string;
   tagline: string;
   anamnese: string[];
@@ -15,10 +15,38 @@ interface Specialty {
   extra?: string;
 }
 
+const ICON_odonto = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 3c-2 0-3.5.9-4.6.9C5.6 3.9 4 5 4 7.4c0 1.7.4 2.7.9 4 .3.9.6 2 .7 3.4.2 2.7.6 6.2 3 6.2 1.9 0 2.2-1.8 2.5-3.6.2-1.1.3-2.2 1-2.2s.8 1.1 1 2.2c.3 1.8.6 3.6 2.5 3.6 2.4 0 2.8-3.5 3-6.2.1-1.4.4-2.5.7-3.4.5-1.3.9-2.3.9-4 0-2.4-1.6-3.5-3.4-3.5C15.5 3.9 14 3 12 3z"/></svg>
+);
+const ICON_medico = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><rect x="10" y="3" width="4" height="18" rx="1.4"/><rect x="3" y="10" width="18" height="4" rx="1.4"/></svg>
+);
+const ICON_estetica = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l1.9 6.6L20.5 10l-6.6 1.9L12 18.5l-1.9-6.6L3.5 10l6.6-1.9L12 2z"/></svg>
+);
+const ICON_vet = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><circle cx="6.8" cy="9.3" r="2.1"/><circle cx="12" cy="6.6" r="2.1"/><circle cx="17.2" cy="9.3" r="2.1"/><path d="M12 12c-3.1 0-5.6 2.3-5.6 5 0 1.7 1.3 2.7 3 2.7.9 0 1.7-.3 2.6-.3s1.7.3 2.6.3c1.7 0 3-1 3-2.7 0-2.7-2.5-5-5.6-5z"/></svg>
+);
+const ICON_fisio = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><rect x="1" y="9.5" width="3" height="5" rx="1.2"/><rect x="20" y="9.5" width="3" height="5" rx="1.2"/><rect x="4.3" y="7.5" width="2.6" height="9" rx="1.2"/><rect x="17.1" y="7.5" width="2.6" height="9" rx="1.2"/><rect x="6.7" y="11" width="10.6" height="2" rx="1"/></svg>
+);
+const ICON_psico = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4 4.5h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9.6L6 22v-4.5H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"/></svg>
+);
+const ICON_nutri = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><rect x="11.2" y="2" width="1.6" height="3.6" rx="0.8"/><path d="M13 4c1.6-1.1 3.3-.7 4 .6-1.5.9-3 .6-4-.6z"/><circle cx="12" cy="14.5" r="7.2"/></svg>
+);
+const ICON_fono = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><rect x="2" y="10" width="2" height="4" rx="1"/><rect x="6" y="7" width="2" height="10" rx="1"/><rect x="10" y="4" width="2" height="16" rx="1"/><rect x="14" y="8" width="2" height="8" rx="1"/><rect x="18" y="11" width="2" height="2.5" rx="1"/></svg>
+);
+const ICON_to = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 2a2 2 0 00-2 2v6.5a1.5 1.5 0 01-3 0V9a1 1 0 00-2 0v1.5a3.5 3.5 0 003.5 3.5H8v6a2 2 0 002 2h4a2 2 0 002-2v-6h1.5a3.5 3.5 0 003.5-3.5V9a1 1 0 00-2 0v1.5a1.5 1.5 0 01-3 0V4a2 2 0 00-2-2H8z"/></svg>
+);
+
 const specialties: Specialty[] = [
   {
     id: 'odonto',
-    emoji: '🦷',
+    icon: ICON_odonto,
     label: 'Odontologia',
     tagline: 'Para clínicas e consultórios odontológicos',
     anamnese: [
@@ -49,7 +77,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'medico',
-    emoji: '🩺',
+    icon: ICON_medico,
     label: 'Medicina',
     tagline: 'Para clínicas médicas, consultórios e ambulatórios',
     anamnese: [
@@ -81,7 +109,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'estetica',
-    emoji: '✨',
+    icon: ICON_estetica,
     label: 'Estética',
     tagline: 'Para clínicas estéticas e centros de beleza',
     anamnese: [
@@ -112,7 +140,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'vet',
-    emoji: '🐾',
+    icon: ICON_vet,
     label: 'Veterinária',
     tagline: 'Para clínicas e hospitais veterinários',
     anamnese: [
@@ -142,7 +170,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'fisio',
-    emoji: '🤸',
+    icon: ICON_fisio,
     label: 'Fisioterapia',
     tagline: 'Para clínicas e consultórios de fisioterapia',
     anamnese: [
@@ -173,7 +201,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'psico',
-    emoji: '🧠',
+    icon: ICON_psico,
     label: 'Psicologia',
     tagline: 'Para psicólogos e clínicas de saúde mental',
     anamnese: [
@@ -204,7 +232,7 @@ const specialties: Specialty[] = [
   },
   {
     id: 'nutri',
-    emoji: '🥗',
+    icon: ICON_nutri,
     label: 'Nutrição',
     tagline: 'Para nutricionistas e clínicas de nutrição',
     anamnese: [
@@ -236,6 +264,62 @@ const specialties: Specialty[] = [
     ],
     extra: 'Plano de Tratamento + Contrato de serviços de nutrição',
   },
+  {
+    id: 'fono',
+    icon: ICON_fono,
+    label: 'Fonoaudiologia',
+    tagline: 'Para fonoaudiólogos e clínicas de linguagem, voz e audição',
+    anamnese: [
+      'Queixa principal / Motivo da busca',
+      'Marcos do desenvolvimento (sentou, andou, falou)',
+      'Gestação e parto',
+      'Amamentação e alimentação',
+      'Histórico escolar',
+      'Histórico auditivo e exames prévios',
+      'Diagnósticos associados (TEA, TDAH, etc.)',
+      'Medicamentos em uso',
+      'Outras terapias em curso',
+    ],
+    exame: [
+      'Linguagem receptiva e expressiva',
+      'Fala e articulação',
+      'Voz',
+      'Fluência',
+      'Motricidade orofacial (lábios, língua, palato)',
+      'Deglutição',
+      'Triagem auditiva (Teste da Orelhinha)',
+      'Avaliação do frênulo lingual (Teste da Linguinha)',
+      'Observações gerais',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços de fonoaudiologia',
+  },
+  {
+    id: 'to',
+    icon: ICON_to,
+    label: 'Terapia Ocupacional',
+    tagline: 'Para terapeutas ocupacionais e clínicas de reabilitação',
+    anamnese: [
+      'Queixa principal',
+      'Rotina e atividades de vida diária (AVDs)',
+      'Marcos do desenvolvimento',
+      'Perfil sensorial',
+      'Escola / Trabalho',
+      'Nível de autonomia',
+      'Diagnósticos',
+      'Outras terapias em curso',
+    ],
+    exame: [
+      'AVDs (higiene, alimentação, vestuário)',
+      'Coordenação motora fina',
+      'Coordenação motora grossa',
+      'Perfil sensorial',
+      'Cognição e atenção',
+      'Participação social',
+      'Uso de órtese ou adaptação',
+      'Observações gerais',
+    ],
+    extra: 'Plano de Tratamento + Contrato de serviços de terapia ocupacional',
+  },
 ];
 
 export default function Specialties() {
@@ -260,7 +344,7 @@ export default function Specialties() {
               className={`${styles.tab} ${active === s.id ? styles.tabActive : ''}`}
               onClick={() => setActive(s.id)}
             >
-              <span className={styles.tabEmoji}>{s.emoji}</span>
+              <span className={styles.tabIcon}>{s.icon}</span>
               <span>{s.label}</span>
             </button>
           ))}
@@ -268,7 +352,7 @@ export default function Specialties() {
 
         <div className={styles.panel}>
           <div className={styles.panelHeader}>
-            <span className={styles.panelEmoji}>{current.emoji}</span>
+            <span className={styles.panelIcon}>{current.icon}</span>
             <div>
               <h3 className={styles.panelTitle}>{current.label}</h3>
               <p className={styles.panelTagline}>{current.tagline}</p>

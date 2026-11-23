@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Nunito, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ScrollTracker } from "./ScrollTracker";
+import { CAMPANHA_BOOT_SCRIPT } from "./lib/campanha";
 
 const META_PIXEL_ID = "1585607579973708";
 const GA4_MEASUREMENT_ID = "G-4Z212ZY2NG";
@@ -25,6 +26,20 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: "700",
+  variable: "--font-nunito",
+  display: "swap",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
 export const viewport = {
   viewportFit: 'cover',
 };
@@ -32,7 +47,7 @@ export const viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://site.myclinica.online"),
   title: "MyClínica — Sistema de Gestão para Clínicas",
-  description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 7 dias grátis, sem cartão.",
+  description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 14 dias grátis, sem cartão.",
   icons: {
     icon: [
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
@@ -43,7 +58,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "MyClínica — Sistema de Gestão para Clínicas",
-    description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 7 dias grátis, sem cartão.",
+    description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 14 dias grátis, sem cartão.",
     type: "website",
     locale: "pt_BR",
     url: "https://site.myclinica.online",
@@ -71,7 +86,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable} ${nunito.variable} ${jakarta.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Define data-campanha no <html> antes da primeira pintura (sem flash). */}
+        <script dangerouslySetInnerHTML={{ __html: CAMPANHA_BOOT_SCRIPT }} />
+      </head>
       <body>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Logotype from './Logotype';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -7,8 +7,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.brand}>
           <span className={styles.logo}>
-            <Image src="/logo.png" alt="MyClínica" width={22} height={22} style={{ borderRadius: 5 }} />
-            My<strong>Clínica</strong>
+            <Logotype className={styles.logotype} />
           </span>
           <span className={styles.tagline}>Sistema completo de gestão para clínicas</span>
         </div>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>OG Image — MyClínica</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Nunito:wght@700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -47,20 +47,11 @@
     position: relative;
     z-index: 2;
   }
-  .logoMark {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(94, 234, 212, 0.3);
-  }
-  .logoText {
-    font-size: 1.7rem;
-    font-weight: 500;
-    letter-spacing: -0.5px;
-  }
-  .logoText strong {
-    font-weight: 800;
-    color: #5EEAD4;
+  .logotype {
+    display: block;
+    height: 80px;
+    width: 346px;
+    overflow: visible;
   }
 
   .badge {
@@ -203,18 +194,12 @@
   <div class="orb"></div>
 
   <div class="logo">
-    <svg class="logoMark" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="32" fill="#5EEAD4"/>
-      <polyline
-        points="8,32 18,32 22,20 27,44 32,26 37,38 41,32 56,32"
-        fill="none"
-        stroke="white"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+    <svg class="logotype" viewBox="-70 -830 4584 1060" role="img" aria-label="MyClínica">
+      <path d="M0 -272H150L320 -697L530 160L730 -600L890 -272M1000 -484L1175 -20M1350 -484L1175 -20L1105 160"
+            fill="none" stroke="#FFFFFF" stroke-width="124" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="1431" y="0" textLength="3110" lengthAdjust="spacingAndGlyphs"
+            fill="#5EEAD4" font-family="Nunito, sans-serif" font-weight="700" font-size="1000">Clínica</text>
     </svg>
-    <span class="logoText">My<strong>Clínica</strong></span>
   </div>
 
   <div class="content">
@@ -233,9 +218,9 @@
 
   <div class="footer">
     <div class="features">
-      <div class="feat"><span class="check">✓</span> 7 dias grátis</div>
+      <div class="feat"><span class="check">✓</span> 14 dias grátis</div>
       <div class="feat"><span class="check">✓</span> Sem cartão</div>
-      <div class="feat"><span class="check">✓</span> 7 especialidades</div>
+      <div class="feat"><span class="check">✓</span> 9 especialidades</div>
     </div>
     <div class="url">site.myclinica.online</div>
   </div>

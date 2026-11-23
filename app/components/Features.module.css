@@ -188,3 +188,15 @@
   .grid { grid-template-columns: 1fr; }
   .span2 { grid-column: span 1; }
 }
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+:global(html[data-campanha]) .card { background: var(--surface-1); }
+:global(html[data-campanha]) .cardHero {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, #000) 0%, var(--surface-1) 100%);
+}
+:global(html[data-campanha]) .eyebrow,
+:global(html[data-campanha]) .italic { color: var(--primary-light); }
+/* Acentos azuis/roxos ganham brilho para manter contraste sobre o preto */
+:global(html[data-campanha]) .icon { filter: brightness(1.45) saturate(1.1); }
+:global(html[data-campanha]) .proofSigned { color: var(--primary-light); }
+:global(html[data-campanha]) .proofBubbleOut { color: #fff; }

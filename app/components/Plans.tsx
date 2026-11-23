@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState, type KeyboardEvent } from 'react';
 import styles from './Plans.module.css';
 import RevealSection from './RevealSection';
 import { trackContact, trackTrialLead } from '../lib/pixel';
@@ -20,95 +21,139 @@ const IconWhatsApp = () => (
   </svg>
 );
 
-const plans = [
+type Prazo = 1 | 3 | 6 | 12;
+
+const PRAZOS: { value: Prazo; label: string }[] = [
+  { value: 1, label: 'Mensal' },
+  { value: 3, label: '3 meses' },
+  { value: 6, label: '6 meses' },
+  { value: 12, label: '12 meses' },
+];
+
+/** Valores em centavos. Fonte: tabela de preços da campanha. */
+interface Plano {
+  name: string;
+  slug: string;
+  /** Valor aceito pelo parâmetro ?plan= do cadastro do app. */
+  appPlan: 'essencial' | 'completo' | 'ilimitado';
+  description: string;
+  highlight: boolean;
+  badge: string | null;
+  /** Mensalidade sem contrato. */
+  semContrato: number;
+  /** Mensalidade com contrato (pago mês a mês) por prazo. */
+  contrato: Record<3 | 6 | 12, number>;
+  /** Valor total pago à vista por prazo. */
+  avista: Record<3 | 6 | 12, number>;
+  features: string[];
+  missing: string[];
+}
+
+const plans: Plano[] = [
   {
     name: 'Essencial',
     slug: 'essencial',
-    price: 'R$ 99,90/mês',
+    appPlan: 'essencial',
     description: 'Para profissionais autônomos que estão começando a organizar sua clínica.',
     highlight: false,
     badge: null,
+    semContrato: 9990,
+    contrato: { 3: 9490, 6: 8990, 12: 8490 },
+    avista: { 3: 26990, 6: 50990, 12: 89990 },
     features: [
       'Prontuário eletrônico completo',
-      'Agenda com lembretes',
+      'Agenda com lembretes e confirmação por SIM ou NÃO',
+      'Mensagens do WhatsApp e CRM automático em quadro',
+      'Agendamento online pelo link da clínica',
       'Financeiro básico',
-      'Cadastro de até 100 pacientes',
       '1 profissional',
+      'Recepção com login ilimitado',
       'Suporte humanizado por WhatsApp',
     ],
     missing: [
       'Relatórios avançados',
       'Gestão de equipe',
       'Atendente virtual com IA',
-      'CRM integrado via WhatsApp',
-      'Agendamento automático pelo WhatsApp',
-      'Respostas automáticas 24/7',
     ],
   },
   {
     name: 'Completo',
     slug: 'completo',
-    price: 'R$ 129,90/mês',
+    appPlan: 'completo',
     description: 'Ideal para clínicas em crescimento, com pacientes ilimitados e equipe de até 3 profissionais.',
     highlight: true,
     badge: 'Mais popular',
+    semContrato: 12990,
+    contrato: { 3: 12390, 6: 11690, 12: 10990 },
+    avista: { 3: 34990, 6: 65990, 12: 116990 },
     features: [
       'Prontuário eletrônico completo',
-      'Agenda com lembretes',
+      'Agenda com lembretes e confirmação por SIM ou NÃO',
+      'Mensagens do WhatsApp e CRM automático em quadro',
+      'Agendamento online pelo link da clínica',
       'Financeiro completo',
       'Pacientes ilimitados',
-      'Até 3 profissionais (recepção ilimitada)',
+      'Até 3 profissionais',
+      'Recepção com login ilimitado',
       'Gestão de equipe',
       'Relatórios avançados',
       'Suporte humanizado por WhatsApp',
     ],
-    missing: [
-      'Atendente virtual com IA',
-      'CRM integrado via WhatsApp',
-      'Agendamento automático pelo WhatsApp',
-      'Respostas automáticas 24/7',
-    ],
+    missing: ['Atendente virtual com IA'],
   },
   {
-    name: 'Ilimitado',
-    slug: 'ilimitado',
-    price: 'R$ 169,90/mês',
-    description: 'Para clínicas grandes, com equipe sem limite de profissionais.',
+    name: 'Equipe',
+    slug: 'equipe',
+    appPlan: 'ilimitado',
+    description: 'Para clínicas com equipe maior, de até 6 profissionais.',
     highlight: false,
     badge: null,
+    semContrato: 16990,
+    contrato: { 3: 16190, 6: 15290, 12: 14490 },
+    avista: { 3: 45890, 6: 86690, 12: 152990 },
     features: [
       'Tudo do plano Completo',
-      'Profissionais ilimitados',
+      'Até 6 profissionais',
+      'Recepção com login ilimitado',
       'Suporte humanizado por WhatsApp',
     ],
-    missing: [
-      'Atendente virtual com IA',
-      'CRM integrado via WhatsApp',
-      'Agendamento automático pelo WhatsApp',
-      'Respostas automáticas 24/7',
-    ],
-  },
-  {
-    name: 'Ilimitado + IA',
-    slug: null,
-    price: 'A partir de R$ 199,90/mês',
-    description: 'Para clínicas que querem automatizar o atendimento e crescer com IA.',
-    highlight: false,
-    badge: 'Com IA',
-    features: [
-      'Tudo do plano Ilimitado',
-      'Atendente virtual com IA',
-      'CRM integrado via WhatsApp',
-      'Agendamento automático pelo WhatsApp',
-      'Respostas automáticas 24/7',
-      'Encaminhamento inteligente de pacientes',
-      'Gerente de conta dedicado',
-    ],
-    missing: [],
+    missing: ['Atendente virtual com IA'],
   },
 ];
 
+const brl = (centavos: number) => {
+  const reais = Math.floor(centavos / 100);
+  const cents = String(centavos % 100).padStart(2, '0');
+  return `R$ ${String(reais).replace(/\B(?=(\d{3})+(?!\d))/g, '.')},${cents}`;
+};
+
+/** Gancho de preço: Essencial, 12 meses à vista, dividido por 12. */
+export const PRECO_GANCHO = brl(Math.floor(plans[0].avista[12] / 12));
+
+const GRANDES_FEATURES = [
+  'Para clínicas com 7 ou mais profissionais',
+  'Plano com IA no WhatsApp, sob proposta',
+  'Proposta montada junto com a clínica',
+  'Implantação acompanhada',
+];
+
 export default function Plans() {
+  const [prazo, setPrazo] = useState<Prazo>(12);
+  const botoes = useRef<Array<HTMLButtonElement | null>>([]);
+
+  // Radiogroup acessivel: so o selecionado entra na ordem de Tab; setas
+  // mudam o prazo e levam o foco para o botao novo.
+  const aoTeclar = (e: KeyboardEvent<HTMLDivElement>) => {
+    const avancar = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+    const voltar = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+    if (!avancar && !voltar) return;
+    e.preventDefault();
+    const atual = PRAZOS.findIndex(p => p.value === prazo);
+    const prox = (atual + (avancar ? 1 : -1) + PRAZOS.length) % PRAZOS.length;
+    setPrazo(PRAZOS[prox].value);
+    botoes.current[prox]?.focus();
+  };
+
   return (
     <section className={styles.section} id="plans">
       <div className={styles.container}>
@@ -116,70 +161,120 @@ export default function Plans() {
           <span className={styles.badge}>Planos</span>
           <h2 className={styles.title}>Escolha o plano ideal</h2>
           <p className={styles.subtitle}>
-            Entre em contato e descubra qual plano se encaixa melhor no seu perfil.
+            A partir de <strong>{PRECO_GANCHO}/mês</strong> no Essencial com pagamento anual à vista.
+            Escolha o prazo e veja o valor de cada plano.
           </p>
         </div>
 
         <div className={styles.trialBanner}>
-          <IconGift /> <strong>7 dias grátis</strong> em qualquer plano — sem cartão de crédito
+          <IconGift /> <span><strong>14 dias grátis</strong> em qualquer plano, sem cartão de crédito</span>
+        </div>
+
+        <div className={styles.termWrap}>
+          <div className={styles.term} role="radiogroup" aria-label="Prazo do plano" onKeyDown={aoTeclar}>
+            {PRAZOS.map((p, i) => (
+              <button
+                key={p.value}
+                ref={el => { botoes.current[i] = el; }}
+                type="button"
+                role="radio"
+                aria-checked={prazo === p.value}
+                tabIndex={prazo === p.value ? 0 : -1}
+                className={`${styles.termBtn} ${prazo === p.value ? styles.termBtnActive : ''}`}
+                onClick={() => setPrazo(p.value)}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <p className={styles.termHint}>
+            {prazo === 1
+              ? 'Plano mensal, sem contrato. Os contratos de 3, 6 e 12 meses têm desconto na mensalidade.'
+              : `Contrato de ${prazo} meses, pago mês a mês. Pagando o período à vista o desconto é maior.`}
+          </p>
         </div>
 
         <div className={styles.grid}>
-          {plans.map((plan, i) => (
-            <RevealSection
-              key={plan.name}
-              className={`${styles.card} ${plan.highlight ? styles.highlighted : ''}`}
-              delay={i}
-              variant="scale"
-            >
-              {plan.badge && (
-                <div className={styles.popularBadge}>{plan.badge}</div>
-              )}
-              <div className={styles.planName}>{plan.name}</div>
-              <div className={styles.planPrice}>{plan.price}</div>
-              <p className={styles.planDesc}>{plan.description}</p>
-
-              <ul className={styles.featureList}>
-                {plan.features.map(f => (
-                  <li key={f} className={styles.featureItem}>
-                    <span className={styles.check}>✓</span>
-                    {f}
-                  </li>
-                ))}
-                {plan.missing.map(f => (
-                  <li key={f} className={`${styles.featureItem} ${styles.missing}`}>
-                    <span className={styles.x}>✕</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              {plan.slug === null && (
-                <div className={styles.contactNote}>
-                  <IconWhatsApp />
-                  <span>
-                    O plano Ilimitado + IA é personalizado para cada clínica.{' '}
-                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.contactNoteLink} onClick={() => trackContact('plans_completo_plus_note')}>
-                      Fale com a gente no WhatsApp
-                    </a>{' '}
-                    e monte o seu <strong>Atendente Virtual</strong> e <strong>CRM</strong> sob medida.
-                  </span>
+          {plans.map((plan, i) => {
+            const mensal = prazo === 1 ? plan.semContrato : plan.contrato[prazo];
+            const avista = prazo === 1 ? null : plan.avista[prazo];
+            const economia = avista === null ? 0 : mensal * prazo - avista;
+            return (
+              <RevealSection
+                key={plan.name}
+                className={`${styles.card} ${plan.highlight ? styles.highlighted : ''}`}
+                delay={i}
+                variant="scale"
+              >
+                {plan.badge && <div className={styles.popularBadge}>{plan.badge}</div>}
+                <div className={styles.planName}>{plan.name}</div>
+                <div className={styles.planPrice}>
+                  {brl(mensal)}<span className={styles.perMonth}>/mês</span>
                 </div>
-              )}
-              {plan.slug === null ? (
-                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.primaryBtn} onClick={() => trackContact('plans_completo_plus_orcamento')}>
-                  Faça seu orçamento →
+                {avista !== null ? (
+                  <div className={styles.priceSub}>
+                    ou <strong>{brl(avista)}</strong> à vista <span className={styles.saving}>(economize {brl(economia)})</span>
+                  </div>
+                ) : (
+                  <div className={styles.priceSub}>Sem contrato, cancele quando quiser</div>
+                )}
+                <p className={styles.planDesc}>{plan.description}</p>
+
+                <ul className={styles.featureList}>
+                  {plan.features.map(f => (
+                    <li key={f} className={styles.featureItem}>
+                      <span className={styles.check}>✓</span>
+                      {f}
+                    </li>
+                  ))}
+                  {plan.missing.map(f => (
+                    <li key={f} className={`${styles.featureItem} ${styles.missing}`}>
+                      <span className={styles.x}>✕</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={`${BASE_URL}?plan=${plan.appPlan}`}
+                  className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn}
+                  onClick={() => trackTrialLead(`plans_${plan.slug}`)}
+                >
+                  Testar grátis por 14 dias →
                 </a>
-              ) : (
-                <>
-                  <a href={`${BASE_URL}?plan=${plan.slug}`} className={plan.highlight ? styles.primaryBtn : styles.secondaryBtn} onClick={() => trackTrialLead(`plans_${plan.slug}`)}>
-                    Testar grátis por 7 dias →
-                  </a>
-                  <p className={styles.btnSubtext}>sem cartão de crédito · cancele quando quiser</p>
-                </>
-              )}
-            </RevealSection>
-          ))}
+                <p className={styles.btnSubtext}>sem cartão de crédito</p>
+              </RevealSection>
+            );
+          })}
+
+          <RevealSection className={`${styles.card} ${styles.cardContact}`} delay={plans.length} variant="scale">
+            <div className={styles.contactBadge}>Sob consulta</div>
+            <div className={styles.planName}>Clínicas maiores e IA</div>
+            <div className={styles.planPriceText}>Fale com a gente</div>
+            <p className={styles.planDesc}>
+              Para clínicas com 7 ou mais profissionais e para quem quer o plano com IA no WhatsApp. Conversamos sobre a sua rotina e montamos a proposta juntos.
+            </p>
+
+            <ul className={styles.featureList}>
+              {GRANDES_FEATURES.map(f => (
+                <li key={f} className={styles.featureItem}>
+                  <span className={styles.check}>✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.whatsBtn}
+              onClick={() => trackContact('plans_sob_consulta')}
+            >
+              <IconWhatsApp />
+              Falar no WhatsApp
+            </a>
+          </RevealSection>
         </div>
       </div>
     </section>

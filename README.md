@@ -22,7 +22,7 @@
 
 A **MyClínica** é uma plataforma SaaS completa para gestão de clínicas e consultórios. Esta landing page apresenta o produto, suas funcionalidades e planos de assinatura.
 
-> 7 dias grátis · Sem cartão de crédito · 7 especialidades suportadas
+> 14 dias grátis · Sem cartão de crédito · 9 especialidades suportadas
 
 ## 📸 Preview
 
@@ -41,7 +41,7 @@ A **MyClínica** é uma plataforma SaaS completa para gestão de clínicas e con
 
 ## 🏥 Especialidades Suportadas
 
-🦷 Odontologia · 🩺 Medicina · ✨ Estética · 🐾 Veterinária · 🤸 Fisioterapia · 🧠 Psicologia · 🥗 Nutrição
+🦷 Odontologia · 🩺 Medicina · ✨ Estética · 🐾 Veterinária · 🤸 Fisioterapia · 🧠 Psicologia · 🥗 Nutrição · Fonoaudiologia · Terapia Ocupacional
 
 ## 🛠 Stack
 

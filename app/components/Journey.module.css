@@ -136,3 +136,16 @@
   .track { grid-template-columns: 1fr; }
   .iconWrap { margin-bottom: 14px; }
 }
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+:global(html[data-campanha]) .badge { color: var(--primary-light); }
+:global(html[data-campanha]) .iconWrap {
+  background: var(--bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+:global(html[data-campanha]) .card {
+  background: var(--surface-1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+:global(html[data-campanha]) .card:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); }
+:global(html[data-campanha]) .line { opacity: 0.55; }

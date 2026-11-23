@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
 import styles from './Preview.module.css';
+import Logotype from './Logotype';
 
 /* ════════════════════════════════════════════════════════════════
    Demonstração — réplica fiel do sistema MyClínica (tema Clinic White)
-   Sidebar branca · acento teal #4DD9C0 · texto #0D2421
+   Sidebar sem borda · acento teal #4DD9C0 · texto #0D2421
    ════════════════════════════════════════════════════════════════ */
 
 const tabs = [
@@ -40,6 +41,14 @@ const ICON_PATHS: Record<string, string> = {
   arrowDown:    'M12 5v14M19 12l-7 7-7-7',
   refresh:      'M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15',
   edit:         'M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5z',
+  plus:         'M12 5v14M5 12h14',
+  chevronLeft:  'M15 18l-6-6 6-6',
+  messages:     'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
+  commissions:  'M19 5L5 19M6.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM17.5 20a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+  search:       'M11 3a8 8 0 100 16 8 8 0 000-16zM21 21l-4.35-4.35',
+  bell:         'M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0',
+  print:        'M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z',
+  gear:         'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z',
   trash:        'M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6',
 };
 function NavIcon({ name }: { name: string }) {
@@ -50,18 +59,32 @@ function NavIcon({ name }: { name: string }) {
   );
 }
 
-const navItems = [
-  { key: 'dashboard',     label: 'Dashboard',     icon: 'dashboard'  },
-  { key: 'pacientes',     label: 'Pacientes',     icon: 'patients'   },
-  { key: 'agenda',        label: 'Agenda',        icon: 'calendar'   },
-  { key: 'financeiro',    label: 'Financeiro',    icon: 'finance'    },
-  { key: 'procedimentos', label: 'Procedimentos', icon: 'procedures' },
-  { key: 'relatorios',    label: 'Relatórios',    icon: 'reports'    },
-  { key: 'estoque',       label: 'Estoque',       icon: 'stock'      },
-  { key: 'equipe',        label: 'Equipe',        icon: 'team'       },
-  { key: 'crm',           label: 'CRM',           icon: 'crm'        },
-  { key: 'campanhas',     label: 'Campanhas',     icon: 'campaigns'  },
-  { key: 'configuracoes', label: 'Configurações', icon: 'settings'   },
+const navGroups: { title?: string; items: { key: string; label: string; icon: string }[] }[] = [
+  { items: [{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard' }] },
+  {
+    title: 'Dia a dia',
+    items: [
+      { key: 'agenda',    label: 'Agenda',    icon: 'calendar' },
+      { key: 'pacientes', label: 'Pacientes', icon: 'patients' },
+      { key: 'mensagens', label: 'Mensagens', icon: 'messages' },
+    ],
+  },
+  {
+    title: 'Gestão',
+    items: [
+      { key: 'financeiro', label: 'Financeiro', icon: 'finance' },
+      { key: 'comissoes',  label: 'Comissões',  icon: 'commissions' },
+      { key: 'relatorios', label: 'Relatórios', icon: 'reports' },
+    ],
+  },
+  {
+    title: 'Clínica',
+    items: [
+      { key: 'estoque', label: 'Estoque', icon: 'stock' },
+      { key: 'equipe',  label: 'Equipe',  icon: 'team' },
+    ],
+  },
+  { title: 'Captação', items: [{ key: 'crm', label: 'CRM', icon: 'crm' }] },
 ];
 
 // Qual item da sidebar fica ativo para cada aba da demo
@@ -77,325 +100,420 @@ const sidebarActive: Record<string, string> = {
 
 function Sidebar({ active }: { active: string }) {
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.sidebarBrand}>
-        <span className={styles.logoText}>My<strong>Clinica</strong></span>
-        <span className={styles.clinicName}>Clínica Saúde+</span>
+    <aside className={styles.sidebar} aria-hidden="true">
+      <div className={styles.sbBrand}>
+        <Logotype className={styles.sbLogo} />
+        <div className={styles.sbClinic}>
+          <span className={styles.sbMark}>S</span>
+          <span className={styles.sbClinicName}>Clínica Saúde+</span>
+        </div>
       </div>
       <nav className={styles.nav}>
-        {navItems.map(item => (
-          <div key={item.key} className={`${styles.navItem} ${item.key === active ? styles.navActive : ''}`}>
-            <span className={styles.navIcon}><NavIcon name={item.icon} /></span>
-            <span className={styles.navLabel}>{item.label}</span>
+        {navGroups.map((g, gi) => (
+          <div key={gi} className={styles.navGroup}>
+            {g.title && <span className={styles.navGroupTitle}>{g.title}</span>}
+            {g.items.map(item => (
+              <div key={item.key} className={`${styles.navItem} ${item.key === active ? styles.navActive : ''}`}>
+                <span className={styles.navIcon}><NavIcon name={item.icon} /></span>
+                <span className={styles.navLabel}>{item.label}</span>
+              </div>
+            ))}
           </div>
         ))}
       </nav>
-      <div className={styles.sidebarFooter}>
-        <div className={styles.avatar}>AD</div>
-        <div className={styles.userInfo}>
-          <span className={styles.userName}>Administrador</span>
-          <span className={styles.userRole}>admin</span>
+      <div className={styles.sbBottom}>
+        <div className={styles.navItem}>
+          <span className={styles.navIcon}><NavIcon name="gear" /></span>
+          <span className={styles.navLabel}>Configurações</span>
         </div>
+        <div className={styles.sidebarFooter}>
+          <div className={styles.avatar}>HP</div>
+          <div className={styles.userInfo}>
+            <span className={styles.userName}>Helena Prado</span>
+            <span className={styles.userRole}>Administradora</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function Topbar({ placeholder }: { placeholder: string }) {
+  return (
+    <div className={styles.apTopbar} aria-hidden="true">
+      <div className={styles.apSearch}>
+        <NavIcon name="search" />
+        <span>{placeholder}</span>
+      </div>
+      <div className={styles.apTopRight}>
+        <span className={styles.apBell}><NavIcon name="bell" /><i className={styles.apBellDot} /></span>
+        <span className={styles.apProfile}>
+          <span className={styles.apProfileAv}>HP</span>
+          <span className={styles.apProfileName}>Helena Prado</span>
+        </span>
       </div>
     </div>
   );
+}
+
+/* Cabeçalho de página (PageHeader do app): título, subtítulo e ações à direita */
+function PageHead({ title, sub, children }: { title: string; sub: string; children?: React.ReactNode }) {
+  return (
+    <div className={styles.apHead}>
+      <div className={styles.apHeadText}>
+        <h1 className={styles.apTitle}>{title}</h1>
+        <p className={styles.apSub}>{sub}</p>
+      </div>
+      {children && <div className={styles.apHeadActions}>{children}</div>}
+    </div>
+  );
+}
+
+function Pills({ options, active }: { options: string[]; active: string }) {
+  return (
+    <div className={styles.apPills}>
+      {options.map(o => <span key={o} className={`${styles.apPill} ${o === active ? styles.apPillOn : ''}`}>{o}</span>)}
+    </div>
+  );
+}
+
+/* Medidor em meia-lua (Gauge do app) */
+function Gauge({ value, label }: { value: number; label: string }) {
+  const r = 80, cx = 100, cy = 100;
+  const a = Math.PI * (1 - value);
+  const ex = cx + r * Math.cos(a), ey = cy - r * Math.sin(a);
+  return (
+    <div className={styles.apGauge}>
+      <svg viewBox="0 0 200 112" role="img" aria-label={label}>
+        <defs>
+          <linearGradient id={`apg-${label.length}-${Math.round(value * 100)}`} x1="0" x2="1">
+            <stop offset="0" stopColor="#4DD9C0" stopOpacity="0.35" />
+            <stop offset="1" stopColor="#0B9B85" />
+          </linearGradient>
+        </defs>
+        <path d={`M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy}`} className={styles.apGaugeTrack} />
+        <path d={`M${cx - r} ${cy} A${r} ${r} 0 0 1 ${ex.toFixed(2)} ${ey.toFixed(2)}`} className={styles.apGaugeArc} stroke={`url(#apg-${label.length}-${Math.round(value * 100)})`} />
+        <circle cx={ex.toFixed(2)} cy={ey.toFixed(2)} r="7" className={styles.apGaugeKnob} />
+      </svg>
+      <div className={styles.apGaugeNum}>{Math.round(value * 100)}<small>%</small></div>
+    </div>
+  );
+}
+
+function DayBars({ values, max }: { values: number[]; max: number }) {
+  return (
+    <div className={styles.apDayBars}>
+      {values.map((v, i) => <i key={i} className={v === 0 ? styles.apDayZero : ''} style={{ height: `${v === 0 ? 8 : Math.max(18, Math.round((v / max) * 100))}%` }} />)}
+    </div>
+  );
+}
+
+function MiniSpark({ values }: { values: number[] }) {
+  const w = 100, h = 34, max = Math.max(...values), min = Math.min(...values);
+  const pts = values.map((v, i) => `${(i / (values.length - 1)) * w},${h - 4 - ((v - min) / Math.max(1, max - min)) * (h - 8)}`).join(' ');
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} className={styles.apSpark} aria-hidden="true" preserveAspectRatio="none">
+      <polyline points={pts} fill="none" stroke="#0B9B85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+function StatCard({ title, value, compact, delta, hint, spark }: { title: string; value: string; compact?: boolean; delta?: string; hint: string; spark?: number[] }) {
+  return (
+    <div className={styles.apCard}>
+      <div className={styles.apCardTitle}>{title}</div>
+      <div className={styles.apStatRow}>
+        <div className={styles.apStatMain}>
+          <div className={styles.apStatLine}>
+            <span className={`${styles.apStatValue} ${compact ? styles.apStatCompact : ''}`}>{value}</span>
+            {delta && <span className={styles.apDelta}>{delta}</span>}
+          </div>
+          <div className={styles.apHint}>{hint}</div>
+        </div>
+        {spark && <MiniSpark values={spark} />}
+      </div>
+    </div>
+  );
+}
+
+function StatusDot({ tone, children }: { tone: 'ok' | 'wait' | 'now' | 'warn' | 'bad' | 'idle'; children: React.ReactNode }) {
+  return <span className={`${styles.apDot} ${styles[`apDot_${tone}`]}`}>{children}</span>;
 }
 
 /* ════════════════════════════════════════════════════════════════
    1. DASHBOARD
    ════════════════════════════════════════════════════════════════ */
 function DashboardMock() {
-  const monthly = [
-    { month: 'Fev', receita: 9200 },
-    { month: 'Mar', receita: 10800 },
-    { month: 'Abr', receita: 12200 },
-    { month: 'Mai', receita: 11400 },
-    { month: 'Jun', receita: 13100 },
-    { month: 'Jul', receita: 12840 },
-  ];
-  const maxReceita = Math.max(...monthly.map(m => m.receita));
-  const alerts = [
-    { icon: 'alert',    color: '#EF4444', label: 'Faltou',      name: 'Pedro Alves',    date: '15/07/26' },
-    { icon: 'cake',     color: '#8B5CF6', label: 'Aniversário', name: 'Larissa Barros', date: 'Hoje' },
-    { icon: 'calendar', color: '#F59E0B', label: 'Sem retorno', name: 'Felipe Costa',   date: '30/04/26' },
-  ];
-  const rows = [
-    { name: 'Pedro Alves',    proc: 'Consulta',     date: '20/05/2026 09:00', status: 'confirmado' },
-    { name: 'Larissa Barros', proc: 'Retorno',      date: '20/05/2026 10:30', status: 'agendado'   },
-    { name: 'Felipe Costa',   proc: 'Avaliação',    date: '20/05/2026 11:00', status: 'confirmado' },
+  const today = [
+    { time: '09:00', name: 'Pedro Alves',    proc: 'Consulta',          tone: 'idle' as const, label: 'Concluído' },
+    { time: '10:30', name: 'Larissa Barros', proc: 'Retorno',           tone: 'idle' as const, label: 'Concluído' },
+    { time: '14:30', name: 'Marina Duarte',  proc: 'Avaliação inicial', tone: 'now'  as const, label: 'Confirmado' },
+    { time: '15:30', name: 'Renato Esteves', proc: 'Retorno',           tone: 'wait' as const, label: 'Agendado', action: 'Confirmar' },
+    { time: '16:30', name: 'Carla Moura',    proc: 'Consulta',          tone: 'ok'   as const, label: 'Confirmado', action: 'Concluir' },
   ];
   const categories = [
-    { label: 'Consultas',    value: 'R$ 5.240', pct: 100, color: '#4DD9C0' },
-    { label: 'Procedimentos',value: 'R$ 4.180', pct: 80,  color: '#0EA5E9' },
-    { label: 'Retornos',     value: 'R$ 2.120', pct: 40,  color: '#8B5CF6' },
-    { label: 'Venda produto',value: 'R$ 1.300', pct: 25,  color: '#F59E0B' },
+    { label: 'Consultas',       value: 'R$ 5.240', pct: 100 },
+    { label: 'Procedimentos',   value: 'R$ 4.180', pct: 80 },
+    { label: 'Retornos',        value: 'R$ 2.120', pct: 40 },
+    { label: 'Venda de produtos', value: 'R$ 1.300', pct: 25 },
   ];
   const insights = [
-    { icon: 'target', color: '#10B981', text: 'Meta do mês batida — você já alcançou 93% do objetivo de faturamento.' },
-    { icon: 'finance', color: '#0EA5E9', text: 'Receita 12% acima do mês anterior — melhor performance dos últimos 3 meses.' },
+    { icon: 'finance', text: 'Receita 12% acima do mês anterior. Faltam R$ 2.760 para a meta do mês.' },
+    { icon: 'calendar', text: 'Confirmação da semana em 76%: 6 consultas ainda sem resposta do paciente.' },
   ];
-  const goalPct = 93;
-  const RING_R = 40;
-  const RING_C = 2 * Math.PI * RING_R;
-  const ringOffset = RING_C * (1 - goalPct / 100);
+  const done = [5, 6, 4, 7, 6, 5, 4], noShow = [1, 0, 1, 1, 0, 2, 0], cancelled = [0, 1, 0, 1, 0, 1, 0];
 
   return (
     <div className={styles.screenBody}>
-      <div className={styles.pageHead}>
-        <div>
-          <h1 className={styles.pageTitle}>Boa tarde, Administrador</h1>
-          <p className={styles.pageSub}>Terça-feira, 20 de maio de 2026</p>
-        </div>
-        <button className={styles.iconBtn} title="Ocultar valores">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
-      <div className={styles.mainScroll}>
+      <div className={styles.apScroll}>
+        <PageHead title="Boa tarde, Helena" sub="Segunda-feira, 23 de novembro">
+          <span className={styles.apIconBtn}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+        </PageHead>
 
-        <div className={styles.alertWidget}>
-          <div className={styles.alertHeader}>
-            <span className={styles.alertHeaderIcon}><NavIcon name="alert" /></span>
-            <h2 className={styles.alertTitle}>Ações necessárias</h2>
-            <span className={styles.alertCount}>{alerts.length}</span>
-            <span className={styles.alertCollapseBtn}><NavIcon name="chevronRight" /></span>
-          </div>
-          <div className={styles.alertList}>
-            {alerts.map(a => (
-              <div key={a.name} className={styles.alertItem}>
-                <span className={styles.alertBadge} style={{ background: `${a.color}1a`, color: a.color }}>
-                  <NavIcon name={a.icon} /> {a.label}
-                </span>
-                <div className={styles.alertInfo}>
-                  <span className={styles.alertName}>{a.name}</span>
-                  <span className={styles.alertDate}>{a.date}</span>
-                </div>
-                <div className={styles.alertActions}>
-                  <span className={styles.alertBtnWa}>WhatsApp</span>
-                  <span className={styles.alertBtnIgnore}>Ignorar</span>
-                </div>
+        <div className={styles.apGrid}>
+          <section className={`${styles.apCard} ${styles.apHero}`}>
+            <div className={styles.apGauges}>
+              <div className={styles.apGaugeBox}>
+                <h2 className={styles.apGaugeTitle}>Meta do mês</h2>
+                <Gauge value={0.82} label="Meta do mês: 82% atingido" />
+                <p className={styles.apGaugeHint}>R$ 2.760 para a meta em 7 dia(s)<span className={styles.apLink}>Editar</span></p>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.bento}>
-          <article className={styles.heroCard}>
-            <div className={styles.cardHead}><span className={styles.eyebrow}>Financeiro do mês</span></div>
-            <div className={styles.heroRow}>
-              <span className={styles.heroValue}>R$ 12.840,00</span>
-              <span className={`${styles.delta} ${styles.deltaUp}`}>▲ 12%<span className={styles.deltaRef}>vs. mês anterior</span></span>
-            </div>
-            <div className={styles.spark}>
-              {monthly.map((m, i) => (
-                <span
-                  key={m.month}
-                  className={i === monthly.length - 1 ? styles.sparkOn : ''}
-                  style={{ height: `${Math.max(6, Math.round((m.receita / maxReceita) * 100))}%` }}
-                />
-              ))}
-            </div>
-            <div className={styles.sparkAxis}>{monthly.map(m => <span key={m.month}>{m.month}</span>)}</div>
-            <div className={styles.subGrid}>
-              <div>
-                <div className={styles.subMetric}>R$ 4.320,00</div>
-                <div className={styles.subLabel}>Despesas</div>
-              </div>
-              <div>
-                <div className={`${styles.subMetric} ${styles.subAccent}`}>R$ 8.520,00</div>
-                <div className={styles.subLabel}>Lucro líquido</div>
-              </div>
-              <div>
-                <div className={styles.subMetric}>R$ 285,00</div>
-                <div className={styles.subLabel}>Ticket médio</div>
+              <div className={styles.apGaugeBox}>
+                <h2 className={styles.apGaugeTitle}>Confirmação da semana</h2>
+                <Gauge value={0.76} label="Confirmação da semana: 76%" />
+                <p className={styles.apGaugeHint}>19 de 25 consultas confirmadas</p>
               </div>
             </div>
-          </article>
 
-          <div className={styles.metaCard}>
-            <div className={styles.cardHead}>
-              <span className={styles.eyebrow}>Meta do mês</span>
-              <span className={styles.metaEdit}>Editar <NavIcon name="chevronRight" /></span>
+            <div className={styles.apNext}>
+              <span className={styles.apNextTime}>14:30</span>
+              <div className={styles.apNextWho}>
+                <small>Próximo atendimento</small>
+                <b>Marina Duarte</b>
+                <span>Avaliação inicial</span>
+              </div>
+              <span className={styles.apNextGo}>Abrir</span>
             </div>
-            <div className={styles.ring}>
-              <svg width="96" height="96" viewBox="0 0 96 96">
-                <circle className={styles.ringTrack} cx="48" cy="48" r={RING_R} fill="none" strokeWidth="9" />
-                <circle
-                  className={styles.ringFill}
-                  cx="48" cy="48" r={RING_R} fill="none" strokeWidth="9"
-                  strokeDasharray={RING_C} strokeDashoffset={ringOffset} strokeLinecap="round"
-                  transform="rotate(-90 48 48)" stroke="url(#previewGoalGrad)"
-                />
-                <defs>
-                  <linearGradient id="previewGoalGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#4DD9C0" /><stop offset="1" stopColor="#0B9B85" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className={styles.ringPct}><b>{goalPct}%</b><small>da meta</small></div>
+
+            <div className={styles.apAttend}>
+              <div className={styles.apAttendHead}><h2>Comparecimento</h2><span>últimos 7 dias</span></div>
+              <div className={styles.apAttendBig}><span className={styles.apBigNum}>88<small>%</small></span><small>37 de 42 pacientes vieram</small></div>
+              <div className={styles.apSegs}>
+                <div className={styles.apSeg}><p>Compareceram <b>37</b></p><DayBars values={done} max={7} /></div>
+                <div className={`${styles.apSeg} ${styles.apSegWarn}`}><p>Faltaram <b>5</b></p><DayBars values={noShow} max={7} /></div>
+                <div className={`${styles.apSeg} ${styles.apSegDim}`}><p>Cancelaram <b>3</b></p><DayBars values={cancelled} max={7} /></div>
+              </div>
             </div>
-            <div className={styles.metaFig}>R$ 12.840,00 <span className={styles.metaOf}>de R$ 13.800,00</span></div>
-            <div className={styles.metaPace}>
-              <span className={styles.pacePill} style={{ background: '#10B981' }} />
-              No ritmo — faltam R$ 960,00 em 8 dia(s)
+          </section>
+
+          <div className={styles.apRight}>
+            <div className={styles.apMinis}>
+              <StatCard title="Pacientes ativos" value="147" delta="+9" hint="9 novos neste mês" spark={[132, 134, 137, 139, 141, 144, 147]} />
+              <StatCard title="Consultas hoje" value="12" hint="4 para confirmar" spark={[8, 11, 9, 13, 10, 12, 12]} />
+              <StatCard title="Receita do mês" value="R$ 12,8 mil" compact delta="+12%" hint="comparado ao mês passado" />
+              <StatCard title="Ticket médio" value="R$ 285" compact hint="média por atendimento" />
             </div>
+            <section className={styles.apCard}>
+              <div className={styles.apCardHead}>
+                <span className={styles.apCardTitle}>Receita por mês</span>
+                <Pills options={['Semana', 'Mês', '6 meses']} active="6 meses" />
+              </div>
+              <div className={styles.apChartPad}><RevenueChart /></div>
+            </section>
           </div>
-        </div>
 
-        <div className={styles.opsStrip}>
-          <div className={styles.opsCell}>
-            <span className={styles.cellVal}>147</span>
-            <span className={styles.cellLabel}>Pacientes ativos</span>
-          </div>
-          <div className={styles.opsCell}>
-            <span className={styles.cellVal}>12</span>
-            <span className={styles.cellLabel}>Consultas hoje</span>
-          </div>
-          <div className={styles.opsCell}>
-            <span className={styles.cellVal}>18</span>
-            <span className={styles.cellLabel}>Novos este mês</span>
-          </div>
-          <div className={styles.opsCell}>
-            <span className={styles.cellSplit}><b>34</b><span className={styles.cellSep}>/</span><b className={styles.cellWarn}>8</b></span>
-            <span className={styles.cellLabel}>Concluídos / em aberto</span>
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <div className={styles.sectionHead}><span className={styles.sectionTitle}>Próximos agendamentos</span></div>
-          <table className={styles.table}>
-            <thead><tr><th>Paciente</th><th>Procedimento</th><th>Data</th><th>Status</th></tr></thead>
-            <tbody>
-              {rows.map(r => (
-                <tr key={r.name}>
-                  <td className={styles.bold}>{r.name}</td>
-                  <td>{r.proc}</td>
-                  <td>{r.date}</td>
-                  <td><StatusBadge status={r.status} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className={styles.chartsGrid}>
-          <div className={styles.section}>
-            <div className={styles.sectionHead}><span className={styles.sectionTitle}>Receitas vs Despesas — 6 meses</span></div>
-            <div className={styles.chartPad}><LineChart /></div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.sectionHead}><span className={styles.sectionTitle}>Receita por categoria</span></div>
-            <div className={styles.chartPad}>
-              <div className={styles.catList}>
-                {categories.map(c => (
-                  <div key={c.label} className={styles.catRow}>
-                    <span className={styles.catLabel}>{c.label}</span>
-                    <div className={styles.catBarTrack}><div className={styles.catBarFill} style={{ width: `${c.pct}%`, background: c.color }} /></div>
-                    <span className={styles.catValue}>{c.value}</span>
-                  </div>
+          <div className={styles.apBottom}>
+            <section className={styles.apCard}>
+              <div className={styles.apCardHead}>
+                <span className={styles.apCardTitle}>Agenda de hoje</span>
+                <span className={styles.apCardLink}>Ver agenda <NavIcon name="chevronRight" /></span>
+              </div>
+              <ul className={styles.apApptList}>
+                {today.map(a => (
+                  <li key={a.time} className={styles.apAppt}>
+                    <time className={styles.apApptTime}>{a.time}</time>
+                    <div className={styles.apApptWho}><b>{a.name}</b><span>{a.proc}</span></div>
+                    <div className={styles.apApptEnd}>
+                      <StatusDot tone={a.tone}>{a.label}</StatusDot>
+                      {a.action && <span className={styles.apApptBtn}>{a.action}</span>}
+                    </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
+            </section>
+
+            <div className={styles.apStack}>
+              <section className={styles.apCard}>
+                <div className={styles.apCardHead}><span className={styles.apCardTitle}>Caixa de hoje</span></div>
+                <div className={styles.apCash}>
+                  <div className={styles.apCashRow}><span>Recebido</span><span className={styles.apCashNum}>R$ 1.480,00</span></div>
+                  <div className={styles.apCashRow}><span>A receber</span><span className={styles.apCashNum}>R$ 620,00</span></div>
+                  <div className={`${styles.apCashRow} ${styles.apCashTotal}`}><span>Previsto</span><span className={styles.apCashNum}>R$ 2.100,00</span></div>
+                </div>
+              </section>
+              <section className={styles.apCard}>
+                <div className={styles.apCardHead}>
+                  <span className={styles.apCardTitle}>Receita por categoria</span>
+                  <span className={styles.apCardMeta}>mês atual</span>
+                </div>
+                <ul className={styles.apCats}>
+                  {categories.map(c => (
+                    <li key={c.label}>
+                      <div className={styles.apCatRow}><span>{c.label}</span><b>{c.value}</b></div>
+                      <div className={styles.apCatTrack}><i style={{ width: `${c.pct}%` }} /></div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+              <section className={styles.apCard}>
+                <div className={styles.apCardHead}><span className={styles.apCardTitle}>Conclusões e dicas</span></div>
+                <ul className={styles.apInsights}>
+                  {insights.map((ins, i) => (
+                    <li key={i} className={styles.apInsight}>
+                      <span className={styles.apInsightIcon}><NavIcon name={ins.icon} /></span>
+                      <p>{ins.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             </div>
           </div>
         </div>
-
-        <div className={styles.insightsCard}>
-          <h2 className={styles.insightsTitle}>Conclusões &amp; Dicas</h2>
-          <div className={styles.insightsList}>
-            {insights.map((ins, i) => (
-              <div key={i} className={styles.insightItem}>
-                <span className={styles.insightIcon} style={{ background: `${ins.color}1a`, color: ins.color }}>
-                  <NavIcon name={ins.icon} />
-                </span>
-                <p className={styles.insightText}>{ins.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </div>
   );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const map: Record<string, { c: string; b: string; label: string }> = {
-    confirmado: { c: '#065F46', b: '#D1FAE5', label: 'confirmado' },
-    agendado:   { c: '#1E40AF', b: '#DBEAFE', label: 'agendado'   },
-    concluido:  { c: '#0B9B85', b: '#E5F9F5', label: 'concluído'  },
-    cancelado:  { c: '#B91C1C', b: '#FEE2E2', label: 'cancelado'  },
-  };
-  const s = map[status] ?? map.agendado;
-  return <span className={styles.statusBadge} style={{ color: s.c, background: s.b }}>{s.label}</span>;
 }
 
 /* ════════════════════════════════════════════════════════════════
    2. AGENDA
    ════════════════════════════════════════════════════════════════ */
 function AgendaMock() {
-  const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  const dates = [
-    [null, null, null, null, 1, 2, 3],
-    [4, 5, 6, 7, 8, 9, 10],
-    [11, 12, 13, 14, 15, 16, 17],
-    [18, 19, 20, 21, 22, 23, 24],
+  const profs = [
+    { ini: 'HP', name: 'Dra. Helena Prado', n: 10, color: '#0B9B85' },
+    { ini: 'RM', name: 'Dr. Rafael Menezes', n: 8, color: '#2563EB' },
+    { ini: 'BS', name: 'Dra. Beatriz Souza', n: 7, color: '#8B5CF6' },
   ];
-  const events: Record<number, { t: string; c: string }[]> = {
-    6:  [{ t: '09:00 Pedro A.', c: '#4DD9C0' }, { t: '14:00 Larissa B.', c: '#8B5CF6' }],
-    7:  [{ t: '10:30 Felipe C.', c: '#0EA5E9' }],
-    8:  [{ t: '09:00 Mariana D.', c: '#4DD9C0' }, { t: '11:00 Renato E.', c: '#F59E0B' }],
-    13: [{ t: '14:00 Sônia F.', c: '#8B5CF6' }],
-    14: [{ t: '09:30 Bruno G.', c: '#4DD9C0' }, { t: '16:00 Carla H.', c: '#0EA5E9' }],
-    20: [{ t: '09:00 Pedro A.', c: '#4DD9C0' }, { t: '11:00 Larissa B.', c: '#8B5CF6' }, { t: '14:30 Felipe C.', c: '#0EA5E9' }],
-    21: [{ t: '10:00 Mariana D.', c: '#F59E0B' }],
-  };
+  const weekdays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const dayNums = [23, 24, 25, 26, 27, 28];
+  const hours = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00'];
+  // col = dia (0 = segunda), top = horas desde as 08:00, h = duração em horas
+  const events: { col: number; top: number; h: number; time: string; name: string; proc: string; st: 'ok' | 'wait' | 'now' | 'idle' | 'warn'; c: string }[] = [
+    { col: 0, top: 1,    h: 1,    time: '09:00', name: 'Pedro Alves',     proc: 'Consulta',          st: 'idle', c: '#0B9B85' },
+    { col: 0, top: 2.5,  h: 1,    time: '10:30', name: 'Larissa Barros',  proc: 'Retorno',           st: 'idle', c: '#2563EB' },
+    { col: 1, top: 0,    h: 1,    time: '08:00', name: 'Mariana Dias',    proc: 'Limpeza',           st: 'ok',   c: '#8B5CF6' },
+    { col: 1, top: 2,    h: 1.5,  time: '10:00', name: 'Felipe Costa',    proc: 'Avaliação',         st: 'wait', c: '#0B9B85' },
+    { col: 2, top: 1,    h: 1,    time: '09:00', name: 'Renato Esteves',  proc: 'Retorno',           st: 'ok',   c: '#2563EB' },
+    { col: 2, top: 3,    h: 1,    time: '11:00', name: 'Carla Moura',     proc: 'Consulta',          st: 'wait', c: '#8B5CF6' },
+    { col: 3, top: 0.5,  h: 1.5,  time: '08:30', name: 'Marina Duarte',   proc: 'Avaliação inicial', st: 'ok',   c: '#0B9B85' },
+    { col: 4, top: 1.5,  h: 1,    time: '09:30', name: 'Bruno Gomes',     proc: 'Retorno',           st: 'wait', c: '#2563EB' },
+    { col: 4, top: 3,    h: 1,    time: '11:00', name: 'Sônia Freitas',   proc: 'Consulta',          st: 'ok',   c: '#8B5CF6' },
+    { col: 5, top: 1,    h: 1,    time: '09:00', name: 'Paulo Henrique',  proc: 'Consulta',          st: 'warn', c: '#0B9B85' },
+  ];
+  const mini = [
+    [26, 27, 28, 29, 30, 31, 1], [2, 3, 4, 5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15],
+    [16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27, 28, 29], [30, 1, 2, 3, 4, 5, 6],
+  ];
+  const marked = new Set([3, 5, 6, 12, 17, 19, 23, 24, 25, 26, 27, 28]);
+  const ROW = 52;
+
   return (
     <div className={styles.screenBody}>
-      <div className={styles.agTopbar}>
-        <div className={styles.agLeft}>
-          <button className={styles.agNavBtn}>‹</button>
-          <button className={styles.agNavBtn}>›</button>
-          <button className={styles.agToday}>Hoje</button>
-          <div className={styles.agDate}>
-            <strong>Maio 2026</strong>
-            <span>Terça-feira</span>
-          </div>
-        </div>
-        <div className={styles.agSeg}>
-          <button className={`${styles.agSegBtn} ${styles.agSegActive}`}>Mês</button>
-          <button className={styles.agSegBtn}>Semana</button>
-          <button className={styles.agSegBtn}>Dia</button>
-        </div>
-        <div className={styles.agRight}>
-          <div className={styles.profFilters}>
-            {[['DB', '#4DD9C0'], ['DE', '#0B9B85'], ['DS', '#127C9A']].map(([initials, color]) => (
-              <span key={initials} className={styles.profAvatar} style={{ background: color }}>{initials}</span>
-            ))}
-          </div>
-          <div className={styles.gcal}><span className={styles.gcalDot} />Google Calendar</div>
-          <button className={styles.primaryBtn}>+ Novo Agendamento</button>
-        </div>
-      </div>
-      <div className={styles.mainScroll}>
-        <div className={styles.calendarWrap}>
-          <div className={styles.calendarHead}>
-            {days.map(d => <div key={d} className={styles.calDayLabel}>{d}</div>)}
-          </div>
-          {dates.map((week, wi) => (
-            <div key={wi} className={styles.calRow}>
-              {week.map((day, di) => (
-                <div key={di} className={`${styles.calCell} ${day === 20 ? styles.calToday : ''} ${!day ? styles.calEmpty : ''}`}>
-                  {day && <div className={styles.calDate}>{day}</div>}
-                  {day && events[day]?.map((ev, ei) => (
-                    <div key={ei} className={styles.calEvent} style={{ borderLeftColor: ev.c, color: ev.c, background: ev.c + '18' }}>{ev.t}</div>
-                  ))}
-                </div>
-              ))}
+      <div className={styles.apScroll}>
+        <PageHead title="Agenda" sub="25 consultas · 23 a 28 de novembro">
+          <Pills options={['Dia', 'Semana', 'Mês']} active="Semana" />
+          <span className={styles.apIconBtn} title="Imprimir"><NavIcon name="print" /></span>
+          <span className={styles.apGhost}>Escala da equipe</span>
+          <span className={styles.apPrimary}><NavIcon name="plus" /> Novo agendamento</span>
+        </PageHead>
+
+        <div className={styles.apAgLayout}>
+          <aside className={styles.apAgSide}>
+            <div className={styles.apCard}>
+              <div className={styles.apMiniHead}>
+                <span>Novembro 2026</span>
+                <span className={styles.apMiniNav}><NavIcon name="chevronLeft" /><NavIcon name="chevronRight" /></span>
+              </div>
+              <div className={styles.apMiniGrid}>
+                {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => <span key={i} className={styles.apMiniDow}>{d}</span>)}
+                {mini.flatMap((w, wi) => w.map((d, di) => {
+                  const out = (wi === 0 && d > 20) || (wi >= 4 && d < 10);
+                  const inWeek = !out && d >= 23 && d <= 28 && wi === 4;
+                  const isToday = !out && d === 23 && wi === 4;
+                  return (
+                    <span key={`${wi}-${di}`} className={`${styles.apMiniDay} ${out ? styles.apMiniOut : ''} ${inWeek ? styles.apMiniWeek : ''} ${isToday ? styles.apMiniToday : ''}`}>
+                      {d}{!out && marked.has(d) && <i />}
+                    </span>
+                  );
+                }))}
+              </div>
             </div>
-          ))}
+            <div className={styles.apCard}>
+              <div className={styles.apCardHead}><span className={styles.apCardTitle}>Profissionais</span><span className={styles.apCardMeta}>{profs.length}</span></div>
+              <ul className={styles.apProfs}>
+                {profs.map(p => (
+                  <li key={p.name} className={styles.apProf}>
+                    <span className={styles.apCheck}><NavIcon name="check" /></span>
+                    <span className={styles.apProfAv} style={{ background: p.color }}>{p.ini}</span>
+                    <span className={styles.apProfWho}><b>{p.name}</b><small>{p.n} consultas</small></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.apCard}>
+              <div className={styles.apCardHead}><span className={styles.apCardTitle}>Hoje</span></div>
+              <div className={styles.apTodayBig}><span className={styles.apBigNum}>12</span><small>consultas</small></div>
+              <ul className={styles.apTodayLines}>
+                <li><StatusDot tone="ok">6 confirmadas</StatusDot></li>
+                <li><StatusDot tone="wait">4 aguardando confirmação</StatusDot></li>
+                <li><StatusDot tone="idle">2 concluídas</StatusDot></li>
+              </ul>
+            </div>
+          </aside>
+
+          <section className={`${styles.apCard} ${styles.apAgMain}`}>
+            <div className={styles.apAgBar}>
+              <span className={styles.apRoundBtn}><NavIcon name="chevronLeft" /></span>
+              <span className={styles.apRoundBtn}><NavIcon name="chevronRight" /></span>
+              <h2 className={styles.apAgTitle}>23 a 28 de novembro</h2>
+              <span className={styles.apTodayBtn}>Hoje</span>
+            </div>
+            <div className={styles.apWeek}>
+              <div className={styles.apWeekHead}>
+                <span />
+                {weekdays.map((w, i) => (
+                  <span key={w} className={`${styles.apWeekDay} ${i === 0 ? styles.apWeekDayToday : ''}`}>
+                    <small>{w}</small><b>{dayNums[i]}</b>
+                  </span>
+                ))}
+              </div>
+              <div className={styles.apWeekBody} style={{ height: hours.length * ROW }}>
+                <div className={styles.apHours}>
+                  {hours.map(h => <span key={h} style={{ height: ROW }}>{h}</span>)}
+                </div>
+                {weekdays.map((_, ci) => (
+                  <div key={ci} className={styles.apWeekCol}>
+                    {hours.map(h => <div key={h} className={styles.apWeekSlot} style={{ height: ROW }} />)}
+                    {events.filter(e => e.col === ci).map(e => (
+                      <div
+                        key={e.time + e.name}
+                        className={styles.apEvent}
+                        style={{ top: e.top * ROW + 2, height: e.h * ROW - 4, ['--ev' as string]: e.c }}
+                      >
+                        <span className={styles.apEventTime}>{e.time}</span>
+                        <b>{e.name}</b>
+                        <small>{e.proc}</small>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
-        <p className={styles.calHint}>Clique num evento para ver detalhes • Clique numa data para criar agendamento</p>
       </div>
     </div>
   );
@@ -404,16 +522,18 @@ function AgendaMock() {
 /* ════════════════════════════════════════════════════════════════
    3. PRONTUÁRIO (Ficha · Odontograma · Faceograma · …)
    ════════════════════════════════════════════════════════════════ */
-type SpecId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri';
+type SpecId = 'odonto' | 'medico' | 'estetica' | 'vet' | 'fisio' | 'psico' | 'nutri' | 'fono' | 'to';
 
-const specOptions: { id: SpecId; emoji: string; label: string }[] = [
-  { id: 'odonto',  emoji: '🦷', label: 'Odontologia' },
-  { id: 'medico',  emoji: '🩺', label: 'Medicina' },
-  { id: 'estetica',emoji: '✨', label: 'Estética' },
-  { id: 'vet',     emoji: '🐾', label: 'Veterinária' },
-  { id: 'fisio',   emoji: '🤸', label: 'Fisioterapia' },
-  { id: 'psico',   emoji: '🧠', label: 'Psicologia' },
-  { id: 'nutri',   emoji: '🥗', label: 'Nutrição' },
+const specOptions: { id: SpecId; label: string }[] = [
+  { id: 'odonto',  label: 'Odontologia' },
+  { id: 'medico',  label: 'Medicina' },
+  { id: 'estetica',label: 'Estética' },
+  { id: 'vet',     label: 'Veterinária' },
+  { id: 'fisio',   label: 'Fisioterapia' },
+  { id: 'psico',   label: 'Psicologia' },
+  { id: 'nutri',   label: 'Nutrição' },
+  { id: 'fono',    label: 'Fonoaudiologia' },
+  { id: 'to',      label: 'Terapia Ocupacional' },
 ];
 
 const specData: Record<SpecId, { patient: string; sub: string; anamnese: string[]; exame: string[] }> = {
@@ -451,6 +571,16 @@ const specData: Record<SpecId, { patient: string; sub: string; anamnese: string[
     patient: 'Carla Henrique', sub: 'Nutrição · última consulta 09/05/2026',
     anamnese: ['Objetivo principal / Queixa', 'Histórico clínico (Diabetes, HAS)', 'Alergias ou intolerâncias alimentares', 'Hábitos alimentares (refeições/dia)', 'Recordatório alimentar 24h', 'Ingestão hídrica diária', 'Prática de atividade física', 'Funcionamento intestinal'],
     exame: ['Peso atual (kg)', 'Altura (cm) / IMC (kg/m²)', 'Circunferência abdominal (cm)', 'Percentual de gordura corporal (%)', 'Massa magra (kg)', 'Exames laboratoriais (glicose, TSH)', 'Meta calórica / VET prescrito', 'Plano alimentar'],
+  },
+  fono: {
+    patient: 'Davi Moreira', sub: 'Fonoaudiologia · última consulta 08/05/2026',
+    anamnese: ['Queixa principal / Motivo da busca', 'Marcos do desenvolvimento (sentou, andou, falou)', 'Gestação e parto', 'Amamentação e alimentação', 'Histórico escolar', 'Histórico auditivo e exames prévios', 'Diagnósticos associados', 'Outras terapias em curso'],
+    exame: ['Linguagem receptiva e expressiva', 'Fala e articulação', 'Voz', 'Fluência', 'Motricidade orofacial', 'Deglutição', 'Triagem auditiva', 'Observações gerais'],
+  },
+  to: {
+    patient: 'Helena Prado', sub: 'Terapia Ocupacional · última consulta 07/05/2026',
+    anamnese: ['Queixa principal', 'Rotina e atividades de vida diária (AVDs)', 'Marcos do desenvolvimento', 'Perfil sensorial', 'Escola / Trabalho', 'Nível de autonomia', 'Diagnósticos', 'Outras terapias em curso'],
+    exame: ['AVDs (higiene, alimentação, vestuário)', 'Coordenação motora fina', 'Coordenação motora grossa', 'Perfil sensorial', 'Cognição e atenção', 'Participação social', 'Uso de órtese ou adaptação', 'Observações gerais'],
   },
 };
 
@@ -857,13 +987,13 @@ function DocumentosMock() {
 /* ── Chat IA — histórico de conversa via WhatsApp ── */
 function ChatMock({ firstName }: { firstName: string }) {
   const msgs = [
-    { out: true,  text: `Olá, ${firstName}! 👋 Aqui é a assistente virtual da Clínica Saúde+. Tudo bem?`, time: '09:12' },
+    { out: true,  text: `Olá, ${firstName}! Aqui é a assistente virtual da Clínica Saúde+. Tudo bem?`, time: '09:12' },
     { out: false, text: 'Oi! Tudo sim, queria remarcar minha consulta de amanhã', time: '09:14' },
     { out: true,  text: 'Claro! Encontrei seu agendamento de 21/05 às 09:00. Para qual data você prefere remarcar?', time: '09:14' },
     { out: false, text: 'Pode ser sexta, dia 23, de manhã?', time: '09:15' },
-    { out: true,  text: 'Perfeito ✅ Reagendei para 23/05 às 09:30. Você vai receber um lembrete 24h antes. Precisa de mais alguma coisa?', time: '09:15' },
+    { out: true,  text: 'Perfeito! Reagendei para 23/05 às 09:30. Você vai receber um lembrete 24h antes. Precisa de mais alguma coisa?', time: '09:15' },
     { out: false, text: 'Não, obrigado!', time: '09:16' },
-    { out: true,  text: 'Disponha! Qualquer coisa é só chamar 💙', time: '09:16' },
+    { out: true,  text: 'Disponha! Qualquer coisa é só chamar.', time: '09:16' },
   ];
   const initials = firstName.slice(0, 2).toUpperCase();
   return (
@@ -896,7 +1026,7 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
     ...(spec === 'odonto' ? [{ key: 'odontograma', label: 'Odontograma' }] : []),
     ...(spec === 'estetica' ? [{ key: 'faceograma', label: 'Faceograma' }] : []),
     { key: 'timeline', label: 'Evolução' },
-    { key: 'documentos', label: 'Documentos' },
+    { key: 'documentos', label: 'Documentos e contratos' },
     { key: 'chat', label: 'Chat IA' },
   ];
   const [tab, setTab] = useState('ficha');
@@ -906,20 +1036,26 @@ function ProntuarioMock({ spec }: { spec: SpecId }) {
 
   return (
     <div className={styles.screenBody}>
-      <div className={styles.pmHeader}>
-        <div className={styles.pmHeaderLeft}>
-          <div className={styles.pmAvatar}>{initials}</div>
-          <div>
-            <h2 className={styles.pmTitle}>Prontuário</h2>
-            <p className={styles.pmName}>{data.patient}</p>
+      <div className={styles.apPmTop}>
+        <span className={styles.apBack}><NavIcon name="chevronLeft" /> Pacientes</span>
+        <div className={styles.apHead}>
+          <div className={styles.apHeadWho}>
+            <span className={styles.apPmAvatar}>{initials}</span>
+            <div className={styles.apHeadText}>
+              <h1 className={styles.apTitle}>{data.patient}</h1>
+              <p className={styles.apSub}>Prontuário</p>
+            </div>
+          </div>
+          <div className={styles.apHeadActions}>
+            <span className={styles.apGhost}>Link do paciente</span>
+            <span className={styles.apGhost}><NavIcon name="print" /> Imprimir</span>
           </div>
         </div>
-        <button className={styles.ghostBtn}>Imprimir</button>
-      </div>
-      <div className={styles.pmTabs}>
-        {tabList.map(t => (
-          <button key={t.key} className={`${styles.pmTab} ${activeTab === t.key ? styles.pmTabActive : ''}`} onClick={() => setTab(t.key)}>{t.label}</button>
-        ))}
+        <div className={styles.apPmTabs} role="tablist">
+          {tabList.map(t => (
+            <button key={t.key} type="button" role="tab" aria-selected={activeTab === t.key} className={`${styles.apPill} ${activeTab === t.key ? styles.apPillOn : ''}`} onClick={() => setTab(t.key)}>{t.label}</button>
+          ))}
+        </div>
       </div>
       <div className={styles.mainScroll}>
         {activeTab === 'ficha' && <FichaMock spec={spec} />}
@@ -1218,6 +1354,34 @@ function EstoqueMock() {
   );
 }
 
+/* ── Gráfico de receita por mês (card de tendência do Dashboard) ── */
+function RevenueChart() {
+  const months = ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'];
+  const vals = [9200, 10800, 10100, 11400, 11450, 12840];
+  const W = 420, H = 110, pl = 8, pr = 8, pt = 10, pb = 6;
+  const max = 15000;
+  const x = (i: number) => pl + (i / (vals.length - 1)) * (W - pl - pr);
+  const y = (v: number) => pt + (H - pt - pb) - (v / max) * (H - pt - pb);
+  const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const area = `${x(0)},${H - pb} ${pts} ${x(vals.length - 1)},${H - pb}`;
+  return (
+    <div className={styles.apRev}>
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className={styles.apRevSvg} role="img" aria-label="Receita dos últimos 6 meses">
+        <defs>
+          <linearGradient id="apRevFill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stopColor="#4DD9C0" stopOpacity="0.28" />
+            <stop offset="1" stopColor="#4DD9C0" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {[0, 5000, 10000, 15000].map(g => <line key={g} x1={pl} x2={W - pr} y1={y(g)} y2={y(g)} stroke="#EEF1F1" strokeWidth="1" vectorEffect="non-scaling-stroke" />)}
+        <polygon points={area} fill="url(#apRevFill)" />
+        <polyline points={pts} fill="none" stroke="#0B9B85" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <div className={styles.apRevLabels}>{months.map(m => <span key={m}>{m}</span>)}</div>
+    </div>
+  );
+}
+
 /* ── Gráfico de linha (Receitas vs Despesas) ── */
 function LineChart() {
   const months = ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'];
@@ -1295,7 +1459,7 @@ export default function Preview() {
             <span className={styles.specSelectorLabel}>Especialidade:</span>
             {specOptions.map(s => (
               <button key={s.id} className={`${styles.specBtn} ${activeSpec === s.id ? styles.specBtnActive : ''}`} onClick={() => setActiveSpec(s.id)}>
-                {s.emoji} {s.label}
+                {s.label}
               </button>
             ))}
           </div>
@@ -1324,7 +1488,10 @@ export default function Preview() {
           </div>
           <div className={styles.shell}>
             <Sidebar active={sidebarActive[active]} />
-            <div className={styles.content}>{screen}</div>
+            <div className={styles.content}>
+              <Topbar placeholder={active === 'agenda' ? 'Buscar agendamentos' : 'Buscar pacientes'} />
+              <div className={styles.contentBody}>{screen}</div>
+            </div>
           </div>
         </div>
       </div>

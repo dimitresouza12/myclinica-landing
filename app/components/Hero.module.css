@@ -346,7 +346,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .heroBadge, .heroTitle, .heroSub, .heroCtaRow,
-  .heroGuarantee, .heroStats, .heroTrust, .orb {
+  .heroGuarantee, .heroStats, .heroTrust, .orb, .floatCard, .bfDot {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -361,4 +361,134 @@
   .trust { gap: 8px; }
   .trustDot { display: none; }
   .trustItem { font-size: 0.8rem; }
+}
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+.campanhaInfo { display: none; }
+
+:global(html[data-campanha]) .campanhaInfo {
+  display: block;
+  max-width: 560px;
+  margin: -12px auto 28px;
+  padding: 12px 18px;
+  border: 1px solid rgba(94, 234, 212, 0.4);
+  background: rgba(94, 234, 212, 0.08);
+  border-radius: 14px;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+:global(html[data-campanha]) .campanhaInfo strong {
+  color: var(--primary-light);
+  font-weight: 700;
+}
+
+:global(html[data-campanha]) .orb {
+  background: radial-gradient(circle at center,
+    rgba(94, 234, 212, 0.14) 0%,
+    rgba(13, 148, 136, 0.06) 25%,
+    transparent 60%);
+}
+:global(html[data-campanha]) .floatCard {
+  background: rgba(17, 17, 19, 0.85);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+:global(html[data-campanha]) .fcTag { background: rgba(52, 211, 153, 0.14); }
+:global(html[data-campanha]) .stat strong { color: var(--primary-light); }
+:global(html[data-campanha]) .italic {
+  background: linear-gradient(90deg, var(--primary-light), #ccfbf1 45%, var(--primary-light) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+:global(html[data-campanha]) .primary {
+  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 55%, #2dd4bf 100%);
+  color: #042f2c;
+}
+:global(html[data-campanha]) .primary::after {
+  background: linear-gradient(135deg, #99f6e4, #2dd4bf);
+}
+
+/* ─── Cards e selos da Black Friday no hero ──────────────────── */
+/* Fora da campanha nada disso aparece. Com a campanha ativa os cards
+   da Black assumem os cantos dos cards do sistema (so em tela larga, onde
+   os cards flutuantes cabem) e, em tela estreita, entra a fileira de selos. */
+.fcBf { display: none; }
+.bfRow { display: none; }
+
+.bfKicker {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font-geist-mono);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--primary-light);
+  margin-bottom: 8px;
+}
+.bfDot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary-light);
+  box-shadow: 0 0 10px var(--primary-light);
+  animation: pulse 2s ease-in-out infinite;
+}
+.bfSmall { display: block; font-size: 0.76rem; color: var(--text-muted); }
+.bfPrice { display: flex; align-items: baseline; gap: 4px; margin: 2px 0 4px; }
+.bfPrice strong {
+  font-size: 1.75rem; font-weight: 700; line-height: 1; color: var(--text);
+  letter-spacing: -0.5px; font-variant-numeric: tabular-nums;
+}
+.bfPrice span { font-size: 0.82rem; color: var(--text-soft); font-weight: 600; }
+.bfNote { display: block; font-size: 0.76rem; line-height: 1.4; color: var(--text-muted); }
+.bfTitleRow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--primary-light); }
+.bfTitleRow strong { font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.bfLine { display: block; font-size: 0.95rem; font-weight: 700; line-height: 1.25; color: var(--text); margin-bottom: 4px; }
+.bfChips { display: flex; gap: 5px; margin-top: 10px; }
+.bfChips i {
+  flex: 1; text-align: center; font-style: normal; font-size: 0.68rem; font-weight: 600;
+  color: var(--primary-light); background: rgba(94, 234, 212, 0.1);
+  border: 1px solid rgba(94, 234, 212, 0.25); border-radius: 8px; padding: 4px 2px;
+  white-space: nowrap;
+}
+.bfCount {
+  display: block; font-size: 1.25rem; font-weight: 700; line-height: 1.1; color: var(--text);
+  font-variant-numeric: tabular-nums; margin-bottom: 6px; white-space: nowrap;
+}
+
+:global(html[data-campanha]) .fcSys:not(.fcSysKeep) { display: none; }
+:global(html[data-campanha="2"]) .fcSysKeep { display: none; }
+
+@media (min-width: 1181px) {
+  :global(html[data-campanha]) .fcBf { display: block; }
+  :global(html[data-campanha="1"]) .fcBf2 { display: none; }
+  :global(html[data-campanha]) .fcBfMain {
+    border-color: rgba(94, 234, 212, 0.45);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(94, 234, 212, 0.08), 0 0 32px rgba(94, 234, 212, 0.14);
+  }
+}
+
+/* Fileira de selos (tablet e celular) */
+@media (max-width: 1180px) {
+  :global(html[data-campanha]) .bfRow {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    max-width: 560px; margin: -8px auto 24px;
+  }
+  :global(html[data-campanha="1"]) .bfPillF2 { display: none; }
+}
+.bfPill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 500; line-height: 1.25;
+  color: var(--text-soft);
+  background: rgba(17, 17, 19, 0.85);
+  border: 1px solid var(--line);
+}
+.bfPill strong { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+.bfPillMain {
+  border-color: rgba(94, 234, 212, 0.45);
+  background: rgba(94, 234, 212, 0.08);
+}
+.bfPillMain strong { color: var(--primary-light); }
+
+@media (max-width: 640px) {
+  :global(html[data-campanha]) .bfRow { gap: 6px; margin: -6px auto 20px; }
+  .bfPill { padding: 5px 10px; font-size: 0.72rem; }
+  /* A faixa do topo ja mostra o contador em tela estreita */
+  :global(html[data-campanha]) .bfPillF2 { display: none; }
 }

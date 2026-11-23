@@ -24,12 +24,12 @@ export default function Contact() {
             <span className={styles.highlight}>sua clínica?</span>
           </h2>
           <p className={styles.subtitle}>
-            Comece agora com 7 dias grátis — ou fale com nossa equipe no WhatsApp para tirar dúvidas.
+            Comece agora com 14 dias grátis — ou fale com nossa equipe no WhatsApp para tirar dúvidas.
           </p>
 
           <div className={styles.ctaRow}>
             <a href={SAAS_QUIZ} className={styles.trialLink} onClick={() => trackTrialLead('contact_testar_gratis')}>
-              Testar 7 dias grátis
+              Testar 14 dias grátis
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>

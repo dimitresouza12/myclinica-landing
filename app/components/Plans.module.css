@@ -55,6 +55,8 @@
   margin-bottom: 40px;
   font-weight: 500;
 }
+.trialBanner svg { flex-shrink: 0; }
+.trialBanner span { text-align: center; }
 .trialBanner strong {
   color: var(--primary);
   font-weight: 700;
@@ -62,7 +64,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   align-items: stretch;
 }
@@ -71,7 +73,7 @@
   background: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 100%);
   border: 1px solid var(--line);
   border-radius: 20px;
-  padding: 36px 32px;
+  padding: 36px 28px;
   position: relative;
   transition: transform 0.2s, border-color 0.2s;
   display: flex;
@@ -288,8 +290,183 @@
 }
 .highlighted .btnSubtext { color: rgba(255,255,255,0.4); }
 
-@media (max-width: 720px) {
+/* Seletor de prazo */
+.termWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.term {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  max-width: 100%;
+}
+.termBtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.termBtn:hover { color: var(--text); }
+.termBtn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.termBtnActive,
+.termBtnActive:hover {
+  background: var(--primary-dark);
+  color: var(--bg);
+}
+.termHint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 560px;
+  min-height: 2.6em;
+}
+
+.perMonth {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+.highlighted .perMonth { color: rgba(255,255,255,0.6); }
+
+.priceSub {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+  margin-bottom: 14px;
+  min-height: 2.5em;
+  position: relative;
+}
+.priceSub strong { color: var(--text); font-weight: 700; }
+.saving { color: var(--primary); font-weight: 600; }
+.highlighted .priceSub { color: rgba(255,255,255,0.75); }
+.highlighted .priceSub strong { color: #fff; }
+.highlighted .saving { color: #5EEAD4; }
+
+/* Card sob consulta */
+.cardContact {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: start;
+  margin-top: 4px;
+}
+.cardContact > * { grid-column: 1; }
+.cardContact .featureList {
+  grid-column: 2;
+  grid-row: 1 / span 5;
+  margin-bottom: 0;
+  align-self: center;
+}
+.cardContact .planDesc { border-bottom: 0; padding-bottom: 0; margin-bottom: 20px; }
+/* Selo dentro do fluxo do card (nao fica sobre a borda) */
+.contactBadge {
+  justify-self: start;
+  margin-bottom: 16px;
+  background: rgba(94, 234, 212, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(94, 234, 212, 0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-family: var(--font-geist-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.planPriceText {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.whatsBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--bg);
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  position: relative;
+  justify-self: start;
+}
+.whatsBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(94, 234, 212, 0.3);
+}
+
+@media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; }
+  .cardContact { display: flex; }
+  .contactBadge { align-self: flex-start; }
+  .cardContact .featureList { margin-bottom: 24px; }
+  .whatsBtn { align-self: stretch; }
+}
+
+@media (max-width: 720px) {
+  .section { padding: 72px 16px; }
+  .card { padding: 32px 22px; }
+  .trialBanner { padding: 12px 16px; font-size: 0.9rem; margin-bottom: 28px; }
+  .term { display: grid; grid-template-columns: repeat(4, auto); width: 100%; }
+  .termBtn { padding: 10px 6px; font-size: 0.82rem; }
   .highlighted { overflow: hidden; }
   .highlighted::after { display: none; }
 }
+
+/* ─── Campanha Black Friday ─── */
+:global(html[data-campanha]) .section { background: var(--bg); }
+:global(html[data-campanha]) .trialBanner {
+  background: rgba(94, 234, 212, 0.1);
+  border-color: rgba(94, 234, 212, 0.3);
+  color: var(--primary-light);
+}
+:global(html[data-campanha]) .trialBanner strong,
+:global(html[data-campanha]) .badge,
+:global(html[data-campanha]) .check,
+:global(html[data-campanha]) .saving { color: var(--primary-light); }
+:global(html[data-campanha]) .card:hover { border-color: rgba(255, 255, 255, 0.22); }
+:global(html[data-campanha]) .primaryBtn,
+:global(html[data-campanha]) .secondaryBtn,
+:global(html[data-campanha]) .whatsBtn,
+:global(html[data-campanha]) .highlighted .primaryBtn,
+:global(html[data-campanha]) .termBtnActive,
+:global(html[data-campanha]) .termBtnActive:hover {
+  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 50%, #2dd4bf 100%);
+  color: #042f2c;
+}
+:global(html[data-campanha]) .popularBadge,
+:global(html[data-campanha]) .contactBadge {
+  background: rgba(94, 234, 212, 0.14);
+  color: var(--primary-light);
+}
+:global(html[data-campanha]) .highlighted .popularBadge {
+  background: var(--primary-light);
+  color: #042f2c;
+}
+:global(html[data-campanha]) .term { background: var(--surface-2); }

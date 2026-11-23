@@ -30,13 +30,8 @@
   color: var(--text);
   white-space: nowrap;
 }
-.logo strong {
-  font-weight: 800;
-  color: #4DD9C0;
-}
-.logoImg {
-  border-radius: 8px;
-  flex-shrink: 0;
+.logo .logotype {
+  font-size: 24px;
 }
 
 .links {
@@ -125,4 +120,17 @@
     font-size: 1.05rem;
     color: var(--text);
   }
+}
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+:global(html[data-campanha]) .header {
+  background: rgba(0, 0, 0, 0.82);
+}
+:global(html[data-campanha]) .ctaBtn {
+  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 55%, #2dd4bf 100%);
+  color: #042f2c;
+  box-shadow: 0 4px 14px rgba(94, 234, 212, 0.25);
+}
+:global(html[data-campanha]) .ctaBtn:hover {
+  box-shadow: 0 8px 20px rgba(94, 234, 212, 0.4);
 }

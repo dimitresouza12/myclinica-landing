@@ -1,0 +1,78 @@
+/* Faixa fixa da campanha. Oculta fora da janela (sem data-campanha no <html>). */
+.bar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  z-index: 320;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: #000;
+  border-bottom: 1px solid rgba(94, 234, 212, 0.35);
+  color: #f5f5f4;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  text-align: center;
+}
+:global(html[data-campanha]) .bar { display: flex; }
+
+.label {
+  flex-shrink: 0;
+  font-family: var(--font-geist-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #000;
+  background: var(--primary-light);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.f1, .f2 { display: none; }
+:global(html[data-campanha="1"]) .f1 { display: inline; }
+:global(html[data-campanha="2"]) .f2 { display: inline; }
+
+.msg { color: #e4e4e7; }
+.long { color: #e4e4e7; }
+
+.count {
+  display: none;
+  flex-shrink: 0;
+  color: #d4d4d8;
+  font-size: 0.78rem;
+}
+.count strong {
+  color: var(--primary-light);
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+}
+:global(html[data-campanha="2"]) .count { display: inline; }
+
+@media (max-width: 900px) {
+  .long { display: none; }
+}
+
+@media (max-width: 640px) {
+  .bar {
+    height: 52px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 12px;
+    font-size: 0.74rem;
+  }
+  .label { padding: 2px 9px; font-size: 0.66rem; }
+  /* Na fase 2 o celular mostra o contador no lugar da frase (a frase fica no hero). */
+  :global(html[data-campanha="2"]) .msg { display: none; }
+}
+
+@media (min-width: 641px) {
+  .count { margin-left: 4px; }
+}

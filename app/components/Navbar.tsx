@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './Navbar.module.css';
+import Logotype from './Logotype';
 import { trackTrialLead } from '../lib/pixel';
 
 const SAAS_REGISTER = 'https://myclinica.online/login?quiz=true';
@@ -12,9 +12,8 @@ export default function Navbar() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <a href="#hero" className={styles.logo}>
-          <Image src="/logo.png" alt="MyClínica" width={30} height={30} className={styles.logoImg} priority />
-          <span>My<strong>Clínica</strong></span>
+        <a href="#hero" className={styles.logo} aria-label="MyClínica">
+          <Logotype className={styles.logotype} />
         </a>
 
         <ul className={`${styles.links} ${open ? styles.open : ''}`}>

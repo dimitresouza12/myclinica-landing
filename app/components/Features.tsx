@@ -22,7 +22,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'Prontuário Eletrônico',
-    desc: 'Ficha completa do paciente com anamnese, exame clínico, plano de tratamento e contrato digital.',
+    desc: 'Ficha completa do paciente com anamnese, exame clínico, plano de tratamento e contrato digital. Inclui odontograma, faceograma e modelos por especialidade.',
     color: '#0D9488',
     span: 2,
     hero: true,
@@ -38,7 +38,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'Agenda Inteligente',
-    desc: 'Agendamentos com integração ao Google Calendar e lembretes automáticos.',
+    desc: 'Agenda com sincronização com o Google Calendar, lembretes e confirmação automática por SIM ou NÃO no WhatsApp, em todos os planos.',
     color: '#2563EB',
   },
   {
@@ -48,7 +48,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'CRM via WhatsApp',
-    desc: 'Histórico de conversas vinculado ao prontuário.',
+    desc: 'Aba de Mensagens completa para conversar com os pacientes, histórico vinculado ao prontuário e funil de CRM automático em quadro.',
     color: '#16A34A',
   },
   {
@@ -59,7 +59,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'Financeiro',
-    desc: 'Lançamentos, receitas e despesas com relatórios simples.',
+    desc: 'Lançamentos, receitas e despesas, fluxo de caixa e relatórios simples.',
     color: '#D97706',
   },
   {
@@ -69,7 +69,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'IA no Atendimento',
-    desc: 'Agente de IA integrado ao WhatsApp para triagem, pré-atendimento e agendamento via chat.',
+    desc: 'Agente de IA integrado ao WhatsApp para triagem, pré-atendimento e agendamento via chat. Disponível sob consulta, fale com a gente.',
     color: '#7C3AED',
     span: 2,
     proof: 'chat',
@@ -84,7 +84,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'Gestão de Equipe',
-    desc: 'Cadastro de profissionais com perfis e permissões.',
+    desc: 'Cadastro de profissionais com perfis e permissões, e chat interno para a equipe conversar sem sair do sistema.',
     color: '#0EA5E9',
   },
   {
@@ -110,6 +110,73 @@ const features: Feature[] = [
     desc: 'Os dados de cada clínica ficam isolados e só a sua equipe tem acesso.',
     color: '#4F46E5',
   },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+    ),
+    title: 'Agendamento online',
+    desc: 'Link público da clínica para o paciente escolher profissional e horário sozinho, direto da agenda.',
+    color: '#0D9488',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>
+      </svg>
+    ),
+    title: 'Portal do paciente',
+    desc: 'Link pessoal para o paciente ver próximas consultas, orientações e assinar documentos pelo celular.',
+    color: '#2563EB',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="m22 8-6 4 6 4V8Z"/>
+        <rect x="2" y="6" width="14" height="12" rx="2"/>
+      </svg>
+    ),
+    title: 'Teleconsulta',
+    desc: 'Atendimento por vídeo com o link da sala gerado na própria agenda.',
+    color: '#16A34A',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="12" cy="12" r="1"/>
+      </svg>
+    ),
+    title: 'Comissões e metas',
+    desc: 'Comissão por profissional e metas da clínica acompanhadas no financeiro.',
+    color: '#D97706',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M3 3v18h18"/>
+        <path d="M7 15l4-5 3 3 5-7"/>
+      </svg>
+    ),
+    title: 'Escalas clínicas',
+    desc: 'Escalas e protocolos prontos, como PHQ-9, GAD-7 e Barthel, aplicados e salvos no prontuário.',
+    color: '#7C3AED',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <rect x="6" y="2" width="12" height="20" rx="2"/>
+        <path d="M11 18h2"/>
+      </svg>
+    ),
+    title: 'Instalável no celular',
+    desc: 'Instale o MyClinica na tela inicial do celular e use como aplicativo, direto do navegador.',
+    color: '#0EA5E9',
+  },
 ];
 
 function FichaProof() {
@@ -133,7 +200,7 @@ function ChatProof() {
   return (
     <div className={styles.proofChat}>
       <div className={`${styles.proofBubble} ${styles.proofBubbleIn}`}>Oi, quero marcar uma consulta</div>
-      <div className={`${styles.proofBubble} ${styles.proofBubbleOut}`}>Claro! Temos horário quinta às 14h — confirma? ✅</div>
+      <div className={`${styles.proofBubble} ${styles.proofBubbleOut}`}>Claro! Temos horário quinta às 14h. Posso confirmar?</div>
     </div>
   );
 }

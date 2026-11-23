@@ -72,3 +72,13 @@
   .bar { transition: none; }
   .btn { transition: none; }
 }
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+:global(html[data-campanha]) .bar {
+  background: rgba(0, 0, 0, 0.92);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
+}
+:global(html[data-campanha]) .btn {
+  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 55%, #2dd4bf 100%);
+  color: #042f2c;
+}

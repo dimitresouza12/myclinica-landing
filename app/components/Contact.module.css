@@ -125,3 +125,20 @@
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .trialLink:hover svg { transform: translateX(3px); }
+
+/* ─── Campanha Black Friday ──────────────────────────────────── */
+:global(html[data-campanha]) .section {
+  background:
+    radial-gradient(circle at 50% 100%, rgba(94, 234, 212, 0.14), transparent 60%),
+    #000;
+}
+:global(html[data-campanha]) .badge { color: var(--primary-light); }
+:global(html[data-campanha]) .highlight {
+  background: linear-gradient(90deg, var(--primary-light), #ccfbf1 45%, var(--primary-light) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+:global(html[data-campanha]) .trialLink {
+  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 55%, #2dd4bf 100%);
+  color: #042f2c;
+}

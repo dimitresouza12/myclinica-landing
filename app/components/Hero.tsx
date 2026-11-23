@@ -3,6 +3,10 @@
 import styles from './Hero.module.css';
 import RotatingText from './RotatingText';
 import { trackContact, trackTrialLead } from '../lib/pixel';
+import { TEXTO_CONTRATO, TEXTO_TESTE } from '../lib/campanha';
+import { useAgora } from '../lib/useAgora';
+import { formatarRestante } from './CampanhaBar';
+import { PRECO_GANCHO } from './Plans';
 
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
 const WHATSAPP = 'https://wa.me/5588920020570';
@@ -22,12 +26,17 @@ const HEADLINE_PHRASES = [
 
 
 export default function Hero() {
+  const agora = useAgora();
+  const restante = formatarRestante(agora);
+
   return (
     <section className={styles.hero} id="hero">
       <div className={styles.orb} aria-hidden />
 
-      {/* Cards flutuantes — dados reais do sistema */}
-      <div className={styles.floatCard} data-pos="tl" aria-hidden>
+      {/* Cards flutuantes. Fora da campanha: dados do sistema. Na campanha
+          (html[data-campanha]) os cards da Black assumem os mesmos cantos,
+          alternados por CSS (sem flash, sem depender da hidratacao). */}
+      <div className={`${styles.floatCard} ${styles.fcSys}`} data-pos="tl" aria-hidden>
         <div className={styles.fcHead}>
           <strong>14</strong>
           <span>consultas hoje</span>
@@ -39,7 +48,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={styles.floatCard} data-pos="tr" aria-hidden>
+      <div className={`${styles.floatCard} ${styles.fcSys}`} data-pos="tr" aria-hidden>
         <div className={styles.fcTopRow}>
           <strong>73%</strong>
           <span className={styles.fcTag}>+18%</span>
@@ -52,7 +61,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={styles.floatCard} data-pos="bl" aria-hidden>
+      <div className={`${styles.floatCard} ${styles.fcSys}`} data-pos="bl" aria-hidden>
         <div className={styles.fcTopRow}>
           <strong>R$ 42.800</strong>
         </div>
@@ -64,7 +73,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={styles.floatCard} data-pos="br" aria-hidden>
+      <div className={`${styles.floatCard} ${styles.fcSys} ${styles.fcSysKeep}`} data-pos="br" aria-hidden>
         <div className={styles.fcHead}>
           <strong>47</strong>
           <span>pacientes inativos</span>
@@ -74,11 +83,49 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Cards da Black Friday (so aparecem com a campanha ativa) */}
+      <div className={`${styles.floatCard} ${styles.fcBf} ${styles.fcBfMain}`} data-pos="tl" aria-hidden>
+        <span className={styles.bfKicker}><i className={styles.bfDot} />Black Friday</span>
+        <span className={styles.bfSmall}>a partir de</span>
+        <div className={styles.bfPrice}>
+          <strong>{PRECO_GANCHO}</strong>
+          <span>/mês</span>
+        </div>
+        <span className={styles.bfNote}>Essencial, 12 meses à vista</span>
+      </div>
+
+      <div className={`${styles.floatCard} ${styles.fcBf}`} data-pos="tr" aria-hidden>
+        <div className={styles.bfTitleRow}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="8" width="18" height="13" rx="2" />
+            <path d="M12 8v13M3 12h18M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+          </svg>
+          <strong>14 dias grátis</strong>
+        </div>
+        <span className={styles.bfNote}>Sem cartão de crédito, em qualquer plano</span>
+      </div>
+
+      <div className={`${styles.floatCard} ${styles.fcBf}`} data-pos="bl" aria-hidden>
+        <strong className={styles.bfLine}>Contrato de 3, 6 ou 12 meses</strong>
+        <span className={styles.bfNote}>com desconto na mensalidade</span>
+        <div className={styles.bfChips}>
+          <i>3 meses</i>
+          <i>6 meses</i>
+          <i>12 meses</i>
+        </div>
+      </div>
+
+      <div className={`${styles.floatCard} ${styles.fcBf} ${styles.fcBf2} ${styles.fcBfMain}`} data-pos="br" aria-hidden>
+        <span className={styles.bfKicker}><i className={styles.bfDot} />Últimos dias</span>
+        <strong className={styles.bfCount}>{restante}</strong>
+        <span className={styles.bfNote}>para o fim da Black Friday, em 15/12</span>
+      </div>
+
       <div className={styles.container}>
 
         <div className={`${styles.badge} ${styles.heroBadge}`}>
           <span className={styles.dot} />
-          Novo — IA no atendimento via WhatsApp
+          14 dias grátis, sem cartão
         </div>
 
         <h1 className={`${styles.title} ${styles.heroTitle}`}>
@@ -86,13 +133,28 @@ export default function Hero() {
           <RotatingText phrases={HEADLINE_PHRASES} />
         </h1>
 
+        {/* Selos da Black Friday: substituem os cards flutuantes em tela estreita */}
+        <div className={`${styles.bfRow} ${styles.heroSub}`}>
+          <span className={`${styles.bfPill} ${styles.bfPillMain}`}>
+            Black Friday: a partir de <strong>{PRECO_GANCHO}/mês</strong>
+          </span>
+          <span className={styles.bfPill}>Contrato de 3, 6 ou 12 meses com desconto</span>
+          <span className={`${styles.bfPill} ${styles.bfPillF2}`}>
+            Últimos dias: <strong>{restante}</strong>
+          </span>
+        </div>
+
         <p className={`${styles.subtitle} ${styles.heroSub}`}>
-          Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp — uma plataforma que se adapta a 7 especialidades clínicas.
+          Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp — uma plataforma que se adapta a 9 especialidades clínicas.
+        </p>
+
+        <p className={`${styles.campanhaInfo} ${styles.heroSub}`}>
+          <strong>{TEXTO_TESTE}</strong> {TEXTO_CONTRATO}
         </p>
 
         <div className={`${styles.ctas} ${styles.heroCtaRow}`}>
           <a href={SAAS_QUIZ} className={styles.primary} onClick={() => trackTrialLead('hero_testar_gratis')}>
-            Testar 7 dias grátis
+            Testar 14 dias grátis
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
@@ -104,18 +166,18 @@ export default function Hero() {
         </div>
 
         <p className={`${styles.guarantee} ${styles.heroGuarantee}`}>
-          7 dias grátis · Sem cartão de crédito · Cancele quando quiser
+          14 dias grátis · Sem cartão de crédito · Plano mensal sem fidelidade
         </p>
 
         <div className={`${styles.stats} ${styles.heroStats}`}>
           <div className={styles.stat}>
-            <strong>7</strong>
+            <strong>9</strong>
             <span>Especialidades suportadas</span>
           </div>
           <div className={styles.divider} />
           <div className={styles.stat}>
-            <strong>24/7</strong>
-            <span>Suporte IA no WhatsApp</span>
+            <strong>14</strong>
+            <span>Dias grátis para testar</span>
           </div>
           <div className={styles.divider} />
           <div className={styles.stat}>

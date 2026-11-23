@@ -35,7 +35,7 @@ interface Plano {
   name: string;
   slug: string;
   /** Valor aceito pelo parâmetro ?plan= do cadastro do app. */
-  appPlan: 'essencial' | 'completo' | 'ilimitado';
+  appPlan: 'essencial' | 'completo' | 'equipe';
   description: string;
   highlight: boolean;
   badge: string | null;
@@ -104,7 +104,7 @@ const plans: Plano[] = [
   {
     name: 'Equipe',
     slug: 'equipe',
-    appPlan: 'ilimitado',
+    appPlan: 'equipe',
     description: 'Para clínicas com equipe maior, de até 6 profissionais.',
     highlight: false,
     badge: null,

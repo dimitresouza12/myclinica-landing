@@ -1,4 +1,5 @@
-/* Faixa fixa da campanha. Oculta fora da janela (sem data-campanha no <html>). */
+/* Faixa fixa da campanha, em carrossel (rola sozinha). Oculta fora da janela
+   (sem data-campanha no <html>). */
 .bar {
   display: none;
   position: fixed;
@@ -7,72 +8,110 @@
   right: 0;
   height: 44px;
   z-index: 320;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 0 16px;
   background: #000;
-  border-bottom: 1px solid rgba(94, 234, 212, 0.35);
+  border-bottom: 1px solid rgba(94, 234, 212, 0.45);
+  box-shadow: 0 2px 18px rgba(94, 234, 212, 0.12);
   color: #f5f5f4;
-  font-size: 0.8rem;
-  line-height: 1.25;
-  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1;
+  overflow: hidden;
 }
-:global(html[data-campanha]) .bar { display: flex; }
+:global(html[data-campanha]) .bar { display: block; }
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: inherit;
+  /* esmaece as pontas para o texto "entrar" e "sair" suave */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: rolar 60s linear infinite;
+}
+.link:hover .track { animation-play-state: paused; }
+
+.group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  white-space: nowrap;
+  color: #e4e4e7;
+  padding-right: 22px;
+  margin-right: 22px;
+  position: relative;
+}
+/* separador entre os itens */
+.item::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  box-shadow: 0 0 8px var(--primary-light);
+}
+.item strong {
+  color: var(--primary-light);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
 
 .label {
-  flex-shrink: 0;
   font-family: var(--font-geist-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   color: #000;
-  background: var(--primary-light);
-  padding: 4px 10px;
+  background: linear-gradient(135deg, #99f6e4, #5eead4 55%, #2dd4bf);
+  padding: 6px 12px;
   border-radius: 999px;
+  animation: brilho 2.4s ease-in-out infinite;
+}
+
+.cta {
+  color: var(--primary-light);
+  font-weight: 700;
 }
 
 .f1, .f2 { display: none; }
 :global(html[data-campanha="1"]) .f1 { display: inline; }
 :global(html[data-campanha="2"]) .f2 { display: inline; }
 
-.msg { color: #e4e4e7; }
-.long { color: #e4e4e7; }
+/* contador so na fase 2 (estendida) */
+.f2Item { display: none; }
+:global(html[data-campanha="2"]) .f2Item { display: inline-flex; }
 
-.count {
-  display: none;
-  flex-shrink: 0;
-  color: #d4d4d8;
-  font-size: 0.78rem;
+@keyframes rolar {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
 }
-.count strong {
-  color: var(--primary-light);
-  font-family: var(--font-geist-mono);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.2px;
-}
-:global(html[data-campanha="2"]) .count { display: inline; }
-
-@media (max-width: 900px) {
-  .long { display: none; }
+@keyframes brilho {
+  0%, 100% { box-shadow: 0 0 0 rgba(94, 234, 212, 0); }
+  50%      { box-shadow: 0 0 14px rgba(94, 234, 212, 0.65); }
 }
 
 @media (max-width: 640px) {
-  .bar {
-    height: 52px;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3px;
-    padding: 0 12px;
-    font-size: 0.74rem;
-  }
-  .label { padding: 2px 9px; font-size: 0.66rem; }
-  /* Na fase 2 o celular mostra o contador no lugar da frase (a frase fica no hero). */
-  :global(html[data-campanha="2"]) .msg { display: none; }
+  .bar { font-size: 0.8rem; }
+  .track { animation-duration: 45s; }
 }
 
-@media (min-width: 641px) {
-  .count { margin-left: 4px; }
+/* Quem pede menos movimento: sem rolagem, mostra so o inicio da faixa */
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+  .label { animation: none; }
 }

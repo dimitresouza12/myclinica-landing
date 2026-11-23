@@ -123,7 +123,16 @@ export default function Hero() {
 
       <div className={styles.container}>
 
-        <div className={`${styles.badge} ${styles.heroBadge}`}>
+        {/* Destaque da campanha: so aparece com a Black Friday ativa */}
+        <div className={`${styles.bfHeadline} ${styles.heroBadge}`}>
+          <span className={styles.bfHeadlineMain}>Black Friday</span>
+          <span className={styles.bfHeadlineSub}>
+            <span className={styles.bfF1}>MyClinica · ofertas de lançamento até 30/11</span>
+            <span className={styles.bfF2}>MyClinica · Black Friday estendida até 15/12</span>
+          </span>
+        </div>
+
+        <div className={`${styles.badge} ${styles.heroBadge} ${styles.badgeNormal}`}>
           <span className={styles.dot} />
           14 dias grátis, sem cartão
         </div>
@@ -158,6 +167,9 @@ export default function Hero() {
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
+          </a>
+          <a href="#plans" className={styles.bfOfertas}>
+            Ver ofertas da Black Friday
           </a>
           <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.secondary} onClick={() => trackContact('hero_falar_especialista')}>
             <IconWhatsApp />

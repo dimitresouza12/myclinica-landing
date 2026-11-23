@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import styles from './CampanhaBar.module.css';
 import { agoraCampanha, FASE_2_FIM, faseEm, TEXTO_CONTRATO, TEXTO_TESTE } from '../lib/campanha';
+import { PRECO_GANCHO } from './Plans';
 import { useAgora } from '../lib/useAgora';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -39,18 +40,40 @@ export default function CampanhaBar() {
     }
   }, [agora]);
 
-  return (
-    <div className={styles.bar} role="region" aria-label="Campanha Black Friday">
-      <span className={styles.label}>
-        <span className={styles.f1}>Black Friday MyClinica</span>
-        <span className={styles.f2}>Black Friday estendida: últimos dias</span>
+  // Um "bloco" do carrossel. Repetido varias vezes (e duplicado em 2 metades)
+  // para a faixa rolar sem emenda: a animacao anda -50% e recomeca igual.
+  const bloco = (
+    <>
+      <span className={styles.item}>
+        <span className={styles.label}>
+          <span className={styles.f1}>Black Friday MyClinica</span>
+          <span className={styles.f2}>Black Friday estendida</span>
+        </span>
       </span>
-      <span className={styles.msg}>
-        {TEXTO_TESTE} <span className={styles.long}>{TEXTO_CONTRATO}</span>
+      <span className={styles.item}>{TEXTO_TESTE}</span>
+      <span className={styles.item}>
+        Planos a partir de <strong>{PRECO_GANCHO}/mês</strong>
       </span>
-      <span className={styles.count}>
+      <span className={styles.item}>Contrato de 3, 6 ou 12 meses com desconto</span>
+      <span className={`${styles.item} ${styles.f2Item}`}>
         Termina em <strong>{formatarRestante(agora)}</strong>
       </span>
+      <span className={styles.item}>{TEXTO_CONTRATO}</span>
+      <span className={`${styles.item} ${styles.cta}`}>Ver ofertas &rarr;</span>
+    </>
+  );
+
+  return (
+    <div className={styles.bar} role="region" aria-label="Campanha Black Friday">
+      <a href="#plans" className={styles.link}>
+        <span className={styles.track}>
+          {[0, 1, 2, 3].map(n => (
+            <span key={n} className={styles.group} aria-hidden={n > 0 || undefined}>
+              {bloco}
+            </span>
+          ))}
+        </span>
+      </a>
     </div>
   );
 }

@@ -11,8 +11,8 @@
 
 export const CAMPANHA_ATIVA = true;
 
-/** Fase 1: Black Friday MyClinica, de 24/11 a 30/11 (inclusive). */
-export const FASE_1_INICIO = Date.parse('2026-11-24T00:00:00-03:00');
+/** Fase 1: Black Friday MyClinica, de 23/11 a 30/11 (inclusive). */
+export const FASE_1_INICIO = Date.parse('2026-11-23T00:00:00-03:00');
 export const FASE_1_FIM = Date.parse('2026-12-01T00:00:00-03:00');
 
 /** Fase 2: Black Friday estendida, de 01/12 ate 15/12 as 23:59. */

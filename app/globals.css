@@ -82,9 +82,6 @@ html[data-campanha] {
   --shadow-lg: 0 12px 40px rgba(0,0,0,0.7), 0 4px 12px rgba(0,0,0,0.5);
   --shadow-glow: 0 0 0 1px rgba(94, 234, 212, 0.25), 0 8px 24px rgba(13, 148, 136, 0.25);
 }
-@media (max-width: 640px) {
-  html[data-campanha] { --banner-h: 52px; }
-}
 
 html {
   scroll-behavior: smooth;

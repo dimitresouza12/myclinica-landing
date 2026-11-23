@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import styles from './Navbar.module.css';
 import Logotype from './Logotype';
 import { trackTrialLead } from '../lib/pixel';
@@ -13,6 +14,7 @@ export default function Navbar() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <a href="#hero" className={styles.logo} aria-label="MyClínica">
+          <Image src="/logo.png" alt="" width={30} height={30} className={styles.logoImg} priority />
           <Logotype className={styles.logotype} />
         </a>
 

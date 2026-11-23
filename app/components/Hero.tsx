@@ -3,9 +3,8 @@
 import styles from './Hero.module.css';
 import RotatingText from './RotatingText';
 import { trackContact, trackTrialLead } from '../lib/pixel';
-import { TEXTO_CONTRATO, TEXTO_TESTE } from '../lib/campanha';
 import { useAgora } from '../lib/useAgora';
-import { formatarRestante } from './CampanhaBar';
+import { partesRestanteFase } from '../lib/campanha';
 import { PRECO_GANCHO } from './Plans';
 
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
@@ -27,7 +26,7 @@ const HEADLINE_PHRASES = [
 
 export default function Hero() {
   const agora = useAgora();
-  const restante = formatarRestante(agora);
+  const partes = partesRestanteFase(agora);
 
   return (
     <section className={styles.hero} id="hero">
@@ -73,7 +72,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={`${styles.floatCard} ${styles.fcSys} ${styles.fcSysKeep}`} data-pos="br" aria-hidden>
+      <div className={`${styles.floatCard} ${styles.fcSys}`} data-pos="br" aria-hidden>
         <div className={styles.fcHead}>
           <strong>47</strong>
           <span>pacientes inativos</span>
@@ -94,7 +93,13 @@ export default function Hero() {
         <span className={styles.bfNote}>Essencial, 12 meses à vista</span>
       </div>
 
-      <div className={`${styles.floatCard} ${styles.fcBf}`} data-pos="tr" aria-hidden>
+      <div className={`${styles.floatCard} ${styles.fcBf} ${styles.fcBfMain}`} data-pos="tr" aria-hidden>
+        <span className={styles.bfKicker}><i className={styles.bfDot} />1ª mensalidade</span>
+        <strong className={styles.bfCount}>50% off</strong>
+        <span className={styles.bfNote}>cobrança só em 15/01</span>
+      </div>
+
+      <div className={`${styles.floatCard} ${styles.fcBf}`} data-pos="bl" aria-hidden>
         <div className={styles.bfTitleRow}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="8" width="18" height="13" rx="2" />
@@ -102,34 +107,37 @@ export default function Hero() {
           </svg>
           <strong>14 dias grátis</strong>
         </div>
-        <span className={styles.bfNote}>Sem cartão de crédito, em qualquer plano</span>
-      </div>
-
-      <div className={`${styles.floatCard} ${styles.fcBf}`} data-pos="bl" aria-hidden>
-        <strong className={styles.bfLine}>Contrato de 3, 6 ou 12 meses</strong>
-        <span className={styles.bfNote}>com desconto na mensalidade</span>
-        <div className={styles.bfChips}>
-          <i>3 meses</i>
-          <i>6 meses</i>
-          <i>12 meses</i>
-        </div>
-      </div>
-
-      <div className={`${styles.floatCard} ${styles.fcBf} ${styles.fcBf2} ${styles.fcBfMain}`} data-pos="br" aria-hidden>
-        <span className={styles.bfKicker}><i className={styles.bfDot} />Últimos dias</span>
-        <strong className={styles.bfCount}>{restante}</strong>
-        <span className={styles.bfNote}>para o fim da Black Friday, em 15/12</span>
+        <span className={styles.bfNote}>Sem cartão de crédito</span>
       </div>
 
       <div className={styles.container}>
 
         {/* Destaque da campanha: so aparece com a Black Friday ativa */}
         <div className={`${styles.bfHeadline} ${styles.heroBadge}`}>
-          <span className={styles.bfHeadlineMain}>Black Friday</span>
-          <span className={styles.bfHeadlineSub}>
-            <span className={styles.bfF1}>MyClinica · ofertas de lançamento até 30/11</span>
-            <span className={styles.bfF2}>MyClinica · Black Friday estendida até 15/12</span>
+          <span className={styles.bfHeadlineMain} aria-label="Black Friday">
+            {Array.from('BLACK FRIDAY').map((c, i) =>
+              c === ' ' ? (
+                <span key={i} className={styles.bfGap} aria-hidden />
+              ) : (
+                <span key={i} className={styles.bfLetra} style={{ '--i': i } as React.CSSProperties} aria-hidden>{c}</span>
+              ),
+            )}
+            <i className={`${styles.bfSpark} ${styles.bfSpark1}`} aria-hidden />
+            <i className={`${styles.bfSpark} ${styles.bfSpark2}`} aria-hidden />
+            <i className={`${styles.bfSpark} ${styles.bfSpark3}`} aria-hidden />
           </span>
+          <span className={styles.bfHeadlineSub}>MyClinica · ofertas até 30/11</span>
+          <div className={styles.bfClock} role="timer" aria-label="Tempo restante da Black Friday">
+            <span className={styles.bfClockLabel}>Ofertas terminam em</span>
+            <div className={styles.bfClockDigits}>
+              {(partes ?? [{ v: '--', l: 'dias' }, { v: '--', l: 'horas' }, { v: '--', l: 'min' }, { v: '--', l: 'seg' }]).map(p => (
+                <div key={p.l} className={styles.bfClockCell}>
+                  <strong>{p.v}</strong>
+                  <span>{p.l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className={`${styles.badge} ${styles.heroBadge} ${styles.badgeNormal}`}>
@@ -139,27 +147,24 @@ export default function Hero() {
 
         <h1 className={`${styles.title} ${styles.heroTitle}`}>
           Sua clínica gerenciada com{' '}
-          <RotatingText phrases={HEADLINE_PHRASES} />
+          <RotatingText phrases={HEADLINE_PHRASES} className={styles.rotBloco} />
         </h1>
 
-        {/* Selos da Black Friday: substituem os cards flutuantes em tela estreita */}
+        {/* Selo de preço (tablet e celular, onde os cards laterais não cabem) */}
         <div className={`${styles.bfRow} ${styles.heroSub}`}>
           <span className={`${styles.bfPill} ${styles.bfPillMain}`}>
             Black Friday: a partir de <strong>{PRECO_GANCHO}/mês</strong>
           </span>
-          <span className={styles.bfPill}>Contrato de 3, 6 ou 12 meses com desconto</span>
-          <span className={`${styles.bfPill} ${styles.bfPillF2}`}>
-            Últimos dias: <strong>{restante}</strong>
-          </span>
         </div>
 
         <p className={`${styles.subtitle} ${styles.heroSub}`}>
-          Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp — uma plataforma que se adapta a 9 especialidades clínicas.
+          Prontuário, agenda, financeiro e CRM no WhatsApp, em uma só plataforma para 9 especialidades.
         </p>
 
-        <p className={`${styles.campanhaInfo} ${styles.heroSub}`}>
-          <strong>{TEXTO_TESTE}</strong> {TEXTO_CONTRATO}
-        </p>
+        <div className={`${styles.bfCallout} ${styles.heroSub}`}>
+          <strong>50% off na primeira mensalidade</strong>
+          <span>Até 30/11. No plano mês a mês, a primeira cobrança só em 15 de janeiro, depois de 14 dias grátis.</span>
+        </div>
 
         <div className={`${styles.ctas} ${styles.heroCtaRow}`}>
           <a href={SAAS_QUIZ} className={styles.primary} onClick={() => trackTrialLead('hero_testar_gratis')}>
@@ -170,6 +175,9 @@ export default function Hero() {
           </a>
           <a href="#plans" className={styles.bfOfertas}>
             Ver ofertas da Black Friday
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M8 2v11M3 8.5l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </a>
           <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.secondary} onClick={() => trackContact('hero_falar_especialista')}>
             <IconWhatsApp />

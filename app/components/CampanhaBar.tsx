@@ -2,33 +2,21 @@
 
 import { useEffect } from 'react';
 import styles from './CampanhaBar.module.css';
-import { agoraCampanha, FASE_2_FIM, faseEm, TEXTO_CONTRATO, TEXTO_TESTE } from '../lib/campanha';
+import { agoraCampanha, faseEm, TEXTO_OFERTA, TEXTO_PRIMEIRA, TEXTO_TESTE } from '../lib/campanha';
 import { PRECO_GANCHO } from './Plans';
 import { useAgora } from '../lib/useAgora';
 
-const pad = (n: number) => String(n).padStart(2, '0');
-
-export function formatarRestante(agora: number) {
-  if (agora === 0) return '--';
-  const total = Math.max(0, Math.floor((FASE_2_FIM - agora) / 1000));
-  const d = Math.floor(total / 86400);
-  const h = Math.floor((total % 86400) / 3600);
-  const m = Math.floor((total % 3600) / 60);
-  const s = total % 60;
-  return `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
-}
-
 /**
- * Faixa fixa do topo da campanha. As duas fases sao renderizadas no HTML e
- * alternadas por CSS conforme <html data-campanha="1|2"> (definido antes da
- * primeira pintura por CAMPANHA_BOOT_SCRIPT). Fora da campanha fica oculta.
+ * Faixa fixa do topo da campanha. Aparece conforme <html data-campanha="1">
+ * (definido antes da primeira pintura por CAMPANHA_BOOT_SCRIPT). Fora da
+ * campanha fica oculta.
  */
 export default function CampanhaBar() {
   const agora = useAgora();
 
-  // Acompanha a virada de fase com a pagina aberta: o script do <head> so
-  // decide a fase no carregamento. Aqui o atributo e atualizado a cada tick
-  // (fase 1 -> 2 -> fim) e, ao acabar a campanha, tema e faixa somem sozinhos.
+  // Acompanha a virada com a pagina aberta: o script do <head> so decide a
+  // fase no carregamento. Aqui o atributo e atualizado a cada tick e, ao
+  // acabar a campanha, tema e faixa somem sozinhos.
   useEffect(() => {
     if (agora === 0) return;
     const fase = faseEm(agoraCampanha());
@@ -45,20 +33,17 @@ export default function CampanhaBar() {
   const bloco = (
     <>
       <span className={styles.item}>
-        <span className={styles.label}>
-          <span className={styles.f1}>Black Friday MyClinica</span>
-          <span className={styles.f2}>Black Friday estendida</span>
-        </span>
+        <span className={styles.label}>Black Friday MyClinica</span>
       </span>
+      <span className={styles.item}>
+        <strong>{TEXTO_OFERTA}</strong>
+      </span>
+      <span className={styles.item}>{TEXTO_PRIMEIRA}</span>
+      <span className={styles.item}>Oferta até 30/11</span>
       <span className={styles.item}>{TEXTO_TESTE}</span>
       <span className={styles.item}>
         Planos a partir de <strong>{PRECO_GANCHO}/mês</strong>
       </span>
-      <span className={styles.item}>Contrato de 3, 6 ou 12 meses com desconto</span>
-      <span className={`${styles.item} ${styles.f2Item}`}>
-        Termina em <strong>{formatarRestante(agora)}</strong>
-      </span>
-      <span className={styles.item}>{TEXTO_CONTRATO}</span>
       <span className={`${styles.item} ${styles.cta}`}>Ver ofertas &rarr;</span>
     </>
   );

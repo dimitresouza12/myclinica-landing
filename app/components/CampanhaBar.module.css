@@ -88,14 +88,6 @@
   font-weight: 700;
 }
 
-.f1, .f2 { display: none; }
-:global(html[data-campanha="1"]) .f1 { display: inline; }
-:global(html[data-campanha="2"]) .f2 { display: inline; }
-
-/* contador so na fase 2 (estendida) */
-.f2Item { display: none; }
-:global(html[data-campanha="2"]) .f2Item { display: inline-flex; }
-
 @keyframes rolar {
   from { transform: translateX(0); }
   to   { transform: translateX(-25%); }

@@ -4,6 +4,8 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 import styles from './Plans.module.css';
 import RevealSection from './RevealSection';
 import { trackContact, trackTrialLead } from '../lib/pixel';
+import { useAgora } from '../lib/useAgora';
+import { partesRestanteFase } from '../lib/campanha';
 
 const WHATSAPP = 'https://wa.me/5588920020570';
 const BASE_URL = 'https://myclinica.online/login';
@@ -140,6 +142,8 @@ const GRANDES_FEATURES = [
 export default function Plans() {
   const [prazo, setPrazo] = useState<Prazo>(12);
   const botoes = useRef<Array<HTMLButtonElement | null>>([]);
+  const agora = useAgora();
+  const partes = partesRestanteFase(agora);
 
   // Radiogroup acessivel: so o selecionado entra na ordem de Tab; setas
   // mudam o prazo e levam o foco para o botao novo.
@@ -164,6 +168,25 @@ export default function Plans() {
             A partir de <strong>{PRECO_GANCHO}/mês</strong> no Essencial com pagamento anual à vista.
             Escolha o prazo e veja o valor de cada plano.
           </p>
+        </div>
+
+        {/* Bloco da Black Friday: só aparece com a campanha ativa (html[data-campanha]) */}
+        <div className={styles.bfBanner}>
+          <div className={styles.bfTop}>
+            <span className={styles.bfTag}>Black Friday MyClinica</span>
+            <span className={styles.bfTimer} role="timer" aria-label="Tempo restante da Black Friday">
+              Termina em{' '}
+              <strong>
+                {partes ? partes.map(p => `${p.v}${p.l === 'dias' ? 'd' : p.l === 'horas' ? 'h' : p.l === 'min' ? 'm' : 's'}`).join(' ') : '--'}
+              </strong>
+            </span>
+          </div>
+          <ul className={styles.bfList}>
+            <li><strong>50% off</strong> na primeira mensalidade</li>
+            <li>Primeira cobrança <strong>só em 15 de janeiro</strong></li>
+            <li><strong>14 dias grátis</strong>, sem cartão</li>
+          </ul>
+          <p className={styles.bfFoot}>Oferta válida até 30/11. Depois dessa data, o desconto sai do ar.</p>
         </div>
 
         <div className={styles.trialBanner}>
@@ -218,6 +241,26 @@ export default function Plans() {
                 ) : (
                   <div className={styles.priceSub}>Sem contrato, cancele quando quiser</div>
                 )}
+                <div className={styles.bfCardOff}>
+                  <div className={styles.bfOffHead}>
+                    <span className={styles.bfOffTag}>Black Friday</span>
+                    <span className={styles.bfOffPct}>50% off</span>
+                  </div>
+                  <div className={styles.bfOffPrice}>
+                    <s>{brl(mensal)}</s>
+                    <strong>{brl(Math.round(mensal / 2))}</strong>
+                    <em>na 1ª mensalidade</em>
+                  </div>
+                  <ul className={styles.bfOffList}>
+                    <li>Você economiza <b>{brl(mensal - Math.round(mensal / 2))}</b> já na primeira</li>
+                    {prazo > 1 && (
+                      <li>
+                        Total de <b>{brl((plan.semContrato - mensal) * prazo + (mensal - Math.round(mensal / 2)))}</b> a menos em {prazo} meses, comparado ao plano sem contrato
+                      </li>
+                    )}
+                    <li>Primeira cobrança só em <b>15 de janeiro</b>, depois de 14 dias grátis</li>
+                  </ul>
+                </div>
                 <p className={styles.planDesc}>{plan.description}</p>
 
                 <ul className={styles.featureList}>

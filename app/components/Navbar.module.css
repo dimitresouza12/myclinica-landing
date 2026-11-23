@@ -138,3 +138,9 @@
 :global(html[data-campanha]) .ctaBtn:hover {
   box-shadow: 0 8px 20px rgba(94, 234, 212, 0.4);
 }
+
+/* Celular: logotipo menor para sobrar espaço ao botão e ao menu */
+@media (max-width: 480px) {
+  .logo .logotype { font-size: 17px; }
+  .logo { gap: 8px; }
+}

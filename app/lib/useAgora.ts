@@ -8,8 +8,8 @@ const MAX_TIMEOUT = 2 ** 31 - 1;
 
 /**
  * Agenda os proximos avisos ao relogio:
- * - dentro da campanha (fase 1 ou 2): um aviso por segundo, alinhado ao relogio;
- * - antes da campanha: um unico aviso no inicio da fase 1;
+ * - dentro da campanha: um aviso por segundo, alinhado ao relogio;
+ * - antes da campanha: um unico aviso no inicio da campanha;
  * - depois da campanha: nenhum timer.
  */
 function subscribe(onChange: () => void) {

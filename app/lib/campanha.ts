@@ -11,35 +11,45 @@
 
 export const CAMPANHA_ATIVA = true;
 
-/** Fase 1: Black Friday MyClinica, de 23/11 a 30/11 (inclusive). */
+/** Campanha única: de 23/11 a 30/11 (inclusive). Depois disso a página volta ao visual normal. */
 export const FASE_1_INICIO = Date.parse('2026-11-23T00:00:00-03:00');
 export const FASE_1_FIM = Date.parse('2026-12-01T00:00:00-03:00');
 
-/** Fase 2: Black Friday estendida, de 01/12 ate 15/12 as 23:59. */
-export const FASE_2_FIM = Date.parse('2026-12-16T00:00:00-03:00');
-
-export type Fase = 0 | 1 | 2;
+export type Fase = 0 | 1;
 
 export function faseEm(agora: number): Fase {
   if (!CAMPANHA_ATIVA) return 0;
   if (agora >= FASE_1_INICIO && agora < FASE_1_FIM) return 1;
-  if (agora >= FASE_1_FIM && agora < FASE_2_FIM) return 2;
   return 0;
+}
+
+const pad2 = (n: number) => String(n).padStart(2, '0');
+
+/** Tempo até o fim da campanha (30/11) em partes, para os relógios do hero e dos planos. null enquanto o relógio não hidratou. */
+export function partesRestanteFase(agora: number) {
+  if (agora === 0) return null;
+  const total = Math.max(0, Math.floor((FASE_1_FIM - agora) / 1000));
+  return [
+    { v: pad2(Math.floor(total / 86400)), l: 'dias' },
+    { v: pad2(Math.floor((total % 86400) / 3600)), l: 'horas' },
+    { v: pad2(Math.floor((total % 3600) / 60)), l: 'min' },
+    { v: pad2(total % 60), l: 'seg' },
+  ];
 }
 
 /** Textos informativos do topo (faixa e hero). */
 export const TEXTO_TESTE = 'Teste 14 dias grátis, sem cartão.';
-export const TEXTO_CONTRATO = 'No contrato mês a mês, a primeira cobrança é em 15 de janeiro.';
+export const TEXTO_OFERTA = '50% off na primeira mensalidade';
+export const TEXTO_PRIMEIRA = 'Primeira cobrança só em 15 de janeiro';
 
 /**
- * Pre-visualizacao SO EM DESENVOLVIMENTO: ?fase=0|1|2 na URL simula o relogio
- * (fase 1: 25/11 12:00; fase 2: 05/12 10:00; fase 0: depois da campanha).
+ * Pre-visualizacao SO EM DESENVOLVIMENTO: ?fase=0|1 na URL simula o relogio
+ * (fase 1: 25/11 12:00; fase 0: depois da campanha).
  * Em producao o ramo inteiro e removido do bundle e o parametro e ignorado.
  */
 const PREVIEW_ALVOS: Record<string, number> = {
   '0': Date.parse('2027-01-01T00:00:00-03:00'),
   '1': Date.parse('2026-11-25T12:00:00-03:00'),
-  '2': Date.parse('2026-12-05T10:00:00-03:00'),
 };
 
 let previewDelta: number | null | undefined;
@@ -58,7 +68,7 @@ export function agoraCampanha(): number {
 
 /**
  * Script executado no <head> antes da primeira pintura: grava a fase em
- * <html data-campanha="1|2">. Assim o tema preto ja nasce aplicado, sem
+ * <html data-campanha="1">. Assim o tema preto ja nasce aplicado, sem
  * flash de pagina clara e sem depender da hidratacao do React.
  */
 const BOOT_PREVIEW_DEV =
@@ -71,7 +81,6 @@ var d=document.documentElement,n=Date.now(),f=0;
 ${BOOT_PREVIEW_DEV}
 if(${CAMPANHA_ATIVA}){
 if(n>=${FASE_1_INICIO}&&n<${FASE_1_FIM})f=1;
-else if(n>=${FASE_1_FIM}&&n<${FASE_2_FIM})f=2;
 }
 if(f)d.setAttribute('data-campanha',String(f));
 }catch(e){}})();`;

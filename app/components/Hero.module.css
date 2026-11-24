@@ -518,7 +518,8 @@
   inset: -50px -12%;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 38%, rgba(245, 158, 11, 0.30), rgba(245, 158, 11, 0.08) 45%, transparent 70%);
+  /* raios = metade da caixa: a luz zera antes das bordas (sem corte reto) */
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(245, 158, 11, 0.30), rgba(245, 158, 11, 0.08) 55%, transparent 100%);
   animation: bfRespira 3s ease-in-out infinite alternate;
 }
 @keyframes bfRespira {

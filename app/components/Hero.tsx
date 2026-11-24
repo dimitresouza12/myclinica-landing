@@ -4,7 +4,7 @@ import styles from './Hero.module.css';
 import RotatingText from './RotatingText';
 import { trackTrialLead } from '../lib/pixel';
 import { useAgora } from '../lib/useAgora';
-import { partesRestanteFase } from '../lib/campanha';
+import { contagemLancamento, partesRestanteFase } from '../lib/campanha';
 import { PRECO_GANCHO } from './Plans';
 
 const SAAS_QUIZ = 'https://myclinica.online/login?quiz=true';
@@ -98,6 +98,9 @@ export default function Hero() {
           </span>
           <span className={styles.bfHeadlineSub}>MyClinica · ofertas até 30/11</span>
           <div className={styles.bfClock} role="timer" aria-label="Tempo restante da Black Friday">
+            {contagemLancamento(agora) && (
+              <span className={styles.bfClockLabel}>Lançamento oficial hoje às 18h · faltam {contagemLancamento(agora)}</span>
+            )}
             <span className={styles.bfClockLabel}>Ofertas terminam em</span>
             <div className={styles.bfClockDigits}>
               {(partes ?? [{ v: '--', l: 'dias' }, { v: '--', l: 'horas' }, { v: '--', l: 'min' }, { v: '--', l: 'seg' }]).map(p => (

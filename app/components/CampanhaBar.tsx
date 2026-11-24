@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import styles from './CampanhaBar.module.css';
-import { agoraCampanha, faseEm, TEXTO_OFERTA, TEXTO_PRIMEIRA, TEXTO_TESTE } from '../lib/campanha';
+import { agoraCampanha, contagemLancamento, faseEm, TEXTO_OFERTA, TEXTO_PRIMEIRA, TEXTO_TESTE } from '../lib/campanha';
 import { PRECO_GANCHO } from './Plans';
 import { useAgora } from '../lib/useAgora';
 
@@ -30,8 +30,14 @@ export default function CampanhaBar() {
 
   // Um "bloco" do carrossel. Repetido varias vezes (e duplicado em 2 metades)
   // para a faixa rolar sem emenda: a animacao anda -50% e recomeca igual.
+  const contagem = contagemLancamento(agora);
   const bloco = (
     <>
+      {contagem && (
+        <span className={styles.item}>
+          <strong>Lançamento oficial hoje às 18h</strong> · faltam {contagem}
+        </span>
+      )}
       <span className={styles.item}>
         <span className={styles.label}>Black Friday MyClinica</span>
       </span>

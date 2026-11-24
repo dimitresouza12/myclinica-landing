@@ -37,6 +37,16 @@ export function partesRestanteFase(agora: number) {
   ];
 }
 
+/** Lançamento oficial da Black Friday: 24/11 às 18h (horário de Brasília). Só aviso: a oferta já vale para quem se cadastra antes. */
+export const LANCAMENTO_OFICIAL = Date.parse('2026-11-24T18:00:00-03:00');
+
+/** "HH:MM:SS" até o lançamento oficial; null antes de hidratar (agora = 0) ou depois das 18h. */
+export function contagemLancamento(agora: number): string | null {
+  if (agora === 0 || agora >= LANCAMENTO_OFICIAL) return null;
+  const t = Math.floor((LANCAMENTO_OFICIAL - agora) / 1000);
+  return `${pad2(Math.floor(t / 3600))}:${pad2(Math.floor((t % 3600) / 60))}:${pad2(t % 60)}`;
+}
+
 /** Textos informativos do topo (faixa e hero). */
 export const TEXTO_TESTE = 'Teste 14 dias grátis, sem cartão.';
 export const TEXTO_OFERTA = '50% off na primeira mensalidade';

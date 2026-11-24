@@ -202,6 +202,13 @@
   flex-shrink: 0;
 }
 
+.recursos { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.recursosGrid { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.recurso { display: flex; flex-direction: column; gap: 4px; padding: 14px; background: var(--surface-1); border: 1px solid var(--line); border-radius: 12px; border-left: 3px solid var(--primary); }
+.recurso strong { font-size: 0.92rem; color: var(--text); }
+.recurso span { font-size: 0.82rem; line-height: 1.45; color: var(--text-muted); }
+:global(html[data-campanha]) .recurso { border-left-color: var(--primary-light); }
+
 @media (max-width: 768px) {
   .columnsWrap { grid-template-columns: 1fr; gap: 16px; }
 }

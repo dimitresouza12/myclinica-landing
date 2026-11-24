@@ -13,6 +13,8 @@ interface Specialty {
   anamnese: string[];
   exame: string[];
   extra?: string;
+  /** Recursos que só aquela especialidade tem no sistema (abas próprias do prontuário). */
+  recursos: { titulo: string; desc: string }[];
 }
 
 const ICON_odonto = (
@@ -73,6 +75,12 @@ const specialties: Specialty[] = [
       'Dor à percussão / Sensibilidade ao frio/calor',
       'Hipótese diagnóstica / Plano radiográfico',
     ],
+    recursos: [
+      { titulo: 'Odontograma interativo', desc: '32 dentes, com o status de cada dente marcado direto no desenho.' },
+      { titulo: 'Periograma', desc: 'Registro periodontal por dente, com histórico entre as consultas.' },
+      { titulo: 'Ortodontia', desc: 'Acompanhamento do tratamento ortodôntico dentro do prontuário.' },
+      { titulo: 'Antes e depois', desc: 'Compare fotos do paciente lado a lado com um controle deslizante.' },
+    ],
     extra: 'Odontograma com os 32 dentes + Plano de Tratamento + Contrato',
   },
   {
@@ -105,6 +113,11 @@ const specialties: Specialty[] = [
       'Hipótese diagnóstica (CID)',
       'Conduta / Solicitação de exames',
     ],
+    recursos: [
+      { titulo: 'Exames e receitas', desc: 'Solicitação de exames e receitas na mesma aba, com o histórico do paciente.' },
+      { titulo: 'Curvas de crescimento', desc: 'Gráfico de peso e altura para acompanhar a evolução, útil na pediatria.' },
+      { titulo: 'Contrato de serviços médicos', desc: 'Contrato e documentos do paciente guardados no próprio prontuário.' },
+    ],
     extra: 'Plano de Tratamento + Contrato de serviços médicos',
   },
   {
@@ -136,6 +149,12 @@ const specialties: Specialty[] = [
       'Procedimento proposto / Protocolo',
       'Contraindicações identificadas',
     ],
+    recursos: [
+      { titulo: 'Faceograma', desc: 'Mapa do rosto para marcar pontos de aplicação e queixas.' },
+      { titulo: 'Mapa de aplicações', desc: 'Registre produto, dose e ponto aplicado em cada sessão.' },
+      { titulo: 'Corpograma', desc: 'Mapa do corpo para procedimentos corporais.' },
+      { titulo: 'Antes e depois', desc: 'Fotos lado a lado, com controle deslizante para mostrar o resultado.' },
+    ],
     extra: 'Plano de Tratamento + Contrato de serviços estéticos',
   },
   {
@@ -165,6 +184,10 @@ const specialties: Specialty[] = [
       'Ausculta cardíaca / Pulmonar',
       'Palpação abdominal',
       'Hipótese diagnóstica / Exames solicitados',
+    ],
+    recursos: [
+      { titulo: 'Saúde do pet', desc: 'Aba própria com espécie, raça, peso e histórico de cada animal.' },
+      { titulo: 'Vários pets por tutor', desc: 'Troque de animal dentro do mesmo cadastro, sem duplicar o tutor.' },
     ],
     extra: 'Cadastro do pet (espécie, raça, peso, castrado) + Plano de Tratamento + Contrato',
   },
@@ -197,6 +220,12 @@ const specialties: Specialty[] = [
       'Avaliação de marcha / Equilíbrio',
       'Diagnóstico fisioterapêutico',
     ],
+    recursos: [
+      { titulo: 'Goniometria', desc: 'Medidas de amplitude de movimento com gráfico da evolução.' },
+      { titulo: 'Programa de exercícios', desc: 'Monte o programa do paciente a partir de uma biblioteca.' },
+      { titulo: 'Mapa corporal', desc: 'Marque a localização e a intensidade da dor (EVA) no corpo.' },
+      { titulo: 'Plano por metas', desc: 'Metas do tratamento acompanhadas sessão a sessão.' },
+    ],
     extra: 'Plano de Tratamento + Contrato de prestação de serviços de fisioterapia',
   },
   {
@@ -227,6 +256,10 @@ const specialties: Specialty[] = [
       'Escala PHQ-9 / GAD-7 (pontuação se aplicada)',
       'Hipótese diagnóstica (CID-10 / DSM-5)',
       'Plano terapêutico / Abordagem utilizada',
+    ],
+    recursos: [
+      { titulo: 'Plano terapêutico por metas', desc: 'Defina metas com o paciente e acompanhe o progresso.' },
+      { titulo: 'Evolução por sessão', desc: 'Anotações de cada atendimento organizadas em linha do tempo.' },
     ],
     extra: 'Plano de Tratamento + Contrato de serviços de psicologia',
   },
@@ -262,6 +295,10 @@ const specialties: Specialty[] = [
       'Meta calórica / VET prescrito (kcal/dia)',
       'Plano alimentar / Orientações prescritas',
     ],
+    recursos: [
+      { titulo: 'Aba de Nutrição', desc: 'Aba própria de nutrição, ao lado da ficha e da evolução do paciente.' },
+      { titulo: 'Evolução do paciente', desc: 'Linha do tempo com o que foi trabalhado em cada consulta.' },
+    ],
     extra: 'Plano de Tratamento + Contrato de serviços de nutrição',
   },
   {
@@ -291,6 +328,12 @@ const specialties: Specialty[] = [
       'Avaliação do frênulo lingual (Teste da Linguinha)',
       'Observações gerais',
     ],
+    recursos: [
+      { titulo: 'Audiograma', desc: 'Registro e gráfico da audiometria do paciente.' },
+      { titulo: 'Voz e fluência', desc: 'Formulários próprios para avaliação de voz e de fluência.' },
+      { titulo: 'Protocolo MOF', desc: 'Avaliação miofuncional orofacial pronta para preencher.' },
+      { titulo: 'Plano por metas', desc: 'Metas terapêuticas com acompanhamento a cada sessão.' },
+    ],
     extra: 'Plano de Tratamento + Contrato de serviços de fonoaudiologia',
   },
   {
@@ -317,6 +360,10 @@ const specialties: Specialty[] = [
       'Participação social',
       'Uso de órtese ou adaptação',
       'Observações gerais',
+    ],
+    recursos: [
+      { titulo: 'Plano terapêutico por metas', desc: 'Metas de cada paciente com acompanhamento por sessão.' },
+      { titulo: 'Evolução por sessão', desc: 'Linha do tempo com o que foi trabalhado em cada atendimento.' },
     ],
     extra: 'Plano de Tratamento + Contrato de serviços de terapia ocupacional',
   },
@@ -392,6 +439,18 @@ export default function Specialties() {
                 ))}
               </ul>
             </div>
+          </div>
+
+          <div className={styles.recursos}>
+            <div className={styles.colLabel}>Só no MyClínica para {current.label}</div>
+            <ul className={styles.recursosGrid}>
+              {current.recursos.map(r => (
+                <li key={r.titulo} className={styles.recurso}>
+                  <strong>{r.titulo}</strong>
+                  <span>{r.desc}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {current.extra && (

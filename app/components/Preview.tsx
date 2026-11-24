@@ -9,13 +9,17 @@ import Logotype from './Logotype';
    ════════════════════════════════════════════════════════════════ */
 
 const tabs = [
-  { id: 'dashboard',  label: 'Dashboard' },
-  { id: 'agenda',     label: 'Agenda' },
-  { id: 'prontuario', label: 'Prontuário' },
-  { id: 'financeiro', label: 'Financeiro' },
-  { id: 'relatorios', label: 'Relatórios' },
-  { id: 'crm',        label: 'CRM' },
-  { id: 'estoque',    label: 'Estoque' },
+  { id: 'dashboard',  label: 'Dashboard',  icon: 'dashboard' },
+  { id: 'agenda',     label: 'Agenda',     icon: 'calendar' },
+  { id: 'pacientes',  label: 'Pacientes',  icon: 'patients' },
+  { id: 'prontuario', label: 'Prontuário', icon: 'procedures' },
+  { id: 'mensagens',  label: 'Mensagens',  icon: 'messages' },
+  { id: 'financeiro', label: 'Financeiro', icon: 'finance' },
+  { id: 'comissoes',  label: 'Comissões',  icon: 'commissions' },
+  { id: 'relatorios', label: 'Relatórios', icon: 'reports' },
+  { id: 'estoque',    label: 'Estoque',    icon: 'stock' },
+  { id: 'equipe',     label: 'Equipe',     icon: 'team' },
+  { id: 'crm',        label: 'CRM',        icon: 'crm' },
 ];
 
 /* ── Ícones da sidebar (espelham src/components/ui/Icon.tsx) ── */
@@ -91,16 +95,20 @@ const navGroups: { title?: string; items: { key: string; label: string; icon: st
 const sidebarActive: Record<string, string> = {
   dashboard:  'dashboard',
   agenda:     'agenda',
+  pacientes:  'pacientes',
   prontuario: 'pacientes',
+  mensagens:  'mensagens',
   financeiro: 'financeiro',
+  comissoes:  'comissoes',
   relatorios: 'relatorios',
   crm:        'crm',
   estoque:    'estoque',
+  equipe:     'equipe',
 };
 
-function Sidebar({ active }: { active: string }) {
+function Sidebar({ active, onNavigate }: { active: string; onNavigate: (key: string) => void }) {
   return (
-    <aside className={styles.sidebar} aria-hidden="true">
+    <aside className={styles.sidebar}>
       <div className={styles.sbBrand}>
         <Logotype className={styles.sbLogo} />
         <div className={styles.sbClinic}>
@@ -113,10 +121,17 @@ function Sidebar({ active }: { active: string }) {
           <div key={gi} className={styles.navGroup}>
             {g.title && <span className={styles.navGroupTitle}>{g.title}</span>}
             {g.items.map(item => (
-              <div key={item.key} className={`${styles.navItem} ${item.key === active ? styles.navActive : ''}`}>
+              <button
+                type="button"
+                key={item.key}
+                className={`${styles.navItem} ${styles.navBtn} ${item.key === active ? styles.navActive : ''}`}
+                onClick={() => onNavigate(item.key)}
+                aria-label={item.label}
+                aria-current={item.key === active ? 'page' : undefined}
+              >
                 <span className={styles.navIcon}><NavIcon name={item.icon} /></span>
                 <span className={styles.navLabel}>{item.label}</span>
-              </div>
+              </button>
             ))}
           </div>
         ))}
@@ -560,7 +575,7 @@ const specData: Record<SpecId, { patient: string; sub: string; anamnese: string[
   fisio: {
     patient: 'Felipe Costa', sub: 'Fisioterapia · última consulta 11/05/2026',
     anamnese: ['Queixa principal', 'Diagnóstico médico / Encaminhamento', 'Região acometida', 'Início e causa (trauma, postura)', 'Intensidade da dor (0–10)', 'Cirurgias ou fraturas anteriores', 'Exames de imagem (RX, RM, USG)', 'Sessões previstas / Frequência'],
-    exame: ['Avaliação postural', 'ADM — Amplitude de Movimento (graus)', 'Força muscular (escala 0–5)', 'Testes especiais (Lasègue, Phalen)', 'Dor à palpação / Pontos-gatilho', 'Edema / Inflamação', 'Avaliação de marcha', 'Diagnóstico fisioterapêutico'],
+    exame: ['Avaliação postural', 'ADM: Amplitude de Movimento (graus)', 'Força muscular (escala 0–5)', 'Testes especiais (Lasègue, Phalen)', 'Dor à palpação / Pontos-gatilho', 'Edema / Inflamação', 'Avaliação de marcha', 'Diagnóstico fisioterapêutico'],
   },
   psico: {
     patient: 'Sônia Ferreira', sub: 'Psicologia · última consulta 10/05/2026',
@@ -926,9 +941,9 @@ function FaceogramaMock() {
 /* ── Evolução — linha do tempo de atendimentos ── */
 function TimelineMock({ firstName }: { firstName: string }) {
   const items = [
-    { date: '15/05/2026 09:40', author: 'Dra. Camila Rocha', text: `${firstName} retornou para avaliação de rotina. Sem queixas relevantes — orientações de manutenção reforçadas.` },
+    { date: '15/05/2026 09:40', author: 'Dra. Camila Rocha', text: `${firstName} retornou para avaliação de rotina. Sem queixas relevantes. Orientações de manutenção reforçadas.` },
     { date: '02/05/2026 14:15', author: 'Dra. Camila Rocha', text: 'Procedimento realizado conforme plano de tratamento. Paciente tolerou bem, sem intercorrências.' },
-    { date: '18/04/2026 10:00', author: 'Recepção · WhatsApp', text: 'Confirmação automática enviada e recebida — consulta remarcada a pedido do paciente.' },
+    { date: '18/04/2026 10:00', author: 'Recepção · WhatsApp', text: 'Confirmação automática enviada e recebida. Consulta remarcada a pedido do paciente.' },
     { date: '05/04/2026 16:30', author: 'Dra. Camila Rocha', text: 'Primeira consulta. Anamnese completa e exame clínico realizados. Plano de tratamento iniciado.' },
   ];
   return (
@@ -956,7 +971,7 @@ function TimelineMock({ firstName }: { firstName: string }) {
 function DocumentosMock() {
   const docs = [
     { name: 'Atestado médico.pdf', meta: '15/05/2026 · 128 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
-    { name: 'Receituário — controle contínuo.pdf', meta: '15/05/2026 · 96 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
+    { name: 'Receituário, controle contínuo.pdf', meta: '15/05/2026 · 96 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
     { name: 'Termo de consentimento.pdf', meta: '05/04/2026 · 210 KB', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 13h6 M9 17h6' },
     { name: 'Exame complementar.jpg', meta: '02/05/2026 · 1.4 MB', icon: 'M3 3h18v18H3z M8.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z M21 15l-5-5L5 21' },
   ];
@@ -1089,7 +1104,7 @@ function FinanceiroMock() {
       <div className={styles.pageHead}>
         <div>
           <h1 className={styles.pageTitle}>Financeiro</h1>
-          <p className={styles.pageSub}>48 lançamentos — todos os períodos</p>
+          <p className={styles.pageSub}>48 lançamentos em todos os períodos</p>
         </div>
         <div className={styles.headActions}>
           <button className={styles.ghostBtn}><NavIcon name="download" /> Exportar</button>
@@ -1241,7 +1256,7 @@ function CrmMock() {
     <div className={styles.screenBody}>
       <div className={styles.pageHead}>
         <div>
-          <h1 className={styles.pageTitle}>CRM — Leads WhatsApp</h1>
+          <h1 className={styles.pageTitle}>CRM: Leads WhatsApp</h1>
           <p className={styles.pageSub}>Contatos captados pelo bot de IA</p>
         </div>
         <button className={styles.ghostBtn}><NavIcon name="refresh" /> Atualizar</button>
@@ -1418,6 +1433,193 @@ function LineChart() {
 }
 
 /* ════════════════════════════════════════════════════════════════
+   8. PACIENTES · MENSAGENS · COMISSÕES · EQUIPE
+   ════════════════════════════════════════════════════════════════ */
+function PacientesMock() {
+  const rows = [
+    { name: 'Pedro Alves',    phone: '(88) 9••••-1234', last: '20/05/2026', next: '27/05 às 09:00', tag: 'Ativo',   tone: 'ok' },
+    { name: 'Larissa Barros', phone: '(85) 9••••-5678', last: '18/05/2026', next: '25/05 às 14:30', tag: 'Ativo',   tone: 'ok' },
+    { name: 'Marcos Teixeira',phone: '(88) 9••••-9012', last: '02/05/2026', next: 'Sem retorno marcado', tag: 'Retorno', tone: 'warn' },
+    { name: 'Helena Costa',   phone: '(85) 9••••-3456', last: '29/04/2026', next: '30/05 às 10:15', tag: 'Ativo',   tone: 'ok' },
+    { name: 'Rafael Duarte',  phone: '(88) 9••••-7890', last: '11/03/2026', next: 'Sem retorno marcado', tag: 'Inativo', tone: 'idle' },
+  ];
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.pageHead}>
+        <div>
+          <h1 className={styles.pageTitle}>Pacientes</h1>
+          <p className={styles.pageSub}>248 pacientes cadastrados</p>
+        </div>
+        <div className={styles.headActions}>
+          <button className={styles.ghostBtn}><NavIcon name="download" /> Importar</button>
+          <button className={styles.receitaBtn}>+ Novo paciente</button>
+        </div>
+      </div>
+      <div className={styles.mainScroll}>
+        <div className={styles.section}>
+          <div className={styles.finFilters}>
+            <div className={styles.pillTabs}>
+              <button className={`${styles.pillTab} ${styles.pillTabActive}`}>Todos</button>
+              <button className={styles.pillTab}>Ativos</button>
+              <button className={styles.pillTab}>Retorno pendente</button>
+              <button className={styles.pillTab}>Aniversariantes</button>
+            </div>
+          </div>
+          <table className={styles.table}>
+            <thead><tr><th>Paciente</th><th>Telefone</th><th>Última visita</th><th>Próxima consulta</th><th>Situação</th></tr></thead>
+            <tbody>
+              {rows.map(r => (
+                <tr key={r.name}>
+                  <td>
+                    <span className={styles.msgInline}>
+                      <span className={styles.kanbanAvatar}>{r.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
+                      <span className={styles.bold}>{r.name}</span>
+                    </span>
+                  </td>
+                  <td>{r.phone}</td>
+                  <td>{r.last}</td>
+                  <td>{r.next}</td>
+                  <td><StatusDot tone={r.tone as 'ok' | 'warn' | 'idle'}>{r.tag}</StatusDot></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MensagensMock() {
+  const convs = [
+    { name: 'Larissa Barros', last: 'Perfeito, obrigada!',                 time: '09:16', unread: 0, on: true,  ai: true },
+    { name: 'Pedro Alves',    last: 'Posso levar meu exame amanhã?',        time: '08:52', unread: 2, ai: true },
+    { name: 'Marcos Teixeira',last: 'Lembrete de retorno enviado',          time: 'Ontem', unread: 0, ai: false },
+    { name: 'Helena Costa',   last: 'Qual o valor da limpeza?',             time: 'Ontem', unread: 1, ai: true },
+    { name: 'Rafael Duarte',  last: 'Confirmado para sexta às 15h',         time: 'Seg',   unread: 0, ai: false },
+  ];
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.pageHead}>
+        <div>
+          <h1 className={styles.pageTitle}>Mensagens</h1>
+          <p className={styles.pageSub}>Conversas do WhatsApp da clínica, atendidas pela IA</p>
+        </div>
+        <span className={styles.msgLive}><i /> WhatsApp conectado</span>
+      </div>
+      <div className={styles.mainScroll}>
+        <div className={styles.msgLayout}>
+          <div className={styles.msgList}>
+            {convs.map(c => (
+              <div key={c.name} className={`${styles.msgItem} ${c.on ? styles.msgItemOn : ''}`}>
+                <span className={styles.kanbanAvatar}>{c.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
+                <span className={styles.msgItemMain}>
+                  <span className={styles.msgItemTop}><b>{c.name}</b><small>{c.time}</small></span>
+                  <span className={styles.msgItemLast}>{c.last}</span>
+                </span>
+                {c.unread > 0 && <span className={styles.msgBadge}>{c.unread}</span>}
+              </div>
+            ))}
+          </div>
+          <div className={styles.msgChat}><ChatMock firstName="Larissa" /></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ComissoesMock() {
+  const stats = [
+    { value: 'R$ 6.420', label: 'Produção do mês',    color: '#0D2421' },
+    { value: 'R$ 2.568', label: 'Comissões a pagar',  color: '#F59E0B' },
+    { value: 'R$ 1.940', label: 'Comissões pagas',    color: '#10B981' },
+    { value: '3',        label: 'Profissionais',      color: '#0EA5E9' },
+  ];
+  const rows = [
+    { pro: 'Dra. Helena Prado', proc: 42, prod: 'R$ 3.150,00', pct: '40%', com: 'R$ 1.260,00', st: 'Pago',    tone: 'ok' },
+    { pro: 'Dr. Rafael Nogueira', proc: 31, prod: 'R$ 2.180,00', pct: '35%', com: 'R$ 763,00',   st: 'A pagar', tone: 'warn' },
+    { pro: 'Dra. Camila Reis',  proc: 18, prod: 'R$ 1.090,00', pct: '40%', com: 'R$ 436,00',   st: 'A pagar', tone: 'warn' },
+  ];
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.pageHead}>
+        <div>
+          <h1 className={styles.pageTitle}>Comissões</h1>
+          <p className={styles.pageSub}>Repasse automático por profissional e procedimento</p>
+        </div>
+        <div className={styles.headActions}>
+          <button className={styles.ghostBtn}><NavIcon name="download" /> Exportar</button>
+        </div>
+      </div>
+      <div className={styles.mainScroll}>
+        <div className={styles.crmStats}>
+          {stats.map(s => (
+            <div key={s.label} className={styles.crmStat}>
+              <span className={styles.crmStatVal} style={{ color: s.color }}>{s.value}</span>
+              <span className={styles.crmStatLabel}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className={styles.section}>
+          <table className={styles.table}>
+            <thead><tr><th>Profissional</th><th>Procedimentos</th><th>Produção</th><th>Comissão</th><th>A receber</th><th>Situação</th></tr></thead>
+            <tbody>
+              {rows.map(r => (
+                <tr key={r.pro}>
+                  <td className={styles.bold}>{r.pro}</td>
+                  <td>{r.proc}</td>
+                  <td>{r.prod}</td>
+                  <td>{r.pct}</td>
+                  <td className={styles.valuePos}>{r.com}</td>
+                  <td><StatusDot tone={r.tone as 'ok' | 'warn'}>{r.st}</StatusDot></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EquipeMock() {
+  const team = [
+    { name: 'Helena Prado',     role: 'Administradora',     mail: 'helena@clinicasaude.com', tag: 'Acesso total' },
+    { name: 'Rafael Nogueira',  role: 'Dentista',           mail: 'rafael@clinicasaude.com', tag: 'Profissional' },
+    { name: 'Camila Reis',      role: 'Dermatologista',     mail: 'camila@clinicasaude.com', tag: 'Profissional' },
+    { name: 'Juliana Matos',    role: 'Recepção',           mail: 'juliana@clinicasaude.com', tag: 'Recepção' },
+  ];
+  return (
+    <div className={styles.screenBody}>
+      <div className={styles.pageHead}>
+        <div>
+          <h1 className={styles.pageTitle}>Equipe</h1>
+          <p className={styles.pageSub}>Quem usa o sistema e o que cada pessoa pode ver</p>
+        </div>
+        <div className={styles.headActions}>
+          <button className={styles.receitaBtn}>+ Convidar membro</button>
+        </div>
+      </div>
+      <div className={styles.mainScroll}>
+        <div className={styles.teamGrid}>
+          {team.map(m => (
+            <div key={m.name} className={styles.teamCard}>
+              <span className={styles.teamAvatar}>{m.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
+              <div className={styles.teamInfo}>
+                <b>{m.name}</b>
+                <span>{m.role}</span>
+                <small>{m.mail}</small>
+              </div>
+              <span className={styles.badgeProc}>{m.tag}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
    ROOT
    ════════════════════════════════════════════════════════════════ */
 export default function Preview() {
@@ -1428,7 +1630,11 @@ export default function Preview() {
     switch (active) {
       case 'dashboard':  return <DashboardMock />;
       case 'agenda':     return <AgendaMock />;
+      case 'pacientes':  return <PacientesMock />;
       case 'prontuario': return <ProntuarioMock spec={activeSpec} />;
+      case 'mensagens':  return <MensagensMock />;
+      case 'comissoes':  return <ComissoesMock />;
+      case 'equipe':     return <EquipeMock />;
       case 'financeiro': return <FinanceiroMock />;
       case 'relatorios': return <RelatoriosMock />;
       case 'crm':        return <CrmMock />;
@@ -1446,12 +1652,25 @@ export default function Preview() {
           <p className={styles.subtitle}>Interface limpa e intuitiva, pensada para o dia a dia da sua clínica.</p>
         </div>
 
-        <div className={styles.tabsRow}>
-          {tabs.map(tab => (
-            <button key={tab.id} className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''}`} onClick={() => setActive(tab.id)}>
-              {tab.label}
-            </button>
-          ))}
+        <div className={styles.tabsWrap}>
+          <p className={styles.tabsHint}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7" /></svg>
+            Escolha uma tela para explorar
+          </p>
+          <div className={styles.tabsRow} role="tablist" aria-label="Telas do sistema">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={active === tab.id}
+                className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''}`}
+                onClick={() => setActive(tab.id)}
+              >
+                <NavIcon name={tab.icon} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {active === 'prontuario' && (
@@ -1487,7 +1706,7 @@ export default function Preview() {
             </div>
           </div>
           <div className={styles.shell}>
-            <Sidebar active={sidebarActive[active]} />
+            <Sidebar active={sidebarActive[active]} onNavigate={key => setActive(key)} />
             <div className={styles.content}>
               <Topbar placeholder={active === 'agenda' ? 'Buscar agendamentos' : 'Buscar pacientes'} />
               <div className={styles.contentBody}>{screen}</div>

@@ -24,7 +24,7 @@ export default function Contact() {
             <span className={styles.highlight}>sua clínica?</span>
           </h2>
           <p className={styles.subtitle}>
-            Comece agora com 14 dias grátis — ou fale com nossa equipe no WhatsApp para tirar dúvidas.
+            Comece agora com 14 dias grátis ou fale com nossa equipe no WhatsApp para tirar dúvidas.
           </p>
 
           <div className={styles.ctaRow}>

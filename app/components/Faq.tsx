@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: 'O sistema funciona para qual especialidade?',
-    a: 'Para 9 especialidades: Odontologia, Medicina, Estética, Veterinária, Fisioterapia, Psicologia, Nutrição, Fonoaudiologia e Terapia Ocupacional. Cada uma tem seu próprio prontuário com campos específicos — nada genérico.',
+    a: 'Para 9 especialidades: Odontologia, Medicina, Estética, Veterinária, Fisioterapia, Psicologia, Nutrição, Fonoaudiologia e Terapia Ocupacional. Cada uma tem seu próprio prontuário com campos específicos, nada genérico.',
   },
   {
     q: 'O bot de IA do WhatsApp funciona como?',
@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: 'Os dados dos pacientes ficam seguros?',
-    a: 'Sim. Todos os dados são criptografados, hospedados em servidores no Brasil e estão em conformidade com a LGPD. Cada clínica tem seu banco de dados isolado — nenhuma outra clínica acessa suas informações.',
+    a: 'Sim. Todos os dados são criptografados, hospedados em servidores no Brasil e estão em conformidade com a LGPD. Cada clínica tem seu banco de dados isolado, e nenhuma outra clínica acessa suas informações.',
   },
   {
     q: 'Tem aplicativo para celular?',
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: 'Quantos usuários posso cadastrar?',
-    a: 'Depende do plano — e só contam profissionais que atendem paciente (dentista, médico, terapeuta etc). No Essencial é 1 profissional, no Completo até 3 e no Equipe até 6. Para clínicas com 7 ou mais profissionais, fale com a gente. Recepcionistas e auxiliares têm login ilimitado em qualquer plano, sem custo extra. Todos com controle de permissões por perfil.',
+    a: 'Depende do plano, e só contam profissionais que atendem paciente (dentista, médico, terapeuta etc). No Essencial é 1 profissional, no Completo até 3 e no Equipe até 6. Para clínicas com 7 ou mais profissionais, fale com a gente. Recepcionistas e auxiliares têm login ilimitado em qualquer plano, sem custo extra. Todos com controle de permissões por perfil.',
   },
   {
     q: 'Como o prontuário eletrônico registra as informações?',

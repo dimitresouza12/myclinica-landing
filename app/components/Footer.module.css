@@ -71,3 +71,8 @@
   }
   .links a { padding: 4px 0; }
 }
+
+/* No celular a barra fixa de CTA cobre o fim da página: abre espaço para o rodapé inteiro aparecer. */
+@media (max-width: 767px) {
+  .footer { padding-bottom: calc(40px + 76px + env(safe-area-inset-bottom, 0px)); }
+}

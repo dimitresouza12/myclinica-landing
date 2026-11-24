@@ -18,7 +18,7 @@ const steps: Step[] = [
     soft: 'rgba(220, 38, 38, 0.1)',
     label: 'Passo 01',
     title: 'Agenda no papel',
-    desc: 'Onde a maioria começa — caderno, faltas e retrabalho. Mas deve evoluir rápido.',
+    desc: 'Onde a maioria começa: caderno, faltas e retrabalho. Mas deve evoluir rápido.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" />
@@ -57,7 +57,7 @@ const steps: Step[] = [
     soft: 'rgba(217, 119, 6, 0.1)',
     label: 'Passo 04',
     title: 'Financeiro no controle',
-    desc: 'Orçamentos, faturamento, comissões e fluxo de caixa — tudo integrado e automático.',
+    desc: 'Orçamentos, faturamento, comissões e fluxo de caixa, tudo integrado e automático.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" />

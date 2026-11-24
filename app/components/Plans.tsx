@@ -60,8 +60,8 @@ const plans: Plano[] = [
     highlight: false,
     badge: null,
     semContrato: 9990,
-    contrato: { 3: 9490, 6: 8990, 12: 8490 },
-    avista: { 3: 26990, 6: 50990, 12: 89990 },
+    contrato: { 3: 8990, 6: 8490, 12: 7990 },
+    avista: { 3: 25390, 6: 47890, 12: 89890 },
     features: [
       'Prontuário eletrônico completo',
       'Agenda com lembretes e confirmação por SIM ou NÃO',
@@ -86,8 +86,8 @@ const plans: Plano[] = [
     highlight: true,
     badge: 'Mais popular',
     semContrato: 12990,
-    contrato: { 3: 12390, 6: 11690, 12: 10990 },
-    avista: { 3: 34990, 6: 65990, 12: 116990 },
+    contrato: { 3: 11690, 6: 10990, 12: 10390 },
+    avista: { 3: 33090, 6: 62290, 12: 116890 },
     features: [
       'Prontuário eletrônico completo',
       'Agenda com lembretes e confirmação por SIM ou NÃO',
@@ -111,8 +111,8 @@ const plans: Plano[] = [
     highlight: false,
     badge: null,
     semContrato: 16990,
-    contrato: { 3: 16190, 6: 15290, 12: 14490 },
-    avista: { 3: 45890, 6: 86690, 12: 152990 },
+    contrato: { 3: 15290, 6: 14390, 12: 13590 },
+    avista: { 3: 43290, 6: 81490, 12: 152890 },
     features: [
       'Tudo do plano Completo',
       'Até 6 profissionais',
@@ -241,6 +241,7 @@ export default function Plans() {
                 ) : (
                   <div className={styles.priceSub}>Sem contrato, cancele quando quiser</div>
                 )}
+                {/* 50% na 1ª mensalidade vale no mensal e no contrato mês a mês (mesma regra do sistema). O à vista não tem "1ª mensalidade". */}
                 <div className={styles.bfCardOff}>
                   <div className={styles.bfOffHead}>
                     <span className={styles.bfOffTag}>Black Friday</span>
@@ -253,10 +254,8 @@ export default function Plans() {
                   </div>
                   <ul className={styles.bfOffList}>
                     <li>Você economiza <b>{brl(mensal - Math.round(mensal / 2))}</b> já na primeira</li>
-                    {prazo > 1 && (
-                      <li>
-                        Total de <b>{brl((plan.semContrato - mensal) * prazo + (mensal - Math.round(mensal / 2)))}</b> a menos em {prazo} meses, comparado ao plano sem contrato
-                      </li>
+                    {prazo !== 1 && (
+                      <li>Depois, {brl(mensal)}/mês nas outras {prazo - 1} mensalidades do contrato</li>
                     )}
                     <li>Primeira cobrança só em <b>15 de janeiro</b>, depois de 14 dias grátis</li>
                   </ul>

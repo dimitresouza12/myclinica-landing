@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import styles from './privacidade.module.css';
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade — My Clínica',
+  title: 'Política de Privacidade | My Clínica',
   description: 'Saiba como o My Clínica coleta, usa e protege seus dados pessoais.',
 };
 

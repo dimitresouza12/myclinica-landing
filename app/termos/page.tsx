@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import styles from '../privacidade/privacidade.module.css';
 
 export const metadata: Metadata = {
-  title: 'Termos de Uso — My Clínica',
+  title: 'Termos de Uso | My Clínica',
   description: 'Leia os termos e condições de uso da plataforma My Clínica.',
 };
 

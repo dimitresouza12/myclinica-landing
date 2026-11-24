@@ -462,10 +462,14 @@
 
 @media (min-width: 1360px) {
   :global(html[data-campanha]) .fcBf { display: block; }
-  :global(html[data-campanha]) .fcBfMain {
-    border-color: rgba(94, 234, 212, 0.45);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(94, 234, 212, 0.08), 0 0 32px rgba(94, 234, 212, 0.14);
+  :global(html[data-campanha]) .fcBf {
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 158, 11, 0.08), 0 0 32px rgba(245, 158, 11, 0.16);
   }
+  :global(html[data-campanha]) .fcBf .bfKicker { color: #fbbf24; }
+  :global(html[data-campanha]) .fcBf .bfDot { background: #fbbf24; box-shadow: 0 0 10px #fbbf24; }
+  :global(html[data-campanha]) .fcBf .bfPrice strong,
+  :global(html[data-campanha]) .fcBf .bfCount { color: #fde68a; }
 }
 
 /* Selo de preço (telas onde os cards laterais não cabem) */
@@ -528,33 +532,39 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-geist-mono);
-  font-size: clamp(2.6rem, 8.4vw, 6.2rem);
+  font-family: var(--font-geist), -apple-system, system-ui, sans-serif;
+  font-size: clamp(2.2rem, 6.4vw, 4.5rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
-  /* brilho neon que pulsa em volta do título inteiro */
-  animation: bfNeon 2.2s ease-in-out infinite alternate;
+  /* brilho que respira devagar */
+  animation: bfNeonSuave 4s ease-in-out infinite alternate;
 }
 /* cada letra: entra quicando, depois ondula; o brilho dourado corre pelas letras */
 .bfLetra {
   display: inline-block;
-  background: linear-gradient(100deg, #d97706 0%, #f59e0b 25%, #fff7d6 45%, #fbbf24 60%, #d97706 100%);
+  /* dourado liso com uma faixa de luz que varre as letras da esquerda para a direita */
+  background: linear-gradient(100deg, #f59e0b 0%, #fbbf24 38%, #fff7d6 50%, #fbbf24 62%, #f59e0b 100%);
   background-size: 300% 100%;
+  background-position: 100% 0;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation:
-    bfEntra 0.7s cubic-bezier(0.2, 1.6, 0.4, 1) both calc(var(--i) * 70ms),
-    bfOnda 2.4s ease-in-out infinite calc(1s + var(--i) * 110ms),
-    bfBrilho 2.6s linear infinite calc(var(--i) * -90ms);
+    bfEntra 0.6s cubic-bezier(0.2, 1.2, 0.4, 1) both calc(var(--i) * 50ms),
+    bfLuz 4.5s ease-in-out infinite calc(1.2s + var(--i) * 70ms);
+}
+@keyframes bfLuz {
+  0%, 35% { background-position: 100% 0; }
+  75%, 100% { background-position: 0% 0; }
 }
 .bfGap { display: inline-block; width: 0.38em; }
 
 /* faíscas piscando nos cantos */
 .bfSpark {
+  display: none;
   position: absolute;
   width: 0.34em;
   height: 0.34em;
@@ -568,6 +578,10 @@
 .bfSpark2 { top: -0.15em; right: -0.25em; width: 0.26em; height: 0.26em; animation-delay: 0.6s; }
 .bfSpark3 { bottom: -0.2em; left: 46%; width: 0.22em; height: 0.22em; animation-delay: 1.1s; }
 
+@keyframes bfNeonSuave {
+  from { filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.25)); }
+  to   { filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.55)); }
+}
 @keyframes bfNeon {
   from { filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.35)) drop-shadow(0 0 2px rgba(253, 230, 138, 0.4)); }
   to   { filter: drop-shadow(0 0 40px rgba(245, 158, 11, 0.85)) drop-shadow(0 0 6px rgba(253, 230, 138, 0.8)); }
@@ -620,7 +634,7 @@
   color: #fde68a;
   font-variant-numeric: tabular-nums;
 }
-.bfClockCell:last-child { border-color: rgba(251, 191, 36, 0.9); animation: bfTic 1s ease-in-out infinite; }
+.bfClockCell:last-child { border-color: rgba(251, 191, 36, 0.9); }
 @keyframes bfTic {
   0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
   50%      { box-shadow: 0 0 14px 2px rgba(245, 158, 11, 0.45); }
@@ -749,3 +763,27 @@
 
 /* Na campanha a frase que gira fica sempre na 2ª linha: "inteligência" (curta) subia para a 1ª linha e batia no card flutuante, e a altura do título pulava a cada troca */
 :global(html[data-campanha]) .rotBloco { display: block; }
+
+/* ─── Tela cheia (monitor grande): o hero ocupa a altura da janela, centraliza o conteúdo e dá respiro aos botões ─── */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 56px;
+  }
+  .ctas { gap: 18px; }
+  .stats { margin-top: 48px; }
+}
+@media (min-width: 1024px) and (min-height: 880px) {
+  :global(html[data-campanha]) .hero { padding-top: calc(var(--banner-h) + 64px + 36px); }
+  :global(html[data-campanha]) .bfHeadline { margin-bottom: 26px; gap: 12px; }
+  :global(html[data-campanha]) .bfClockCell { padding: 7px 8px 5px; min-width: 64px; }
+  :global(html[data-campanha]) .title { margin-bottom: 22px; }
+  :global(html[data-campanha]) .subtitle { margin-bottom: 24px; }
+  :global(html[data-campanha]) .bfCallout { margin-bottom: 30px; padding: 14px 24px; }
+  .primary, :global(html[data-campanha]) .bfOfertas { padding: 17px 32px; font-size: 1.05rem; }
+  .secondary { padding: 16px 26px; font-size: 1rem; }
+  .stats { margin-top: 64px; }
+}

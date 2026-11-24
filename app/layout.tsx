@@ -46,7 +46,7 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://site.myclinica.online"),
-  title: "MyClínica — Sistema de Gestão para Clínicas",
+  title: "MyClínica: Sistema de Gestão para Clínicas",
   description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 14 dias grátis, sem cartão.",
   icons: {
     icon: [
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     apple: "/icons/icon-192.png",
   },
   openGraph: {
-    title: "MyClínica — Sistema de Gestão para Clínicas",
+    title: "MyClínica: Sistema de Gestão para Clínicas",
     description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA. 14 dias grátis, sem cartão.",
     type: "website",
     locale: "pt_BR",
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MyClínica — Sistema de Gestão para Clínicas",
+        alt: "MyClínica: Sistema de Gestão para Clínicas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MyClínica — Sistema de Gestão para Clínicas",
+    title: "MyClínica: Sistema de Gestão para Clínicas",
     description: "Prontuário eletrônico, agenda, financeiro e CRM via WhatsApp com IA.",
     images: ["/og-image.png"],
   },

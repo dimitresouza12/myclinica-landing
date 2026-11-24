@@ -188,7 +188,7 @@ const specialties: Specialty[] = [
     ],
     exame: [
       'Avaliação postural (anteriorização, escoliose, etc.)',
-      'ADM — Amplitude de Movimento (graus)',
+      'ADM: Amplitude de Movimento (graus)',
       'Força muscular (escala 0–5)',
       'Sensibilidade / Parestesia / Dormência',
       'Testes especiais (Lasègue, Phalen, Ortolani, etc.)',
@@ -333,7 +333,7 @@ export default function Specialties() {
           <span className={styles.badge}>Especialidades</span>
           <h2 className={styles.title}>Prontuário personalizado para cada área</h2>
           <p className={styles.subtitle}>
-            Cada especialidade tem seus próprios campos de anamnese e exame clínico — exatamente o que você precisa, sem sobrar.
+            Cada especialidade tem seus próprios campos de anamnese e exame clínico, exatamente o que você precisa, sem sobrar.
           </p>
         </RevealSection>
 

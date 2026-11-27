@@ -65,7 +65,7 @@ const plans: Plano[] = [
     features: [
       'Prontuário eletrônico completo',
       'Agenda com lembretes e confirmação por SIM ou NÃO',
-      'Mensagens do WhatsApp e CRM automático em quadro',
+      'Mensagens do WhatsApp com os pacientes',
       'Agendamento online pelo link da clínica',
       'Financeiro básico',
       '1 profissional',
@@ -91,7 +91,7 @@ const plans: Plano[] = [
     features: [
       'Prontuário eletrônico completo',
       'Agenda com lembretes e confirmação por SIM ou NÃO',
-      'Mensagens do WhatsApp e CRM automático em quadro',
+      'Mensagens do WhatsApp com os pacientes',
       'Agendamento online pelo link da clínica',
       'Financeiro completo',
       'Pacientes ilimitados',
